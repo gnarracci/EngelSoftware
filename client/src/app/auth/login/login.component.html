@@ -1,2 +1,62 @@
 <app-nav></app-nav>
-<p>login works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <form [formGroup]="loginForm">
+        <fieldset>
+          <legend>Sign In</legend>
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="form-label mt-4">User</label>
+            <input
+              type="email"
+              formControlName="user"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter user"
+            />
+            <div
+              *ngIf="user.invalid && (user.dirty || user.touched)"
+              class="alert"
+            >
+              <div *ngIf="user.errors?.['required']">User is required.</div>
+              <div *ngIf="user.errors?.['minlength']">
+                Name must be at least 4 characters long.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" class="form-label mt-4"
+              >Password</label
+            >
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+              autocomplete="off"
+            />
+            <div
+              *ngIf="user.invalid && (user.dirty || user.touched)"
+              class="alert"
+            >
+              <div *ngIf="user.errors?.['required']">Password is required.</div>
+              <div *ngIf="user.errors?.['minlength']">
+                Name must be at least 4 characters long.
+              </div>
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-3">
+            <button
+              (click)="login()"
+              class="btn btn-lg btn-primary"
+              type="button"
+            >
+              Sign In
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

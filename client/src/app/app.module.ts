@@ -9,6 +9,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
