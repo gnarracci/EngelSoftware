@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginRequest } from 'src/app/interfaces/login-request';
+import { LoginService } from 'src/app/services/auth/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,11 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {}
 
@@ -27,7 +33,7 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      console.log('Llamar al servivio de login');
+      this.loginService.login(this.loginForm.value as LoginRequest);
       this.router.navigateByUrl('/dashboard');
       this.loginForm.reset();
     } else {

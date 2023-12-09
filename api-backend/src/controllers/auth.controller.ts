@@ -6,9 +6,10 @@ export const signup = async (req: Request, res: Response) => {
 
     // User Save
     const user: IUser = new User({
-        username: req.body.username,
+        user: req.body.user,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     })
     user.password = await user.encryptPassword(user.password);
     const saveduser = await user.save();
@@ -20,7 +21,7 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const signin = async (req: Request, res: Response) => {
-   const user = await User.findOne({email: req.body.email});
+   const user = await User.findOne({user: req.body.user});
    if(!user) return res.status(400).json("User is wrong or not exits");
 
    const correctPassword: boolean = await user.validatePassword(req.body.password);

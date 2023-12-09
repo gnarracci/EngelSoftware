@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://mongo/engelApp', {
+mongoose.connect('mongodb://mongo/EngelSoftware', {
 
 })
     .then(db => console.log('Database is Connected'))

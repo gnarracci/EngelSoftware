@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 <div class="container">
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-md-6 mx-auto">
       <form [formGroup]="loginForm">
         <fieldset>
@@ -16,7 +16,7 @@
             />
             <div
               *ngIf="user.invalid && (user.dirty || user.touched)"
-              class="alert"
+              class="text-danger"
             >
               <div *ngIf="user.errors?.['required']">User is required.</div>
               <div *ngIf="user.errors?.['minlength']">
@@ -38,10 +38,10 @@
             />
             <div
               *ngIf="user.invalid && (user.dirty || user.touched)"
-              class="alert"
+              class="text-danger"
             >
-              <div *ngIf="user.errors?.['required']">Password is required.</div>
-              <div *ngIf="user.errors?.['minlength']">
+              <div *ngIf="password.errors?.['required']">Password is required.</div>
+              <div *ngIf="password.errors?.['minlength']">
                 Name must be at least 4 characters long.
               </div>
             </div>
