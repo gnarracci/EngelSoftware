@@ -5,13 +5,12 @@ export interface IUser extends Document {
     username: string;
     password: string;
     email: string;
-    role: string;
     encryptPassword(password: string): Promise<string>;
     validatePassword(password: string): Promise<boolean>;
 }
 
 const userSchema = new Schema({
-    user: {
+    username: {
         type: String,
         required: true,
         min: 4,
@@ -24,10 +23,6 @@ const userSchema = new Schema({
         lowercase: true
     },
     password: {
-        type: String,
-        required: true
-    },
-    role: {
         type: String,
         required: true
     }
