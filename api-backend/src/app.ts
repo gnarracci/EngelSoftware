@@ -1,9 +1,12 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 
+import { createRoles } from './libs/initialSetup';
+
 import authRoutes from './routes/auth';
 
 const app: Application = express();
+createRoles();
 
 // Middlewares
 app.use(morgan('dev'));

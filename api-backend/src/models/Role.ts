@@ -9,3 +9,5 @@ const roleSchema = new Schema({
 },{
     versionKey: false
 })
+
+export default model<IRole>('Role', roleSchema);
