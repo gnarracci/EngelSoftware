@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/User";
+import Role, { IRole } from "models/Role";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req: Request, res: Response) => {
@@ -8,6 +9,7 @@ export const signup = async (req: Request, res: Response) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
+    role: req.body.role
   });
   user.password = await user.encryptPassword(user.password);
   const saveduser = await user.save();
@@ -16,7 +18,7 @@ export const signup = async (req: Request, res: Response) => {
     { _id: saveduser._id },
     process.env.TOKEN_SECRET || "token_secret",
     {
-      expiresIn: 60 * 60,
+      expiresIn: 28800, // Token duration "8" hours
     }
   );
   res.header("auth-token", token).json(saveduser);
@@ -35,7 +37,7 @@ export const signin = async (req: Request, res: Response) => {
     { _id: user._id },
     process.env.TOKEN_SECRET || "token_secret",
     {
-      expiresIn: 60 * 60,
+      expiresIn: 28800, // Token duration "8" hours
     }
   );
   res.header("auth-token", token).json(user);
