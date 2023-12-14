@@ -5,6 +5,7 @@ export interface IUser extends Document {
     username: string;
     password: string;
     email: string;
+    roles: any;
     encryptPassword(password: string): Promise<string>;
     validatePassword(password: string): Promise<boolean>;
 }
@@ -26,10 +27,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
+    role: [{
         ref: "Role",
         type: Schema.Types.ObjectId
-    }
+    }]
 }, {
     timestamps: true,
     versionKey: false

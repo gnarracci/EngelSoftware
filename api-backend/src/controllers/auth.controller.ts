@@ -1,27 +1,43 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/User";
-import Role, { IRole } from "models/Role";
+import Role, { IRole } from "../models/Role";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req: Request, res: Response) => {
+
+  const {username, email, password, role } = req.body;
+
   // User Save
-  const user: IUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    role: req.body.role
+  const user: any = new User({
+    username,
+    email,
+    password
   });
+
+  if(role) {
+    const foundRoles = await Role.find({name: {$in: role}})
+    user.role = foundRoles.map(role => role._id)
+    
+  } else {
+    const role = await Role.findOne({name: "user"})
+    user.role = [role?._id]
+    
+  }      
+    // Password Encryption
   user.password = await user.encryptPassword(user.password);
-  const saveduser = await user.save();
-  // Token
+
+    // Save New User
+  const savedUser = await user.save();
+
+    // Token
   const token: string = jwt.sign(
-    { _id: saveduser._id },
+    { _id: savedUser._id },
     process.env.TOKEN_SECRET || "token_secret",
     {
       expiresIn: 28800, // Token duration "8" hours
     }
   );
-  res.header("auth-token", token).json(saveduser);
+  res.header("auth-token", token).json(savedUser);
 };
 
 export const signin = async (req: Request, res: Response) => {
