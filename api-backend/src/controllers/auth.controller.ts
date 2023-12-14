@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/User";
 import Role, { IRole } from "../models/Role";
+import Company from "../models/Company";
 import jwt from "jsonwebtoken";
+
 
 export const signup = async (req: Request, res: Response) => {
 
-  const {username, email, password, role } = req.body;
+  const {username, email, password, role, company } = req.body;
+
+  // If User prevously exits
+
 
   // User Save
   const user: any = new User({
@@ -14,6 +19,7 @@ export const signup = async (req: Request, res: Response) => {
     password
   });
 
+  // Role Setuo
   if(role) {
     const foundRoles = await Role.find({name: {$in: role}})
     user.role = foundRoles.map(role => role._id)
@@ -22,7 +28,18 @@ export const signup = async (req: Request, res: Response) => {
     const role = await Role.findOne({name: "user"})
     user.role = [role?._id]
     
-  }      
+  }
+  
+  // Company Setup
+  if(company) {
+    const foundCompany = await Company.find({name: {$in: company}})
+    user.company = foundCompany.map(company => company._id)
+
+  }else {
+    const company = await Company.findOne({name: "Test Company"})
+    user.company = [company?._id]
+  }
+
     // Password Encryption
   user.password = await user.encryptPassword(user.password);
 
