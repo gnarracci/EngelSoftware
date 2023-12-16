@@ -1,4 +1,4 @@
-import { Schema, model, Document, AnyArray } from "mongoose";
+import { Schema, model, Document} from "mongoose";
 
 export interface ICompany extends Document {
     name: string

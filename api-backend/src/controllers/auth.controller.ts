@@ -58,7 +58,7 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const signin = async (req: Request, res: Response) => {
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findOne({ username: req.body.username }).populate("role").populate("company");
   if (!user) return res.status(400).json("User is wrong or not exits");
 
   const correctPassword: boolean = await user.validatePassword(
@@ -77,7 +77,7 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const profile = async (req: Request, res: Response) => {
-  const user = await User.findById(req.userId, { password: 0 });
+  const user = await User.findById(req.userId, { password: 0 }).populate("role").populate("company");
   if (!user) return res.status(404).json("No User found");
   res.json(user);
 };
