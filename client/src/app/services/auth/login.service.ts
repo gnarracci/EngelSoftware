@@ -1,14 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginRequest } from 'src/app/interfaces/login-request';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/interfaces/user';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor() { }
+  API_URI = 'http://localhost:5000/';
 
-  login(credentials:LoginRequest) {
-    console.log(credentials)
+  constructor(private http: HttpClient) { }
+
+  login(credentials: User):Observable<any> {
+    return this.http.post(`${this.API_URI}/api/auth/signin`, credentials);
   }
 }

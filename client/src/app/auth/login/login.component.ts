@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginRequest } from 'src/app/interfaces/login-request';
+import { User } from 'src/app/interfaces/user';
 import { LoginService } from 'src/app/services/auth/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { LoginService } from 'src/app/services/auth/login.service';
 })
 export class LoginComponent {
   loginForm = this.formBuilder.group({
-    user: ['', [Validators.required, Validators.minLength(4)]],
+    username: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
@@ -24,7 +25,7 @@ export class LoginComponent {
   ngOnInit() {}
 
   get user() {
-    return this.loginForm.controls.user;
+    return this.loginForm.controls.username;
   }
 
   get password() {
@@ -33,12 +34,20 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value as LoginRequest);
+      this.loginService.login(this.loginForm.value as User);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Login Successfull!',
+        showConfirmButton: false,
+        timer: 2500
+      });
+      //localStorage.setItem('auth-token', token);
       this.router.navigateByUrl('/dashboard');
       this.loginForm.reset();
     } else {
       this.loginForm.markAllAsTouched();
-      alert('Error al ingresar los datos');
+      Swal.fire('Error!', 'Something went wrong!', 'error');
     }
   }
 }

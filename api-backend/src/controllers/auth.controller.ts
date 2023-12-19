@@ -12,7 +12,7 @@ export const signup = async (req: Request, res: Response) => {
   if (user) return res.status(400).json({ message: "Username has benn used!" });
   const mail = await User.findOne({ email: req.body.email });
   if (mail && !user) {
-    return res.status(400).json({ message: "Email has been used." });
+    return res.status(400).json({ message: "Email has been used!" });
   } else {
     // User Save
     const user: any = new User({
