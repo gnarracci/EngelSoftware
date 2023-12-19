@@ -3,6 +3,7 @@
   <div class="row mt-3">
     <div class="col-md-6 mx-auto">
       <form [formGroup]="loginForm">
+        <p class="text-danger">{{ loginError }}</p>
         <fieldset>
           <legend>Sign In</legend>
           <div class="form-group">

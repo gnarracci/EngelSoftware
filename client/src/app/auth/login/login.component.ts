@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  loginError:string = '';
+
   loginForm = this.formBuilder.group({
     username: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
@@ -34,20 +37,36 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value as User);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Login Successfull!',
-        showConfirmButton: false,
-        timer: 2500
-      });
-      //localStorage.setItem('auth-token', token);
-      this.router.navigateByUrl('/dashboard');
-      this.loginForm.reset();
+      this.loginService.login(this.loginForm.value as User).subscribe({
+        next: (userData) => {
+          console.log(userData);
+        },
+        error: (errorData) => {
+          console.error(errorData);
+          this.loginError = errorData;
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Oops",
+            text: "Something went wrong!",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        },
+        complete: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Login Successfull!',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          this.router.navigateByUrl('/dashboard');
+          this.loginForm.reset();
+        }
+      })
     } else {
       this.loginForm.markAllAsTouched();
-      Swal.fire('Error!', 'Something went wrong!', 'error');
     }
   }
 }

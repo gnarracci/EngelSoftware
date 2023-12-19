@@ -25,6 +25,29 @@
             ><i class="fa-solid fa-gauge"></i> Dashboard</a
           >
         </li>
+        <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/dashboard"
+            ><i class="fa-solid fa-pen-to-square"></i> Template</a
+          >
+        </li>
+
+        <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/dashboard"
+            ><i class="fa-solid fa-file"></i> Document</a
+          >
+        </li>
+
+        <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/dashboard"
+            ><i class="fa-solid fa-address-book"></i> Contact Us</a
+          >
+        </li>
+        <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/dashboard"
+            ><i class="fa-solid fa-gears"></i> Settings</a
+          >
+        </li>
+
         <li *ngIf="!userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/login"
             ><i class="fa-solid fa-door-open"></i> Sign In</a
