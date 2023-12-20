@@ -6,6 +6,7 @@ import { createRoles } from "./libs/initialSetup";
 import { createCompany } from "./libs/initialCompanies";
 
 import authRoutes from "./routes/auth";
+import usersRoutes from "./routes/users";
 
 const app: Application = express();
 createRoles();
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 
 // Settings
 app.set("port", process.env.PORT || 4000);
