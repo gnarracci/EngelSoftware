@@ -11,6 +11,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     LoginComponent,
     NavComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

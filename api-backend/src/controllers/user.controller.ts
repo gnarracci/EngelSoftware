@@ -60,23 +60,17 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const editUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, password, role, company } = req.body;
     let user = await User.findById(req.params.id);
 
-    if(!user) return res.status(404).json({message: "User not found!"});
+    if (!user) return res.status(404).json({ message: "User not found!" });
 
-    // ReqParams
-    user.username = username;
-    user.email = email;
-    user.password = password;
-    user.role = role;
-    user.company = company;
+    const userUpdated = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-    const userUpdated = await User.findByIdAndUpdate(req.params.id ,req.body, {new: true});
-
-    res.status(200).json({message: "User was updated successfully!"})
-
-  } catch(error) {
+    res.status(200).json({ message: "User was updated successfully!" });
+  } catch (error) {
     console.error(error);
   }
 };

@@ -54,7 +54,7 @@
           >
         </li>
         <li *ngIf="userLoginOn" class="nav-item">
-          <a class="nav-link"
+          <a class="nav-link" (click)="logout()"
             ><i class="fa-solid fa-door-closed"></i> Sign Out</a
           >
         </li>

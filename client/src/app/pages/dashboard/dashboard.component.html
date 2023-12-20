@@ -2,5 +2,5 @@
 <p *ngIf="!userLoginOn">Usuario NO autenticado!</p>
 <p *ngIf="userLoginOn">Usuario Autenticado</p>
 <div *ngIf="userLoginOn">
-  <p>Name: {{ userData?.username }}</p>
+  <app-profile></app-profile>
 </div>
