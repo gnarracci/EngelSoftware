@@ -3,11 +3,59 @@
   <div class="jumbotron">
     <h1 class="display-4">Hello, {{ userLogged.fullname }}</h1>
     <p class="lead">
-      Management System to categorize and control Inventories using dynamic templates
+      Dashboard
     </p>
-    <hr class="my-4" />
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Build your Document</a>
-    </p>
+    <hr class="my-2" />
+    <div class="row mx-auto">
+      <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header"><i class="fa-solid fa-building"></i> Companies</div>
+          <div class="card-body">
+            <p class="card-text">Data Company</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+          <div class="card-header"><i class="fa-solid fa-user"></i> Users</div>
+          <div class="card-body">
+            <p class="card-text">Users Data</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+          <div class="card-header"><i class="fa-solid fa-chart-simple"></i> Tracking</div>
+          <div class="card-body">
+            <p class="card-text">Data Monitoring</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="col-md-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+          <div class="card-header"><i class="fa-solid fa-book"></i> Documentation</div>
+          <div class="card-body">
+            <p class="card-text">Manuals & Docs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+          <div class="card-header"><i class="fa-solid fa-pen-to-square"></i> Templates</div>
+          <div class="card-body">
+            <p class="card-text">Dynamics Docs</p>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+        <div class="card-header"><i class="fa-solid fa-paper-plane"></i> Reminders</div>
+        <div class="card-body">
+          <p class="card-text">Send Reminders</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

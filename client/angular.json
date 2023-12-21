@@ -7,6 +7,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "client": {
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "en": "src/locale/messages.en.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
