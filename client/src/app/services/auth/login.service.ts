@@ -62,4 +62,8 @@ export class LoginService {
   get userLoginOn(): Observable<boolean> {
     return this.currentUserLoginOn.asObservable();
   }
+
+  get userToken():String {
+    return this.currentUserData.value
+  }
 }

@@ -5,7 +5,7 @@ import Company from "../models/Company";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req: Request, res: Response) => {
-  const { username, email, password, role, company } = req.body;
+  const { username, fullname, email, password, role, company } = req.body;
 
   // If User previously exits
   const user = await User.findOne({ username: req.body.username });
@@ -17,6 +17,7 @@ export const signup = async (req: Request, res: Response) => {
     // User Save
     const user: any = new User({
       username,
+      fullname,
       email,
       password,
     });

@@ -14,11 +14,11 @@ export const getOne = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-  const { username, email, password, role, company } = req.body;
+  const { username, fullname, email, password, role, company } = req.body;
 
   // If User previously exits
   const user = await User.findOne({ username: req.body.username });
-  if (user) return res.status(400).json({ message: "Username has benn used!" });
+  if (user) return res.status(400).json({ message: "Username has been used!" });
   const mail = await User.findOne({ email: req.body.email });
   if (mail && !user) {
     return res.status(400).json({ message: "Email has been used!" });
@@ -26,6 +26,7 @@ export const createUser = async (req: Request, res: Response) => {
     // User Save
     const user: any = new User({
       username,
+      fullname,
       email,
       password,
     });

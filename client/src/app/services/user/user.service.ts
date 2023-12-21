@@ -12,8 +12,14 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  getUser(id:number):Observable<User> {
-    return this.http.get<User>(`${this.API_URI}api/users`+id).pipe(
+  getUser():Observable<User> {
+    return this.http.get<User>(`${this.API_URI}api/users`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
+  getProfile() {
+    return this.http.get<User>(`${this.API_URI}api/auth/profile`).pipe(
       catchError(this.handlerError)
     )
   }

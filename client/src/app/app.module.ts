@@ -10,8 +10,11 @@ import { LoginComponent } from './auth/login/login.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
+import { JwtInterceptorService } from './services/auth/jwt-interceptor.service';
+import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
+import { ContactusComponent } from './pages/contactus/contactus.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginComponent,
     NavComponent,
     NotfoundComponent,
-    ProfileComponent
+    ProfileComponent,
+    ContactusComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptorService, multi: true},
+    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
