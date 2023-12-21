@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarColor04">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/"
+          <a class="nav-link active" routerLink="/dashboard"
             ><i class="fa fa-home"></i> Home
             <span class="visually-hidden">(current)</span>
           </a>
@@ -26,25 +26,26 @@
           >
         </li>
         <li *ngIf="userLoginOn" class="nav-item">
-          <a class="nav-link" routerLink="/dashboard"
-            ><i class="fa-solid fa-pen-to-square"></i> Template</a
+          <a class="nav-link" routerLink="/templates"
+            ><i class="fa-solid fa-pen-to-square"></i> Templates</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
-          <a class="nav-link" routerLink="/dashboard"
-            ><i class="fa-solid fa-file"></i> Document</a
+          <a class="nav-link" routerLink="/documents"
+            ><i class="fa-solid fa-file"></i> Documents</a
+          >
+        </li>
+
+        <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/settings"
+            ><i class="fa-solid fa-gears"></i> Settings</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/contactus"
             ><i class="fa-solid fa-address-book"></i> Contact Us</a
-          >
-        </li>
-        <li *ngIf="userLoginOn" class="nav-item">
-          <a class="nav-link" routerLink="/dashboard"
-            ><i class="fa-solid fa-gears"></i> Settings</a
           >
         </li>
 
@@ -59,16 +60,6 @@
           >
         </li>
       </ul>
-      <form class="d-flex" *ngIf="userLoginOn">
-        <input
-          class="form-control me-sm-2"
-          type="search"
-          placeholder="Search"
-        />
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
     </div>
   </div>
 </nav>

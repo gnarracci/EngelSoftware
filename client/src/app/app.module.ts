@@ -15,6 +15,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { JwtInterceptorService } from './services/auth/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
 import { ContactusComponent } from './pages/contactus/contactus.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { DocumentsComponent } from './pages/documents/documents.component';
+import { TemplatesComponent } from './pages/templates/templates.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ContactusComponent } from './pages/contactus/contactus.component';
     NavComponent,
     NotfoundComponent,
     ProfileComponent,
-    ContactusComponent
+    ContactusComponent,
+    SettingsComponent,
+    DocumentsComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,
