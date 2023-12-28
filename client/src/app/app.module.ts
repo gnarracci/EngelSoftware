@@ -11,13 +11,16 @@ import { NavComponent } from './shared/nav/nav.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ProfileComponent } from './components/profile/profile.component';
 import { JwtInterceptorService } from './services/auth/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
 import { ContactusComponent } from './pages/contactus/contactus.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DocumentsComponent } from './pages/documents/documents.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
+import { UsersComponent } from './pages/users/users.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
+import { TrackingComponent } from './pages/tracking/tracking.component';
+import { RemindersComponent } from './pages/reminders/reminders.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,14 @@ import { TemplatesComponent } from './pages/templates/templates.component';
     LoginComponent,
     NavComponent,
     NotfoundComponent,
-    ProfileComponent,
     ContactusComponent,
     SettingsComponent,
     DocumentsComponent,
-    TemplatesComponent
+    TemplatesComponent,
+    UsersComponent,
+    CompaniesComponent,
+    TrackingComponent,
+    RemindersComponent
   ],
   imports: [
     BrowserModule,
