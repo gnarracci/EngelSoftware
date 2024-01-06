@@ -6,7 +6,7 @@ export const getCompanies = async (req: Request, res: Response) => {
     if(companies.length > 0) {
         res.status(200).json(companies);
     }else{
-        res.status(404).json({message: "!"});
+        res.status(404).json({message: "Companies isn't found!"});
     }
 }
 
@@ -21,5 +21,5 @@ export const getCompany = async (req: Request, res: Response) => {
 
 export const saveCompany = async (req: Request, res: Response) => {
     const {name, plant_type, plant_code, plant_name, strat_management_day, end_management_day} = req.body;
-    
+    console.log(req.body);
 }
