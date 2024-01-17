@@ -14,7 +14,7 @@ export const getOne = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-  const { username, fullname, email, password, role, company } = req.body;
+  const { username, name, surname, email, password, role, company } = req.body;
 
   // If User previously exits
   const user = await User.findOne({ username: req.body.username });
@@ -26,7 +26,8 @@ export const createUser = async (req: Request, res: Response) => {
     // User Save
     const user: any = new User({
       username,
-      fullname,
+      name,
+      surname,
       email,
       password,
     });
