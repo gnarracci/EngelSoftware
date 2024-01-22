@@ -20,6 +20,45 @@ export const getCompany = async (req: Request, res: Response) => {
 }
 
 export const saveCompany = async (req: Request, res: Response) => {
-    const {name, plant_type, plant_code, plant_name, strat_management_day, end_management_day} = req.body;
-    console.log(req.body);
+    const {name, plant_type, plant_code, plant_name, address, phone} = req.body;
+    
+    //If previously exits
+    const company = await Company.findOne({name: req.body.name});
+    if(company) return res.status(400).json({ message: "Company name has been registered!"});
+
+    // Company Save
+    const companySave: any = new Company({
+        name,
+        plant_type,
+        plant_code,
+        plant_name,
+        address,
+        phone
+    });
+
+    // Save new company
+    try {
+        await companySave.save();
+        res.status(200).json({ message: "New company saved successfully!"});
+    } catch(error) {
+        console.error(error);
+        res.status(400).json({ message: "Something wen't wrong!"});
+    }
+}
+
+export const updateCompany = async (req: Request, res: Response) => {
+    try {
+        await Company.findByIdAndUpdate(req.params.id, req.params, {
+            new: true,
+            runValidators: true
+        });
+        res.status(200).json({ message: "Company has been updated!"});
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export const deleteCompany = async (req: Request, res: Response) => {    
+    await Company.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Deleted has been deleted!' });
 }

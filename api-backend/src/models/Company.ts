@@ -5,8 +5,8 @@ export interface ICompany extends Document {
     plant_type: string;
     plant_code: string;
     plant_name: string;
-    start_management_day: Date;
-    end_management_day: Date;
+    address?: string;
+    phone?: string;
 }
 
 const companySchema = new Schema({
@@ -14,8 +14,8 @@ const companySchema = new Schema({
     plant_type: String,
     plant_code: String,
     plant_name: String,
-    start_management_day: Date,
-    end_management_day: Date
+    adress: String,
+    phone: String
 },{
     versionKey: false,
     timestamps: true

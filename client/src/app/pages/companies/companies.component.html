@@ -9,20 +9,45 @@
     <h1 class="display-4"><i class="fa-solid fa-building"></i> Companies</h1>
     <hr class="my-2" />
     <p class="lead">Company Management Area</p>
-    <div class="row">
-      <div class="col-md-12">
-        <form class="d-flex">
-          <input
-            class="form-control me-sm-2"
-            type="search"
-            placeholder="Search"
-          />
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-            Search
-          </button>
+
+    <div class="row mt-2">
+      <div class="col-md-4">
+        <form>
+          <fieldset>
+            <legend>Set New Company</legend>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="form-label mt-4">Company Name</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Company Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Plant Type</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Plant Type">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Plant Code</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Plant Code">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Plant Name</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Plant Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Address</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Address">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Phone Number</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
+            </div>
+            <div class="d-grid gap-2 mt-2 mb-2">
+              <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-plus"></i> Add New Company</button>
+            </div>
+          </fieldset>
         </form>
       </div>
+      <div class="col-md-8">
+        <h4>Companies Registrated</h4>
+      </div>
     </div>
-
   </div>
 </div>
