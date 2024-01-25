@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'companies', component: CompaniesComponent },
+  { path: 'companies-update 1 /:id', component: CompaniesComponent},
   { path: 'templates', component: TemplatesComponent },
   { path: 'documents', component: DocumentsComponent },
   { path: 'tracking', component: TrackingComponent },
