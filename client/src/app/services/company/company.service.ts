@@ -17,11 +17,11 @@ export class CompanyService {
     return this.http.post<Companies>(`${this.API_URI}api/companies`, data)
   }
 
-  getCompanies() {
+  getCompanies(): Observable<Companies> {
     return this.http.get<Companies>(`${this.API_URI}api/companies`)
   };
 
-  updateCompany(id: string | number, updatedCompany: Companies) {
+  updateCompany(id: string, updatedCompany: Companies): Observable<Companies> {
     return this.http.put<Companies>(`${this.API_URI}api/companies${id}`, updatedCompany)
   };
 

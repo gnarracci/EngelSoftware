@@ -26,7 +26,7 @@ export class CompaniesComponent implements OnInit {
     plant_code: ['', [Validators.required, Validators.minLength(3)]],
     plant_name: ['', [Validators.required, Validators.minLength(3)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
-    phone: ['', [Validators.required, Validators.minLength(5)]],
+    phone: ['', [Validators.minLength(5)]],
   });
 
   constructor(
@@ -98,12 +98,32 @@ export class CompaniesComponent implements OnInit {
     );
   }
 
-  updCompany() {
+  updateCompany(id: string ) {
 
   }
 
-  delCompany() {
-
+  deleteCompany(id: string ) {
+    Swal.fire({
+      title:'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.value) {
+        //Want Delete
+        this.companiesService.deleteCompany(id).subscribe(
+          res => {
+            // console.log(res);
+            this.getCompanies();
+          },
+          err => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+        Swal.fire('Deleted!', 'Company selected has been deleted!.', 'success')
+      }
+    })
   }
 
 
