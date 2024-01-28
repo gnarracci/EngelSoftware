@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -20,6 +20,38 @@ export class CompaniesComponent implements OnInit {
 
   saveError: string = '';
 
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private companiesService: CompanyService
+  ) {}
+
+  // Declare getters for each input field
+  get CompanyNameField() {
+    return this.companyForm.get('name');
+  }
+
+  get PlantTypeField() {
+    return this.companyForm.get('plant_type');
+  }
+
+  get PlantCodeField() {
+    return this.companyForm.get('plant_code');
+  }
+
+  get PlantNameField() {
+    return this.companyForm.get('plant_name');
+  }
+
+  get AddressField() {
+    return this.companyForm.get('address');
+  }
+
+  get phoneField() {
+    return this.companyForm.get('phone');
+  }
+
   companyForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     plant_type: ['', [Validators.required, Validators.minLength(3)]],
@@ -28,13 +60,6 @@ export class CompaniesComponent implements OnInit {
     address: ['', [Validators.required, Validators.minLength(5)]],
     phone: ['', [Validators.minLength(5)]],
   });
-
-  constructor(
-    private loginService: LoginService,
-    private userService: UserService,
-    private formBuilder: FormBuilder,
-    private companiesService: CompanyService
-  ) {}
   ngOnInit(): void {
     this.loginService.currentUserLoginOn.subscribe({
       next: (userLoginOn) => {
