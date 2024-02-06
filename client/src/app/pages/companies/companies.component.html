@@ -12,11 +12,11 @@
     <hr class="my-2" />
     <p class="lead">Company Management Area</p>
     <div class="row mt-2">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="card border-primary mb-3">
           <div class="card-header">Set New Company</div>
           <div class="card-body">
-            <form [formGroup]="companyForm" (ngSubmit)="saveCompany()">
+            <form [formGroup]="companyForm">
               <fieldset>
                 <div class="form-group">
                   <label for="name" class="form-label mt-4"
@@ -95,9 +95,16 @@
                   <button
                     class="btn btn-lg btn-primary"
                     type="submit"
-                    [disabled]="companyForm.invalid"
+                    (click)="edit ? updateCompany() : saveCompany()"
                   >
-                    <i class="fa-solid fa-plus"></i> Add New Company
+                    <i class="fa-solid fa-plus"></i> Save Company
+                  </button>
+                  <button
+                    class="btn btn-lg btn-warning"
+                    type="reset"
+                    (click)="reset()"
+                  >
+                  <i class="fa-solid fa-soap"></i> Reset
                   </button>
                 </div>
               </fieldset>
@@ -105,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="row">
           <h5>Companies Registered</h5>
           <table *ngIf="companiesData.length > 0" class="table table-hover table-responsive table-striped">
@@ -116,7 +123,7 @@
                 <th>Plant Code</th>
                 <th>Plant Name</th>
                 <th>Mnt Date</th>
-                <th></th>
+                <th>OPS</th>
               </tr>
             </thead>
             <tbody>
@@ -127,7 +134,7 @@
                 <td>{{ item.plant_name }}</td>
                 <td>{{ item.createdAt | date : "yyyy-MM-dd" }}</td>
                 <td>
-                  <i (click)="updateCompany(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
+                  <i (click)="fillUpdateCompany(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
                   <i (click)="deleteCompany(item._id)" class="fa-solid fa-trash text-danger"></i>
                 </td>
               </tr>

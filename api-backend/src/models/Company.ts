@@ -14,7 +14,7 @@ const companySchema = new Schema({
     plant_type: String,
     plant_code: String,
     plant_name: String,
-    adress: String,
+    address: String,
     phone: String
 },{
     versionKey: false,

@@ -1,5 +1,5 @@
 export interface Companies {
-  // _id: any,
+  _id: string,
   name: string,
   plant_type: string,
   plant_code: string,

@@ -12,71 +12,71 @@
       Users Management Area
     </p>
     <div class="row">
-      <div class="col-md-12">
-        <form class="d-flex">
-          <input
-            class="form-control me-sm-2"
-            type="search"
-            placeholder="Search"
-          />
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-4 mt-2">
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-        <i class="fa-solid fa-plus"></i>
-        Add User
-        </button>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-user"></i> New User</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </div>
+      <div class="col-md-3">
+        <div class="card border-primary mb-3">
+          <div class="card-header">Set New User</div>
+          <div class="card-body">
+            <form [formGroup]="userForm">
+              <fieldset>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Username</label>
+                  <input type="text" formControlName="username" class="form-control" id="username"
+                    placeholder="Username" />
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Name</label>
+                  <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name" />
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Surname</label>
+                  <input type="text" formControlName="surname" class="form-control" id="surname"
+                    placeholder="Surname" />
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Email</label>
+                  <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email" />
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Password</label>
+                  <input type="password" formControlName="password" class="form-control" id="password"
+                    placeholder="Password" />
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-label mt-4">Retype Password</label>
+                  <input type="password" class="form-control" id="repassword" placeholder="Retype Password" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleSelect1" class="form-label mt-4">Roles</label>
+                  <select class="form-select" id="exampleSelect1" formControlName="role">
+                    <option>1</option>
+                  </select>
+                </div>
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="col-md-9">
+        <div class="row">
+          <h5>System Users</h5>
+          <table class="table table-hover table-responsive table-striped">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>OPS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
 
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

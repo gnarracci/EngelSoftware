@@ -1,31 +1,19 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
+import { Roles } from 'src/app/interfaces/roles';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class RoleService {
 
   API_URI = 'http://localhost:5000/';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getUser():Observable<User> {
-    return this.http.get<User>(`${this.API_URI}api/users`).pipe(
-      catchError(this.handlerError)
-    )
-  }
-
-  getAllUsers() {
-    return this.http.get<User>(`${this.API_URI}api/users`).pipe(
-      catchError(this.handlerError)
-    )
-  }
-
-  getProfile() {
-    return this.http.get<User>(`${this.API_URI}api/auth/profile`).pipe(
+  getRoles(): Observable<Roles> {
+    return this.http.get<Roles>(`${this.API_URI}api/roles`).pipe(
       catchError(this.handlerError)
     )
   }
@@ -38,5 +26,4 @@ export class UserService {
     }
     return throwError(() => new Error('Algo fallo, por favor intente nuevamente'));
   }
-
 }

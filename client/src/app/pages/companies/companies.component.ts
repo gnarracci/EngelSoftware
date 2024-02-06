@@ -18,6 +18,12 @@ export class CompaniesComponent implements OnInit {
 
   companiesData: any = {};
 
+  companyData: any = {};
+
+  edit = false;
+
+  idc: string = '';
+
   saveError: string = '';
 
   constructor(
@@ -26,31 +32,6 @@ export class CompaniesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private companiesService: CompanyService
   ) {}
-
-  // Declare getters for each input field
-  get CompanyNameField() {
-    return this.companyForm.get('name');
-  }
-
-  get PlantTypeField() {
-    return this.companyForm.get('plant_type');
-  }
-
-  get PlantCodeField() {
-    return this.companyForm.get('plant_code');
-  }
-
-  get PlantNameField() {
-    return this.companyForm.get('plant_name');
-  }
-
-  get AddressField() {
-    return this.companyForm.get('address');
-  }
-
-  get phoneField() {
-    return this.companyForm.get('phone');
-  }
 
   companyForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -82,34 +63,37 @@ export class CompaniesComponent implements OnInit {
 
   saveCompany() {
     if (this.companyForm.valid) {
-      this.companiesService.save(this.companyForm.value as Companies).subscribe({
-        next: (companyData) => {
-          //console.log(companyData);
-        },
-        error: (errorData) => {
-          console.error(errorData);
-          this.saveError = errorData;
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Oops",
-            text: "Something went wrong!",
-            showConfirmButton: false,
-            timer: 1000
-          })
-        },
-        complete: () => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Saved Successfully!',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          this.companyForm.reset();
-          this.getCompanies();
-        }
-      })
+      this.companiesService
+        .save(this.companyForm.value as Companies)
+        .subscribe({
+          next: (companyData) => {
+            // console.log(companyData);
+          },
+          error: (errorData) => {
+            console.error(errorData);
+            this.saveError = errorData;
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Oops',
+              text: 'Something went wrong!',
+              showConfirmButton: false,
+              timer: 1300,
+            });
+          },
+          complete: () => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Saved Successfully!',
+              showConfirmButton: false,
+              timer: 1300,
+            });
+
+            this.companyForm.reset();
+            this.getCompanies();
+          },
+        });
     }
   }
 
@@ -117,39 +101,77 @@ export class CompaniesComponent implements OnInit {
     this.companiesService.getCompanies().subscribe(
       (res) => {
         this.companiesData = res;
-        console.log(res);
+        // console.log(res);
       },
       (err) => console.error(err)
     );
   }
 
-  updateCompany(id: string ) {
-
+  public fillUpdateCompany(id: string) {
+    if (id !== null) {
+      this.companiesService.getCompany(id).subscribe((data) => {
+        this.companyForm.patchValue({
+          name: data.name,
+          plant_type: data.plant_type,
+          plant_code: data.plant_code,
+          plant_name: data.plant_name,
+          address: data.address,
+          phone: data.phone,
+        });
+        this.edit = true;
+        this.idc = id;
+      });
+    }
   }
 
-  deleteCompany(id: string ) {
+  updateCompany() {
+    this.companyData = this.companyForm.value;
+    this.companiesService.updateCompany(this.idc, this.companyData).subscribe(
+      (res) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Company selected has been updated!',
+          showConfirmButton: false,
+          timer: 1300,
+        });
+        console.log(res);
+        this.getCompanies();
+        this.companyForm.reset();
+      },
+      (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+    );
+  }
+
+  deleteCompany(id: string) {
     Swal.fire({
-      title:'Are you sure?',
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
       if (result.value) {
         //Want Delete
         this.companiesService.deleteCompany(id).subscribe(
-          res => {
-            // console.log(res);
+          (res) => {
+            console.log(res);
             this.getCompanies();
+            this.companyForm.reset();
           },
-          err => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
         );
-        Swal.fire('Deleted!', 'Company selected has been deleted!.', 'success')
+        Swal.fire('Deleted!', 'Company selected has been deleted!.', 'success');
       }
-    })
+    });
   }
 
-
+  reset() {
+    if (this.companyForm.valid) {
+      this.companyForm.reset();
+      this.edit = false;
+    }
+  }
 }
