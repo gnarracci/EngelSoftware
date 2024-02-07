@@ -73,4 +73,10 @@ export class UsersComponent implements OnInit {
       }
     )
   }
+
+  reset() {
+    if (this.userForm.valid) {
+      this.userForm.reset();
+    }
+  }
 }

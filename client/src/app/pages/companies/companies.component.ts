@@ -167,7 +167,6 @@ export class CompaniesComponent implements OnInit {
       }
     });
   }
-
   reset() {
     if (this.companyForm.valid) {
       this.companyForm.reset();

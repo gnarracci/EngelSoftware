@@ -23,7 +23,6 @@ export class UserService {
       catchError(this.handlerError)
     )
   }
-
   getProfile() {
     return this.http.get<User>(`${this.API_URI}api/auth/profile`).pipe(
       catchError(this.handlerError)

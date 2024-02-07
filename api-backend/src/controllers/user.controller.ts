@@ -4,12 +4,14 @@ import Role from "../models/Role";
 import Company from "../models/Company";
 
 export const listUsers = async (req: Request, res: Response) => {
-  const users = await User.find();
+  const users = await User.find().populate("role").populate("company");
   res.status(200).json(users);
 };
 
 export const getOne = async (req: Request, res: Response) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id)
+    .populate("role")
+    .populate("company");
   res.status(200).json(user);
 };
 

@@ -46,10 +46,31 @@
                   <input type="password" class="form-control" id="repassword" placeholder="Retype Password" />
                 </div>
                 <div class="form-group">
-                  <label for="exampleSelect1" class="form-label mt-4">Roles</label>
-                  <select class="form-select" id="exampleSelect1" formControlName="role">
+                  <label for="role" class="form-label mt-4">Role</label>
+                  <select class="form-select" id="role" formControlName="role">
                     <option>1</option>
                   </select>
+                </div>
+                <div class="form-group">
+                  <label for="company" class="form-label mt-4">Company</label>
+                  <select class="form-select" id="company" formControlName="company">
+                    <option>1</option>
+                  </select>
+                </div>
+                <div class="d-grid gap-2 mt-4 mb-3">
+                  <button
+                    class="btn btn-lg btn-primary"
+                    type="submit"
+                  >
+                    <i class="fa-solid fa-plus"></i> Save User
+                  </button>
+                  <button
+                    class="btn btn-lg btn-warning"
+                    type="reset"
+                    (click)="reset()"
+                  >
+                  <i class="fa-solid fa-soap"></i> Reset
+                  </button>
                 </div>
               </fieldset>
             </form>
@@ -72,8 +93,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-
+              <tr  class="table-primary" *ngFor="let item of totalUsers">
+                <td> {{ item.username }} </td>
+                <td> {{ item.name }} </td>
+                <td> {{ item.surname }} </td>
+                <td> {{ item.email }} </td>
+                <td> {{ item.company[0].name }} </td>
+                <td> {{ item.role[0].name }} </td>
+                <td>
+                  <i class="fa-solid fa-pen-to-square text-primary"></i>
+                  <i class="fa-solid fa-trash text-danger"></i>
+                </td>
               </tr>
             </tbody>
           </table>
