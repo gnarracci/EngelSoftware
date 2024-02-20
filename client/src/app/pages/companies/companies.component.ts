@@ -39,7 +39,12 @@ export class CompaniesComponent implements OnInit {
     plant_code: ['', [Validators.required, Validators.minLength(3)]],
     plant_name: ['', [Validators.required, Validators.minLength(3)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
-    phone: ['', [Validators.minLength(5)]],
+    phone: [
+      '',
+      [Validators.minLength(5), Validators.pattern('[0-9](10}')],
+      Validators.min(1000000000),
+      Validators.max(9999999999),
+    ],
   });
   ngOnInit(): void {
     this.loginService.currentUserLoginOn.subscribe({

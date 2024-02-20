@@ -42,16 +42,16 @@ export class LoginService {
 
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.error('Se a producido un error', error.error);
+      console.error('An error has occurred', error.error);
     } else {
       console.error(
-        'Backend retorno el codigo de estado',
+        'Server return status code',
         error.status,
         error.error
       );
     }
     return throwError(
-      () => new Error('Algo fallo, por favor intente nuevamente')
+      () => new Error('Something went wrong, please try again')
     );
   }
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, pipe, throwError } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 
 @Injectable({
@@ -12,30 +12,48 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  getUser():Observable<User> {
-    return this.http.get<User>(`${this.API_URI}api/users`).pipe(
+  getUser(id: string):Observable<User> {
+    return this.http.get<User>(`${this.API_URI}api/users/${id}`).pipe(
       catchError(this.handlerError)
     )
   }
 
-  getAllUsers() {
+  getAllUsers(): Observable<User> {
     return this.http.get<User>(`${this.API_URI}api/users`).pipe(
       catchError(this.handlerError)
     )
   }
-  getProfile() {
+  getProfile(): Observable<User> {
     return this.http.get<User>(`${this.API_URI}api/auth/profile`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
+  save(data: User): Observable<User> {
+    return this.http.post<User>(`${this.API_URI}api/users`, data).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
+  updateUser(id: string, updatedUser: User): Observable<User> {
+    return  this.http.put<User>(`${this.API_URI}api/users/${id}`, updatedUser).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
+  deleteUser(id: string): Observable<User>{
+    return this.http.delete<User>(`${this.API_URI}api/users/${id}`).pipe(
       catchError(this.handlerError)
     )
   }
 
   private handlerError(error: HttpErrorResponse) {
     if(error.status === 0) {
-      console.error("Se a producido un error", error.error)
+      console.error("An error has occurred", error.error)
     } else {
-      console.error("Backend retorno el codigo de estado", error.status, error.error)
+      console.error("Server return status code", error.status, error.error)
     }
-    return throwError(() => new Error('Algo fallo, por favor intente nuevamente'));
+    return throwError(() => new Error('Something went wrong!, please try again'));
   }
 
 }

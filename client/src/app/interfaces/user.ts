@@ -1,10 +1,10 @@
 export interface User {
-  id: string,
+  _id: string,
   username: string,
   name: string,
   surname: string,
   password: string,
   email: string,
-  role: Array<string>,
-  company: Array<string>
+  role: Array<object>,
+  company: Array<object>
 }

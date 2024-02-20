@@ -64,22 +64,36 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const editUser = async (req: Request, res: Response) => {
   try {
-    let user = await User.findById(req.params.id);
+    const { username, name, surname, email, password, role, company } =
+      req.body;
+    let us = await User.findById(req.params.id);
+    if (!us) throw new Error("User not found");
+    us.username = username;
+    us.name = name;
+    us.surname = surname;
+    us.email = email;
+    us.password = password;
+    us.role = role;
+    us.company = company;
 
-    if (!user) return res.status(404).json({ message: "User not found!" });
+    console.log(us);
 
-    const userUpdated = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    res.status(200).json({ message: "User was updated successfully!" });
+    us = await User.findOneAndUpdate({ _id: req.params.id }, us, { new: true });
+    res.status(200).json({ message: "User has been updated successfully!" });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
   }
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  const userDeleted = await User.findByIdAndDelete(req.params.id);
-  res.status(200).json({ message: "User was deleted successfully!" });
+  try {
+    let us = await User.findById(req.params.id);
+    if (!us) throw new Error("User not found!");
+    await User.findOneAndDelete({ _id: req.params.id });
+    res.status(200).json({ message: "User has been deleted successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
 };

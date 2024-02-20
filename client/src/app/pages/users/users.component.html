@@ -43,33 +43,30 @@
                 </div>
                 <div class="form-group">
                   <label for="name" class="form-label mt-4">Retype Password</label>
-                  <input type="password" class="form-control" id="repassword" placeholder="Retype Password" />
+                  <input type="password" formControlName="repassword" class="form-control" id="repassword"
+                    placeholder="Retype Password" />
                 </div>
                 <div class="form-group">
-                  <label for="role" class="form-label mt-4">Role</label>
-                  <select class="form-select" id="role" formControlName="role">
-                    <option>1</option>
+                  <label for="exampleSelect1" class="form-label mt-4">Roles</label>
+                  <select class="form-select" formControlName="role">
+                    <!-- <option [ngValue]=""> -- Select Role -- </option> -->
+                    <option *ngFor="let rol of totalRoles" [ngValue]="rol.name"> {{ rol.name }} </option>>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="company" class="form-label mt-4">Company</label>
-                  <select class="form-select" id="company" formControlName="company">
-                    <option>1</option>
+                  <label for="exampleSelect2" class="form-label mt-4">Company</label>
+                  <select class="form-select" formControlName="company">
+                    <!-- <option [ngValue]=""> -- Select Company -- </option> -->
+                    <option *ngFor="let item of totalCompanies" [ngValue]="item.name"> {{ item.name }} </option>
                   </select>
                 </div>
                 <div class="d-grid gap-2 mt-4 mb-3">
-                  <button
-                    class="btn btn-lg btn-primary"
-                    type="submit"
-                  >
+                  <button class="btn btn-lg btn-primary" type="submit" (click)="edit ? updateUser() : saveUser()"
+                    [disabled]="userForm.invalid">
                     <i class="fa-solid fa-plus"></i> Save User
                   </button>
-                  <button
-                    class="btn btn-lg btn-warning"
-                    type="reset"
-                    (click)="reset()"
-                  >
-                  <i class="fa-solid fa-soap"></i> Reset
+                  <button class="btn btn-lg btn-warning" type="reset" (click)="reset()">
+                    <i class="fa-solid fa-soap"></i> Reset
                   </button>
                 </div>
               </fieldset>
@@ -88,25 +85,76 @@
                 <th>Surname</th>
                 <th>Email</th>
                 <th>Company</th>
-                <th>Role</th>
+                <th>Roles</th>
                 <th>OPS</th>
               </tr>
             </thead>
             <tbody>
-              <tr  class="table-primary" *ngFor="let item of totalUsers">
+              <tr class="table-primary" *ngFor="let item of totalUsers">
                 <td> {{ item.username }} </td>
                 <td> {{ item.name }} </td>
                 <td> {{ item.surname }} </td>
                 <td> {{ item.email }} </td>
-                <td> {{ item.company[0].name }} </td>
-                <td> {{ item.role[0].name }} </td>
+                <td *ngFor="let comp of item.company"> {{ comp.name }} </td>
+                <td *ngFor="let rol of item.role"> {{ rol.name }} </td>
                 <td>
-                  <i class="fa-solid fa-pen-to-square text-primary"></i>
-                  <i class="fa-solid fa-trash text-danger"></i>
+                  <i (click)="fillUpdateUser(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
+                  <i (click)="deleteUser(item._id)" class="fa-solid fa-trash text-danger"></i>
                 </td>
               </tr>
             </tbody>
           </table>
+          <h5 *ngIf="totalUsers.length == 0" class="text-info mt-4">No data to display</h5>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <hr class="my-2" />
+      <p class="lead">
+        Roles
+      </p>
+      <hr class="my" />
+      <div class="col-md-4">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Add Roles</div>
+          <div class="card-body">
+            <form [formGroup]="roleForm">
+              <fieldset>
+                <div class="form-group">
+                  <label for="rolName" class="form-label mt-4">Role Name</label>
+                  <input type="text" formControlName="role" class="form-control" id="rolName" placeholder="Role Name">
+                </div>
+                <div class="d-grid gap-2 mt-4 mb-3">
+                  <button (click)="saveRole()" class="btn btn-lg btn-primary" type="button"
+                    [disabled]="roleForm.invalid"> <i class="fa-solid fa-plus"></i> Add
+                    Role</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h5>Users System Roles</h5>
+        <table class="table table-hover table-responsive table-stripe">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Ops</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="table-info" *ngFor="let item of totalRoles">
+              <th scope="row"> {{ item._id }} </th>
+              <td> {{ item.name }} </td>
+              <td>
+                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                <i class="fa-solid fa-trash text-danger"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
