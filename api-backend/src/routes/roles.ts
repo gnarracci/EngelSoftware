@@ -6,7 +6,7 @@ import { getRoles, getRole, createRole, updateRole, deleteRole } from '../contro
 
 router.get('/', getRoles);
 router.post('/', createRole);
-router.get('id/:id', getRole);
+router.get('/:id', getRole);
 router.put('/:id', updateRole);
 router.delete('/:id', deleteRole);
 

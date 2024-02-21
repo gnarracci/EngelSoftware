@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { RoleService } from 'src/app/services/roles/role.service';
@@ -12,7 +17,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-
   userForm!: FormGroup;
 
   roleForm!: FormGroup;
@@ -27,7 +31,9 @@ export class UsersComponent implements OnInit {
 
   totalCompanies: any = {};
 
-  userData : any = {};
+  userData: any = {};
+
+  roleData: any = {};
 
   edit: boolean = false;
 
@@ -43,7 +49,6 @@ export class UsersComponent implements OnInit {
     private companyService: CompanyService
   ) {}
 
- 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -64,8 +69,8 @@ export class UsersComponent implements OnInit {
     });
 
     this.roleForm = this.formBuilder.group({
-      role: ['', [Validators.required, Validators.minLength(4)]]
-    })
+      name: ['', [Validators.required, Validators.minLength(4)]],
+    });
 
     this.loginService.currentUserLoginOn.subscribe({
       next: (userLoginOn) => {
@@ -119,7 +124,7 @@ export class UsersComponent implements OnInit {
 
   saveUser() {
     console.log('FORM', this.userForm.value);
-    if(this.userForm.valid){
+    if (this.userForm.valid) {
       this.userService.save(this.userForm.value).subscribe({
         next: (userData) => {
           // console.log(userData);
@@ -147,13 +152,13 @@ export class UsersComponent implements OnInit {
 
           this.userForm.reset();
           this.getAllUsers();
-        }
+        },
       });
     }
   }
 
   public fillUpdateUser(id: string) {
-    if(id !== null){
+    if (id !== null) {
       this.userService.getUser(id).subscribe((data) => {
         this.userForm.patchValue({
           username: data.username,
@@ -162,9 +167,9 @@ export class UsersComponent implements OnInit {
           email: data.email,
           password: data.password,
           role: data.role[0],
-          company: data.company[0]
+          company: data.company[0],
         });
-        console.log(this.userForm.value)
+        console.log(this.userForm.value);
         this.edit = true;
         this.idc = id;
       });
@@ -174,7 +179,7 @@ export class UsersComponent implements OnInit {
   updateUser() {
     this.userData = this.userForm.value;
     this.userService.updateUser(this.idc, this.userData).subscribe(
-      res => {
+      (res) => {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -214,6 +219,7 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
   reset() {
     if (this.userForm.valid) {
       this.userForm.reset();
@@ -221,6 +227,99 @@ export class UsersComponent implements OnInit {
   }
 
   saveRole() {
-    console.log('FORMROLW: ', this.roleForm.value);
+    console.log('FORMROLE: ', this.roleForm.value);
+    if (this.roleForm.valid) {
+      this.roleService.save(this.roleForm.value).subscribe({
+        next: (roleData) => {
+          console.log(roleData);
+        },
+        error: (errorData) => {
+          console.log(errorData);
+          this.saveError = errorData;
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops',
+            text: 'Something went wrong!',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+        },
+        complete: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Role Saved Successfully!',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+          this.resetRole();
+          this.getAllRoles();
+        },
+      });
+    }
+  }
+
+  public fillUpdateRole(id: string) {
+    if (id !== null) {
+      this.roleService.getRole(id).subscribe((data) => {
+        this.roleForm.patchValue({
+          name: data.name,
+        });
+        console.log(this.roleForm.value);
+        this.edit = true;
+        this.idc = id;
+      });
+    }
+  }
+
+  updateRole() {
+    this.roleData = this.roleForm.value;
+    this.roleService.updateRoles(this.idc, this.roleData).subscribe(
+      (res) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Role selected has been updated!',
+          showConfirmButton: false,
+          timer: 1300,
+        });
+        console.log(res);
+        this.getAllRoles();
+        this.roleForm.reset();
+      },
+      (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+    );
+  }
+
+  deleteRoles(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        //Want Delete
+        this.roleService.deleteRoles(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.getAllRoles();
+            this.resetRole();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+        Swal.fire('Deleted!', 'Role selected has been deleted!.', 'success');
+      }
+    });
+  }
+
+  resetRole() {
+    if (this.roleForm.valid) {
+      this.roleForm.reset();
+    }
   }
 }

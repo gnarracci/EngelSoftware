@@ -42,10 +42,10 @@ export const updateRole = async (req: Request, res: Response) => {
     let idRole = await Role.findById(req.params.id);
     if (!idRole) throw new Error("The Role is not available");
     idRole.name = name;
-    idRole = await Role.findOneAndUpdate({ _id: req.params.id }, idRole, {
+    idRole = await Role.findOneAndUpdate({ _id: req.params.id }, name, {
       new: true,
     });
-    res.status(200).json({ message: "Role has benn updated!" });
+    res.status(200).json({ message: "Role has been updated!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });

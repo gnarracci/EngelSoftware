@@ -90,7 +90,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-primary" *ngFor="let item of totalUsers">
+              <tr class="table-info" *ngFor="let item of totalUsers">
                 <td> {{ item.username }} </td>
                 <td> {{ item.name }} </td>
                 <td> {{ item.surname }} </td>
@@ -122,10 +122,10 @@
               <fieldset>
                 <div class="form-group">
                   <label for="rolName" class="form-label mt-4">Role Name</label>
-                  <input type="text" formControlName="role" class="form-control" id="rolName" placeholder="Role Name">
+                  <input type="text" formControlName="name" class="form-control" id="rolName" placeholder="Role Name">
                 </div>
                 <div class="d-grid gap-2 mt-4 mb-3">
-                  <button (click)="saveRole()" class="btn btn-lg btn-primary" type="button"
+                  <button (click)="edit ? updateRole() : saveRole()" class="btn btn-lg btn-primary" type="button"
                     [disabled]="roleForm.invalid"> <i class="fa-solid fa-plus"></i> Add
                     Role</button>
                 </div>
@@ -150,8 +150,8 @@
               <th scope="row"> {{ item._id }} </th>
               <td> {{ item.name }} </td>
               <td>
-                <i class="fa-solid fa-pen-to-square text-primary"></i>
-                <i class="fa-solid fa-trash text-danger"></i>
+                <i (click)="fillUpdateRole(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
+                <i (click)="deleteRoles(item._id)" class="fa-solid fa-trash text-danger"></i>
               </td>
             </tr>
           </tbody>
