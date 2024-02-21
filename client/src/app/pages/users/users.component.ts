@@ -286,6 +286,7 @@ export class UsersComponent implements OnInit {
         });
         console.log(res);
         this.getAllRoles();
+        this.getAllUsers();
         this.roleForm.reset();
       },
       (err) => Swal.fire('Error!', 'Something went wrong!', 'error')

@@ -18,9 +18,9 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { DocumentsComponent } from './pages/documents/documents.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
-import { CompaniesComponent } from './pages/companies/companies.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,9 @@ import { RemindersComponent } from './pages/reminders/reminders.component';
     DocumentsComponent,
     TemplatesComponent,
     UsersComponent,
-    CompaniesComponent,
     TrackingComponent,
-    RemindersComponent
+    RemindersComponent,
+    CompaniesComponent
   ],
   imports: [
     BrowserModule,
