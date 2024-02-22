@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, pipe, throwError } from 'rxjs';
+import { Roles } from 'src/app/interfaces/roles';
 import { User } from 'src/app/interfaces/user';
 
 @Injectable({
@@ -41,8 +42,20 @@ export class UserService {
     )
   }
 
+  roleType(): Observable<User> {
+    return this.http.get<User>(`${this.API_URI}api/auth/roleType`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
   deleteUser(id: string): Observable<User>{
     return this.http.delete<User>(`${this.API_URI}api/users/${id}`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
+  rolesList(): Observable<Roles> {
+    return this.http.get<Roles>(`${this.API_URI}api/roles`).pipe(
       catchError(this.handlerError)
     )
   }

@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
 
   userLoginOn: boolean = false;
 
+  roleType: any = {};
+
   constructor(private loginService: LoginService, private userService: UserService) {}
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
       },
     });
     this.dataUser();
+    this.rol();
   }
 
   dataUser() {
@@ -32,5 +35,14 @@ export class DashboardComponent implements OnInit {
       },
       err => console.error(err)
     );
+  }
+
+  rol() {
+    this.userService.roleType().subscribe(
+      res => {
+        this.roleType = res;
+        //console.log(res);
+      }
+    )
   }
 }

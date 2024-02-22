@@ -1,5 +1,10 @@
 <app-nav></app-nav>
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="text-end"><i class="fa-solid fa-user"></i> </h6>
+    </div>
+  </div>
   <div class="jumbotron">
     <h1 class="display-4"><i class="fa-solid fa-book"></i> Documents</h1>
     <hr class="my-2" />
@@ -13,6 +18,43 @@
         <input class="form-control me-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form>
+        <fieldset>
+
+          <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Documents Repository</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-2"><i class="fa-solid fa-upload"></i> Send</button>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <p class="lead">Documents List</p>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Ops</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr class="table-info">
+            <th scope="row">Info</th>
+            <td>
+              <i class="fa-solid fa-pen-to-square text-primary"></i>
+              <i class="fa-solid fa-trash text-danger"></i>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -86,3 +86,9 @@ export const profile = async (req: Request, res: Response) => {
   if (!user) return res.status(404).json("No User found");
   res.json(user);
 };
+
+export const roleType = async (req: Request, res: Response) => {
+  const rol = await User.findById(req.userId, {password: 0 }).populate("role");
+  if(!rol) return  res.status(500).send("No Role Data")
+  res.json(rol.role[0].name);
+}
