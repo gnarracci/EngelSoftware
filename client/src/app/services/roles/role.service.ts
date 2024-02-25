@@ -17,7 +17,7 @@ export class RoleService {
       .pipe(catchError(this.handlerError));
   }
 
-  getRole(id: string) {
+  getRole(id: string): Observable<Roles> {
     return this.http
       .get<Roles>(`${this.API_URI}api/roles/${id}`)
       .pipe(catchError(this.handlerError));

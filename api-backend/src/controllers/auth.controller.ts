@@ -54,7 +54,7 @@ export const signup = async (req: Request, res: Response) => {
         expiresIn: 28800, // Token duration "8" hours
       }
     );
-    res.header("auth-token", token).json((token));
+    res.header("auth-token", token).json(token);
   }
 };
 
@@ -76,7 +76,7 @@ export const signin = async (req: Request, res: Response) => {
       expiresIn: 28800, // Token duration "8" hours
     }
   );
-  res.header("auth-token", token).json({token});
+  res.header("auth-token", token).json({ token });
 };
 
 export const profile = async (req: Request, res: Response) => {
@@ -88,7 +88,13 @@ export const profile = async (req: Request, res: Response) => {
 };
 
 export const roleType = async (req: Request, res: Response) => {
-  const rol = await User.findById(req.userId, {password: 0 }).populate("role");
-  if(!rol) return  res.status(500).send("No Role Data")
+  const rol = await User.findById(req.userId, { password: 0 }).populate("role");
+  if (!rol) return res.status(500).json("No Role Data");
   res.json(rol.role[0].name);
-}
+};
+
+export const userType = async (req: Request, res: Response) => {
+  const user = await User.findById(req.userId, { password: 0 });
+  if (!user) return res.status(500).json("No User Provided");
+  res.json(user.username);
+};
