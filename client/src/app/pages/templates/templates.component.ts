@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-templates',
@@ -7,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplatesComponent implements OnInit{
 
-  constructor() {}
+  userLogged: any = {};
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    
+    this.dataUser();
   }
 
+  dataUser() {
+    this.userService.getProfile().subscribe(
+      res => {
+        this.userLogged = res;
+        console.log('USER', this.userLogged);
+      }
+    )
+  }
 }

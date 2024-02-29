@@ -48,6 +48,12 @@ export class UserService {
     )
   }
 
+  userType(): Observable<User> {
+    return this.http.get<User>(`${this.API_URI}api/auth/userType`).pipe(
+      catchError(this.handlerError)
+    )
+  }
+
   deleteUser(id: string): Observable<User>{
     return this.http.delete<User>(`${this.API_URI}api/users/${id}`).pipe(
       catchError(this.handlerError)

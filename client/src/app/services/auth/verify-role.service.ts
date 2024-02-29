@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { Roles } from 'src/app/interfaces/roles';
-import { User } from 'src/app/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VerifyRoleService {
 
-  public userRole: any = {};
+  public user: any = '';
+
+  public userRole: any = '';
 
   constructor(private userService: UserService) { }
 
-  getUserRole() {
+  public getUserRole() {
     this.userService.roleType().subscribe(
       res => {
         this.userRole = res;
@@ -21,8 +21,12 @@ export class VerifyRoleService {
     )  
   }
 
-  public isAuthorized() {
-    if(this.userRole != '') return true;
+  public getUserName() {
+    this.userService.userType().subscribe(
+      res => {
+        this.user = res;
+        console.log(this.user);
+      }
+    )
   }
-
 }
