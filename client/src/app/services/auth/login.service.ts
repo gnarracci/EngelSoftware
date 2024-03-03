@@ -40,6 +40,10 @@ export class LoginService {
     this.currentUserLoginOn.next(false);
   }
 
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('token');
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error has occurred', error.error);

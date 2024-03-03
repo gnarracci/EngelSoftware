@@ -5,7 +5,7 @@ export const getRoles = async (req: Request, res: Response) => {
   try {
     const roles = await Role.find();
     if (!roles || roles.length === 0) throw new Error("No Roles Found");
-    return res.status(200).json(roles);
+    return res.status(201).json(roles);
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });
@@ -16,7 +16,7 @@ export const getRole = async (req: Request, res: Response) => {
   try {
     const role = await Role.findById(req.params.id);
     if (!role) throw new Error("Role not found");
-    return res.status(200).json(role);
+    return res.status(201).json(role);
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });
@@ -26,7 +26,7 @@ export const createRole = async (req: Request, res: Response) => {
   try {
     const name = req.params.name;
     // Check if the user already exists in the database
-    let existingRole = await Role.findOne({ name: name });
+    let existingRole = await Role.findOne({ role: role });
     if (existingRole) throw new Error("This Role already exists");
 
     const newRole = await Role.create(req.body);
@@ -38,14 +38,14 @@ export const createRole = async (req: Request, res: Response) => {
 };
 export const updateRole = async (req: Request, res: Response) => {
   try {
-    const name = req.body;
+    const role = req.body;
     let idRole = await Role.findById(req.params.id);
     if (!idRole) throw new Error("The Role is not available");
-    idRole.name = name;
-    idRole = await Role.findOneAndUpdate({ _id: req.params.id }, name, {
+    idRole.role = role;
+    idRole = await Role.findOneAndUpdate({ _id: req.params.id }, role, {
       new: true,
     });
-    res.status(200).json({ message: "Role has been updated!" });
+    res.status(201).json({ message: "Role has been updated!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });

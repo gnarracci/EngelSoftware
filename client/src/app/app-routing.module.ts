@@ -11,19 +11,48 @@ import { UsersComponent } from './pages/users/users.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
+import { authGuard } from './guards/authguard.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'companies', component: CompaniesComponent },
-  { path: 'templates', component: TemplatesComponent },
-  { path: 'documents', component: DocumentsComponent },
-  { path: 'tracking', component: TrackingComponent },
-  { path: 'reminders', component: RemindersComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'contactus', component: ContactusComponent },
-  { path: 'users-management', component: UsersComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'companies',
+    component: CompaniesComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'templates',
+    component: TemplatesComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'documents',
+    component: DocumentsComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'tracking', component: TrackingComponent, canActivate: [authGuard] },
+  {
+    path: 'reminders',
+    component: RemindersComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
+  {
+    path: 'contactus',
+    component: ContactusComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'users-management',
+    component: UsersComponent,
+    canActivate: [authGuard],
+  },
   { path: '**', component: NotfoundComponent },
 ];
 

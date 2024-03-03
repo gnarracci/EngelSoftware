@@ -4,7 +4,6 @@ import cors from "cors";
 
 import { createRoles } from "./libs/initialSetup";
 import { createCompany } from "./libs/initialCompanies";
-import { createUser } from "./libs/initialUser";
 
 import authRoutes from "./routes/auth";
 import usersRoutes from "./routes/users";
@@ -14,7 +13,6 @@ import rolesRoutes from "./routes/roles";
 const app: Application = express();
 createRoles();
 createCompany();
-createUser();
 
 // Middlewares
 app.use(morgan("dev"));

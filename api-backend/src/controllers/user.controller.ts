@@ -36,10 +36,10 @@ export const createUser = async (req: Request, res: Response) => {
 
     // Role Setuo
     if (role) {
-      const foundRoles = await Role.find({ name: { $in: role } });
+      const foundRoles = await Role.find({ role: { $in: role } });
       user.role = foundRoles.map((role) => role._id);
     } else {
-      const role = await Role.findOne({ name: "user" });
+      const role = await Role.findOne({ role: "user" });
       user.role = [role?._id];
     }
 

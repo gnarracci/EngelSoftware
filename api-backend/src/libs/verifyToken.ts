@@ -28,7 +28,7 @@ export const isUser = async (req: Request, res: Response, next: NextFunction) =>
     const user = await User.findById(req.userId)
     const roles = await Role.find({_id: {$in: user?.role}})
     for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "user") {
+        if (roles[i].role === "user") {
             next()
             return;
         }
@@ -40,7 +40,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
     const user = await User.findById(req.userId)
     const roles = await Role.find({_id: {$in: user?.role}})
     for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "admin") {
+        if (roles[i].role === "admin") {
             next()
             return;
         }

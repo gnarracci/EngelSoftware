@@ -5,7 +5,7 @@ import Company from "../models/Company";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req: Request, res: Response) => {
-  const { username, fullname, email, password, role, company } = req.body;
+  const { name, surname, username, email, password, role, company } = req.body;
 
   // If User previously exits
   const user = await User.findOne({ username: req.body.username });
@@ -16,18 +16,19 @@ export const signup = async (req: Request, res: Response) => {
   } else {
     // User Save
     const user: any = new User({
+      name,
+      surname,
       username,
-      fullname,
       email,
       password,
     });
 
     // Role Setuo
     if (role) {
-      const foundRoles = await Role.find({ name: { $in: role } });
+      const foundRoles = await Role.find({ role: { $in: role } });
       user.role = foundRoles.map((role) => role._id);
     } else {
-      const role = await Role.findOne({ name: "user" });
+      const role = await Role.findOne({ role: "user" });
       user.role = [role?._id];
     }
 
@@ -76,7 +77,7 @@ export const signin = async (req: Request, res: Response) => {
       expiresIn: 28800, // Token duration "8" hours
     }
   );
-  res.header("auth-token", token).json({ token });
+  res.header("Authorization", token).json({token});
 };
 
 export const profile = async (req: Request, res: Response) => {
@@ -90,7 +91,7 @@ export const profile = async (req: Request, res: Response) => {
 export const roleType = async (req: Request, res: Response) => {
   const rol = await User.findById(req.userId, { password: 0 }).populate("role");
   if (!rol) return res.status(500).json("No Role Data");
-  res.json(rol.role[0].name);
+  res.json(rol.role[0].role);
 };
 
 export const userType = async (req: Request, res: Response) => {

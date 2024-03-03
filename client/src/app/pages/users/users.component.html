@@ -50,7 +50,7 @@
                   <label for="exampleSelect1" class="form-label mt-4">Roles</label>
                   <select class="form-select" formControlName="role">
                     <!-- <option [ngValue]=""> -- Select Role -- </option> -->
-                    <option *ngFor="let rol of totalRoles" [ngValue]="rol.name"> {{ rol.name }} </option>>
+                    <option *ngFor="let rol of totalRoles" [ngValue]="rol.role"> {{ rol.role }} </option>>
                   </select>
                 </div>
                 <div class="form-group">
@@ -96,7 +96,7 @@
                 <td> {{ item.surname }} </td>
                 <td> {{ item.email }} </td>
                 <td *ngFor="let comp of item.company"> {{ comp.name }} </td>
-                <td *ngFor="let rol of item.role"> {{ rol.name }} </td>
+                <td *ngFor="let rol of item.role"> {{ rol.role }} </td>
                 <td>
                   <i (click)="fillUpdateUser(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
                   <i (click)="deleteUser(item._id)" class="fa-solid fa-trash text-danger"></i>
@@ -140,7 +140,7 @@
           <thead>
             <tr>
               <th scope="col">Id</th>
-              <th scope="col">Name</th>
+              <th scope="col">Role</th>
               <th scope="col">Ops</th>
             </tr>
           </thead>
@@ -148,7 +148,7 @@
 
             <tr class="table-info" *ngFor="let item of totalRoles">
               <th scope="row"> {{ item._id }} </th>
-              <td> {{ item.name }} </td>
+              <td> {{ item.role }} </td>
               <td>
                 <i (click)="fillUpdateRole(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
                 <i (click)="deleteRoles(item._id)" class="fa-solid fa-trash text-danger"></i>
