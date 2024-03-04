@@ -77,7 +77,7 @@ export const signin = async (req: Request, res: Response) => {
       expiresIn: 28800, // Token duration "8" hours
     }
   );
-  res.header("Authorization", token).json({token});
+  res.header("Authorization", token).json({token, user});
 };
 
 export const profile = async (req: Request, res: Response) => {

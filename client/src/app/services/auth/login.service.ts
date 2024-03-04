@@ -12,6 +12,8 @@ export class LoginService {
   );
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>('');
 
+  userRoles: string[] = [];
+
   API_URI = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) {
@@ -28,7 +30,9 @@ export class LoginService {
       tap((userData) => {
         sessionStorage.setItem("token", userData.token);
         this.currentUserData.next(userData.token);
-        this.currentUserLoginOn.next(true);
+        this.currentUserLoginOn.next(true);  
+        this.userRoles = userData.user.role;  
+        console.log('userRoles: ',this.userRoles )    
       }),
       map((userData) => userData.token),
       catchError(this.handlerError)
