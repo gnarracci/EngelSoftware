@@ -264,7 +264,7 @@ export class UsersComponent implements OnInit {
     if (id !== null) {
       this.roleService.getRole(id).subscribe((data) => {
         this.roleForm.patchValue({
-          name: data.name,
+          name: data.role,
         });
         console.log(this.roleForm.value);
         this.edit = true;

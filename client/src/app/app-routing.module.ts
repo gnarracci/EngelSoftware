@@ -12,6 +12,7 @@ import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { authGuard } from './guards/authguard.guard';
+import { hasRoleGuard } from './guards/has-role.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -19,39 +20,56 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
   {
     path: 'companies',
     component: CompaniesComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
   {
     path: 'templates',
     component: TemplatesComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin', 'user'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
   {
     path: 'documents',
     component: DocumentsComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin', 'user'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
-  { path: 'tracking', component: TrackingComponent, canActivate: [authGuard] },
+  {
+    path: 'tracking',
+    component: TrackingComponent,
+    data: { roles: ['admin', 'user'] },
+    canActivate: [authGuard, hasRoleGuard],
+  },
   {
     path: 'reminders',
     component: RemindersComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin', 'user'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
-  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    data: { roles: ['admin'] },
+    canActivate: [authGuard, hasRoleGuard],
+  },
   {
     path: 'contactus',
     component: ContactusComponent,
-    canActivate: [authGuard],
+    data: {roles: ['admin', 'user']},
+    canActivate: [authGuard, hasRoleGuard],
   },
   {
     path: 'users-management',
     component: UsersComponent,
-    canActivate: [authGuard],
+    data: { roles: ['admin'] },
+    canActivate: [authGuard, hasRoleGuard],
   },
   { path: '**', component: NotfoundComponent },
 ];

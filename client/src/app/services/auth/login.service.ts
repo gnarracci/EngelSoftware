@@ -32,7 +32,7 @@ export class LoginService {
         this.currentUserData.next(userData.token);
         this.currentUserLoginOn.next(true);  
         this.userRoles = userData.user.role;  
-        console.log('userRoles: ',this.userRoles )    
+        // console.log('userRoles: ',this.userRoles )    
       }),
       map((userData) => userData.token),
       catchError(this.handlerError)
@@ -46,6 +46,10 @@ export class LoginService {
 
   isLoggedIn(): boolean {
     return !!sessionStorage.getItem('token');
+  }
+
+  hasRole(role: string) {
+    return this.userRoles.includes(role);
   }
 
   private handlerError(error: HttpErrorResponse) {
