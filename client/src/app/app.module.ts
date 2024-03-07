@@ -21,6 +21,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
+import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CompaniesComponent } from './pages/companies/companies.component';
     UsersComponent,
     TrackingComponent,
     RemindersComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    NotallowedComponent
   ],
   imports: [
     BrowserModule,

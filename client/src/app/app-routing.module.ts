@@ -13,6 +13,7 @@ import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { authGuard } from './guards/authguard.guard';
 import { hasRoleGuard } from './guards/has-role.guard';
+import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -20,7 +21,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: { roles: ['admin'] },
+    data: { roles: ['admin', 'user'] },
     canActivate: [authGuard, hasRoleGuard],
   },
   {
@@ -62,7 +63,7 @@ const routes: Routes = [
   {
     path: 'contactus',
     component: ContactusComponent,
-    data: {roles: ['admin', 'user']},
+    data: { roles: ['admin', 'user'] },
     canActivate: [authGuard, hasRoleGuard],
   },
   {
@@ -70,6 +71,10 @@ const routes: Routes = [
     component: UsersComponent,
     data: { roles: ['admin'] },
     canActivate: [authGuard, hasRoleGuard],
+  },
+  {
+    path: 'not-allowed',
+    component: NotallowedComponent,
   },
   { path: '**', component: NotfoundComponent },
 ];

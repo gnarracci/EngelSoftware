@@ -2,6 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError, BehaviorSubject, tap, map } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { RoleService } from '../roles/role.service';
+import { Roles } from 'src/app/interfaces/roles';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +14,11 @@ export class LoginService {
   );
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>('');
 
-  userRoles: string[] = [];
+  userRoles: string = '';
 
   API_URI = 'http://localhost:5000/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appRoles: RoleService) {
     this.currentUserLoginOn = new BehaviorSubject<boolean>(
       sessionStorage.getItem('token') != null
     );
@@ -31,7 +33,7 @@ export class LoginService {
         sessionStorage.setItem("token", userData.token);
         this.currentUserData.next(userData.token);
         this.currentUserLoginOn.next(true);  
-        this.userRoles = userData.user.role;  
+        this.userRoles = userData.user.role[0].role;  
         // console.log('userRoles: ',this.userRoles )    
       }),
       map((userData) => userData.token),
@@ -46,10 +48,6 @@ export class LoginService {
 
   isLoggedIn(): boolean {
     return !!sessionStorage.getItem('token');
-  }
-
-  hasRole(role: string) {
-    return this.userRoles.includes(role);
   }
 
   private handlerError(error: HttpErrorResponse) {

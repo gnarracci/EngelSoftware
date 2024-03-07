@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { LoginService } from '../services/auth/login.service';
@@ -12,14 +13,14 @@ export const hasRoleGuard: CanActivateFn = (
 ) => {
   const auth = inject(LoginService).isLoggedIn();
   const rol = inject(LoginService).userRoles;
+  const router = inject(Router);
 
-  if (auth) {
-    const allowedRoles = route.data['roles'] as string[];
-    console.log('ALLOWED', allowedRoles);
-    console.log('AUTH', auth);
-    console.log('ROLE', rol);
-    
-    
+  const allowedRoles = route.data['roles'] as string[];
+
+  if (auth && allowedRoles.includes(rol)) {
+    return true;
+  } else {
+    router.navigate([`/not-allowed`]);
+    return false;
   }
-  return true;
 };

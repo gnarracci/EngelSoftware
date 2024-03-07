@@ -45,5 +45,5 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
             return;
         }
     }
-    return res.status(403).json({message: "To preform this action admin role is needed!"});
+    return res.status(403).json({message: "To perform this action admin role is needed!"});
 }
