@@ -139,7 +139,6 @@
         <table class="table table-hover table-responsive table-stripe">
           <thead>
             <tr>
-              <th scope="col">Id</th>
               <th scope="col">Role</th>
               <th scope="col">Ops</th>
             </tr>
@@ -147,8 +146,7 @@
           <tbody>
 
             <tr class="table-info" *ngFor="let item of totalRoles">
-              <th scope="row"> {{ item._id }} </th>
-              <td> {{ item.role }} </td>
+              <td scope="row"> {{ item.role }} </td>
               <td>
                 <i (click)="fillUpdateRole(item._id)" class="fa-solid fa-pen-to-square text-primary"></i>
                 <i (click)="deleteRoles(item._id)" class="fa-solid fa-trash text-danger"></i>
