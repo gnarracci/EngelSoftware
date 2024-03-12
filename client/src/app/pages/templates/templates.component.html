@@ -9,11 +9,12 @@
     <h1 class="display-4"><i class="fa-solid fa-pen-to-square"></i> Templates</h1>
     <hr class="my-2" />
     <p class="lead">
-      Management Area
+      Dynamics Documents
     </p>
     <div class="row">
       <div class="col-md-6">
-        <p class="lead">Data Management Area / Application Registration</p>
+        <p class="lead">Data Management Area</p>
+        <p><span class="highlight">{{ userLogged.company[0].name }}</span> management elemets of maintenance register</p>
       </div>
     </div>
     <div class="row">
@@ -23,28 +24,15 @@
           <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-plus"></i> Add Template</button>
         </div>
         <hr class="my-2">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Type</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="table-dark">
-              <th scope="row">Dark</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-          </tbody>
-        </table>
+        
       </div>
       <div class="col-md-6">
-        <h5>Company: </h5>
-        <input class="mt-2" type="text" placeholder="{{ userLogged.company[0].name }}">
+        <form *ngIf="userLogged.role[0].role === 'admin'" [formGroup]="template1">
+          <label for="companies" class="form-label mt-4">Company</label>
+          <select class="form-select" formControlName="companies">
+            <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+          </select>
+        </form>
       </div>
       <hr class="my-2">
     </div>

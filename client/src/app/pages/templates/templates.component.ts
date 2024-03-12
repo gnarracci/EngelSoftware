@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,9 +12,13 @@ export class TemplatesComponent implements OnInit{
 
   userLogged: any = {};
 
-  companyData: any = {};
+  companyData: any = [];
 
-  constructor(private userService: UserService, private companyServie: CompanyService) {}
+  constructor(private userService: UserService, private companyServie: CompanyService, private formBuilder: FormBuilder) {}
+
+  template1 = this.formBuilder.group({
+    companies:['', [Validators.required]]   
+  })
 
   ngOnInit(): void {
     this.dataUser();
@@ -24,7 +29,7 @@ export class TemplatesComponent implements OnInit{
     this.userService.getProfile().subscribe(
       res => {
         this.userLogged = res;
-        console.log('Company', this.userLogged.company[0].name);
+        console.log('User', this.userLogged);
       }
     )
   }
