@@ -22,6 +22,7 @@ import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NotallowedComponent } from './pages/notallowed/notallowed.component';
     TrackingComponent,
     RemindersComponent,
     CompaniesComponent,
-    NotallowedComponent
+    NotallowedComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

@@ -49,14 +49,14 @@
                 <div class="form-group">
                   <label for="exampleSelect1" class="form-label mt-4">Roles</label>
                   <select class="form-select" formControlName="role">
-                    <!-- <option [ngValue]=""> -- Select Role -- </option> -->
+                    <option value=""> -- Select Role -- </option>
                     <option *ngFor="let rol of totalRoles" [ngValue]="rol.role"> {{ rol.role }} </option>>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleSelect2" class="form-label mt-4">Company</label>
                   <select class="form-select" formControlName="company">
-                    <!-- <option [ngValue]=""> -- Select Company -- </option> -->
+                    <option value=""> -- Select Company -- </option>
                     <option *ngFor="let item of totalCompanies" [ngValue]="item.name"> {{ item.name }} </option>
                   </select>
                 </div>

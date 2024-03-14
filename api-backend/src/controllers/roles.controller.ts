@@ -26,7 +26,7 @@ export const createRole = async (req: Request, res: Response) => {
   try {
     const name = req.params.name;
     // Check if the user already exists in the database
-    let existingRole = await Role.findOne({ role: role });
+    let existingRole = await Role.findOne({ role: Role });
     if (existingRole) throw new Error("This Role already exists");
 
     const newRole = await Role.create(req.body);

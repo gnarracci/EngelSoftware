@@ -25,11 +25,11 @@ export class UsersComponent implements OnInit {
 
   userLoginOn: boolean = false;
 
-  totalUsers: any = {};
+  totalUsers: any = [];
 
-  totalRoles: any = {};
+  totalRoles: any = [];
 
-  totalCompanies: any = {};
+  totalCompanies: any = [];
 
   userData: any = {};
 

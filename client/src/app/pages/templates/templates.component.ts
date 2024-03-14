@@ -42,4 +42,9 @@ export class TemplatesComponent implements OnInit{
       }
     )
   }
+
+  getCom() {
+    
+  }
+
 }
