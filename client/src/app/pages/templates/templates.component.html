@@ -14,28 +14,65 @@
     <div class="row">
       <div class="col-md-6">
         <p class="lead">Data Management Area</p>
-        <p><span class="highlight">{{ userLogged.company[0].name }}</span> management elements of maintenance register</p>
+        <p><span class="highlight">{{ userLogged.company[0].name }}</span> management elements of maintenance register
+        </p>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <h5>Data Management Area: </h5>
-        <div class="d-grid gap-2 mt-2">
-          <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-plus"></i> Add Object</button>
-        </div>
-        
-        
-      </div>
-      <div class="col-md-6">
-        <form *ngIf="userLogged.role[0].role === 'admin'" [formGroup]="template1" >
-          <label for="companies" class="form-label mt-4">Company</label>
-          <select class="form-select" formControlName="companies">
-            <option value=""> -- Select Company -- </option>
-            <option *ngFor="let option of companyData" [value]="option._id"> {{ option.name }} </option>
-          </select><option value=""></option>
+      <div class="col">
+        <form [formGroup]="template1">
+          <div>
+            <label for="companies" class="form-label mt-4">Company</label>
+            <select class="form-select" formControlName="companies">
+              <option value=""> -- Select Company -- </option>
+              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+            </select>
+          </div>
+          <div>
+            <label for="dma" class="form-label mt-2">Data Management Area</label>
+            <input type="text" class="form-control" formControlName="dma" id="dma" placeholder="Data Mangement Area">
+          </div>
+          <div formArrayName="fields">
+            <div *ngFor="let fld of fields.controls; let i = index">
+              <div>
+                <label for='i' class="form-label mt-2"></label>
+                <input type="text" class="form-control" [formControlName]="i" placeholder="Write field">
+              </div>
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-2">
+            <button class="btn btn-lg btn-primary" (click)="addItem()" type="submit"><i class="fa-solid fa-plus"></i>
+              Add Field</button>
+            <button class="btn btn-lg btn-primary mt-1" (click)="saveTemplate()"><i
+                class="fa-regular fa-floppy-disk"></i> Save
+              Template</button>
+          </div>
         </form>
+
+
       </div>
-      <hr class="my-2">
+
+      <hr class="my-2 mt-4">
+    </div>
+    <div class="row">
+      <h5>Templates List</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Company</th>
+            <th scope="col">DMA</th>
+            <th scope="col">OPS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-dark">
+            <th scope="row">Dark</th>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+<pre>{{ template1.value | json}}</pre>
