@@ -16,16 +16,24 @@
         <p class="lead">Data Management Area</p>
         <p><span class="highlight">{{ userLogged.company[0].name }}</span> management elements of maintenance register
         </p>
+
       </div>
     </div>
     <div class="row">
       <div class="col">
         <form [formGroup]="template1">
-          <div>
+          <div *ngIf="userLogged.role[0].role === 'admin'">
             <label for="companies" class="form-label mt-4">Company</label>
             <select class="form-select" formControlName="companies">
               <option value=""> -- Select Company -- </option>
               <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+            </select>
+          </div>
+          <div *ngIf="userLogged.role[0].role === 'user'">
+            <label for="companies" class="form-label mt-4">Company</label>
+            <select class="form-select" formControlName="companies">
+              <option value=""> -- Select Company -- </option>
+              <option  [value]="userLogged.company[0].name"> {{ userLogged.company[0].name }} </option>
             </select>
           </div>
           <div>
