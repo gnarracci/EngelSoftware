@@ -11,6 +11,7 @@ import companyRoutes from "./routes/companies";
 import rolesRoutes from "./routes/roles";
 import objectsRoutes from './routes/objects';
 import templateRoutes from './routes/template';
+import typeRoutes from "./routes/type";
 
 const app: Application = express();
 createRoles();
@@ -18,7 +19,7 @@ createCompany();
 
 // Middlewares
 app.use(morgan("dev"));
-app.use(cors({ origin: "http://localhost:4200" || "http://127.0.0.1:4200" }));
+app.use(cors({}));
 app.use(express.json());
 
 // Routes
@@ -28,6 +29,7 @@ app.use("/api/companies", companyRoutes);
 app.use("/api/roles", rolesRoutes);
 app.use("/api/objects", objectsRoutes);
 app.use("/api/templates", templateRoutes);
+app.use('/api/types', typeRoutes);
 
 // Settings
 app.set("port", process.env.PORT || 4000);

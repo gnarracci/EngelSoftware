@@ -17,7 +17,7 @@ import Objects from '../models/Objects';
     try {
         const objects = await Objects.findById(req.params.id);
         if(!objects) {
-        res.status(404).json({message: "Object wasn't found!"});
+        res.status(404).json({message: "Template wasn't found!"});
     }else{
         res.status(200).json(objects);
     }
@@ -28,23 +28,43 @@ import Objects from '../models/Objects';
 }
 
 export const saveObject = async (req: Request, res: Response) => {
-    const {name} = req.body;
+    const { name, build_user, edit_user, companies, type_obj } = req.body;
     
     //If previously exits
     const objects = await Objects.findOne({name: req.body.name});
-    if(objects) return res.status(400).json({ message: "Object name has been registered!"});
+    if(objects) return res.status(400).json({ message: "Template name has been registered!"});
 
     // Company Save
     const saveObject: any = new Objects({
-        name
+        name,
+        build_user,
+        edit_user,
+        companies,
+        type_obj
     });
 
     // Save new company
     try {
         await saveObject.save();
-        res.status(200).json({ message: "Object has been saved successfully!"});
+        res.status(200).json({ message: "Template has been saved successfully!"});
     } catch(error) {
         console.error(error);
         res.status(500).json({ message: "Something went wrong!"});
+    }
+}
+
+
+
+export const deleteObject = async (req: Request, res: Response) => {    
+    try {
+        let obj = await Objects.findById(req.params.id);
+        if(!obj) {
+            res.status(400).json({ message: "Template wasn't found!"});
+        }
+        await Objects.findOneAndRemove({_id:req.params.id});
+        res.status(200).json({ message: "Template has been deleted successfully!"});
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ message: "Something went wrong!"})
     }
 }

@@ -23,6 +23,7 @@ import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TreeModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptorService, multi: true},

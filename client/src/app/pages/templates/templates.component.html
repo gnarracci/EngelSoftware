@@ -12,75 +12,133 @@
       Dynamics Documents
     </p>
     <div class="row">
-      <div class="col-md-6">
-        <p class="lead">Data Management Area</p>
+      <div class="col-md-4">
+        <legend><i class="fa-solid fa-list"></i> Data Management Area</legend>
         <p><span class="highlight">{{ userLogged.company[0].name }}</span> management elements of maintenance register
         </p>
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <form [formGroup]="template1">
+        <!-- Template Form -->
+        <form [formGroup]="template">
           <div *ngIf="userLogged.role[0].role === 'admin'">
-            <label for="companies" class="form-label mt-4">Company</label>
             <select class="form-select" formControlName="companies">
               <option value=""> -- Select Company -- </option>
               <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
             </select>
           </div>
           <div *ngIf="userLogged.role[0].role === 'user'">
-            <label for="companies" class="form-label mt-4">Company</label>
             <select class="form-select" formControlName="companies">
               <option value=""> -- Select Company -- </option>
-              <option  [value]="userLogged.company[0].name"> {{ userLogged.company[0].name }} </option>
+              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
             </select>
           </div>
           <div>
-            <label for="dma" class="form-label mt-2">Data Management Area</label>
-            <input type="text" class="form-control" formControlName="dma" id="dma" placeholder="Data Mangement Area">
+            <input type="text" class="form-control mt-2" formControlName="name" placeholder="Add Template Name">
           </div>
-          <div formArrayName="fields">
-            <div *ngFor="let fld of fields.controls; let i = index">
-              <div>
-                <label for='i' class="form-label mt-2"></label>
-                <input type="text" class="form-control" [formControlName]="i" placeholder="Write field">
-              </div>
-            </div>
-          </div>
-          <div class="d-grid gap-2 mt-2">
-            <button class="btn btn-lg btn-primary" (click)="addItem()" type="submit"><i class="fa-solid fa-plus"></i>
-              Add Field</button>
-            <button class="btn btn-lg btn-primary mt-1" (click)="saveTemplate()"><i
-                class="fa-regular fa-floppy-disk"></i> Save
-              Template</button>
+          <div>
+            <input type="text" class="form-control mt-2" formControlName="type_obj" placeholder="Template Type" />
           </div>
         </form>
-
-
+        <div class="d-grid gap-2">
+          <button class="btn btn-lg btn-primary mt-2" type="button" (click)="saveObj()"><i class="fa-solid fa-plus"></i>
+            New Template</button>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Template</th>
+              <th scope="col">Ops</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-dark" *ngFor="let opt of objData">
+              <th scope="row"> {{ opt.name }} </th>
+              <td>
+                <i class="fa-solid fa-share-from-square"></i>
+                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                <i (click)="deleteTemplate(opt._id)" class="fa-solid fa-trash text-danger"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <hr class="my-2 mt-4">
-    </div>
-    <div class="row">
-      <h5>Templates List</h5>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Company</th>
-            <th scope="col">DMA</th>
-            <th scope="col">OPS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-dark">
-            <th scope="row">Dark</th>
-            <td>Column content</td>
-            <td>Column content</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Fields Form -->
+      <div class="col-md-8">
+        <legend><i class="fa-solid fa-gear"></i> Template Setup</legend>
+        <form [formGroup]="fields">
+          <div>
+            <input type="text" class="form-control mt-2" formControlName="name" placeholder="New Field">
+          </div>
+          <div class="form-check">
+            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container">
+            <label class="form-check-label" for="flexCheckDefault">
+              Is a Container
+            </label>            
+          </div>
+          <div>
+            <input type="number" class="form-control mt-2" formControlName="order" placeholder="Order">
+          </div>
+          <div>
+            <select class="form-select mt-2" formControlName="type">
+              <option value=""> -- Select Type -- </option>
+              <option *ngFor="let option of dataType" [value]="option.type"> {{ option.type }} </option>
+            </select>
+          </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container">
+            <label class="form-check-label" for="flexCheckDefault">
+              Is an Event Title
+            </label>            
+          </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="req">
+            <label class="form-check-label" for="flexCheckDefault">
+              Required
+            </label>            
+          </div>
+          <div>
+            <select class="form-select mt-2" formControlName="temp">
+              <option value=""> -- Select Template -- </option>
+              <option *ngFor="let option of objData" [value]="option.name"> {{ option.name }} </option>
+            </select>
+          </div>
+          <div>
+            <select class="form-select mt-2" formControlName="par">
+              <option value=""> -- Select Parent -- </option>
+              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+            </select>
+          </div>
+          <div class="d-grid gap-2 mt-2">
+            <button class="btn btn-lg btn-primary" (click)="newField()" type="submit"><i class="fa-solid fa-plus"></i>
+              Add Field</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+  <!-- Historical Table -->
+  <div class="row">
+    <hr class="my-2">
+    <h5><i class="fa-solid fa-book"></i> Historical Facts</h5>
+    <hr class="my-2">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Template Name</th>
+          <th scope="col">Build Day</th>
+          <th scope="col">Edition Day</th>
+          <th scope="col">Build User</th>
+          <th scope="col">Editing User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-dark" *ngFor="let opt of objData">
+          <th scope="row"> {{ opt.name }} </th>
+          <td> {{ opt.createdAt }} </td>
+          <td> {{ opt.updatedAt}} </td>
+          <td> {{ opt.build_user }} </td>
+          <td> {{ opt.edit_user }} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<pre>{{ template1.value | json}}</pre>
+<pre></pre>
