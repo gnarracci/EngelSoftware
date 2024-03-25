@@ -4,19 +4,23 @@ export interface IFields extends Document {
     name: string,
     order: number,
     type: string,
-    req: boolean,
+    label: string,
+    requ: boolean,
     container: boolean,
     evtitle: boolean,
-
+    temp: string
 }
 
 const fieldsSchema = new Schema({
     name: String,
     order: Number,
+    label: String,
     type: String,
-    req: Boolean,
+    requ: Boolean,
     container: Boolean,
-    evtitle: Boolean
+    evtitle: Boolean,
+    temp: String,
+    SubFields: []
 },{
     versionKey: false
 })

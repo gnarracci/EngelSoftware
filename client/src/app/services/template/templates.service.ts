@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Obj } from 'src/app/interfaces/objects';
 import { Types } from 'src/app/interfaces/types';
+import { Fields } from 'src/app/interfaces/fields';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,11 @@ export class TemplatesService {
     return this.http
       .get<Types>(`${this.API_URI}api/types`)
       .pipe(catchError(this.handlerError));
+  }
+
+  updateObj(data:any) {
+    
+    console.log(data)
   }
 
   deleteObj(id: string): Observable<Obj> {

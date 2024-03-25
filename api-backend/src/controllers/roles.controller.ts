@@ -23,17 +23,25 @@ export const getRole = async (req: Request, res: Response) => {
   }
 };
 export const createRole = async (req: Request, res: Response) => {
-  try {
-    const name = req.params.name;
-    // Check if the user already exists in the database
-    let existingRole = await Role.findOne({ role: Role });
-    if (existingRole) throw new Error("This Role already exists");
+  const { role } = req.body;
 
-    const newRole = await Role.create(req.body);
-    return res.status(201).json(newRole);
+  //If previously exits
+  const roles = await Role.findOne({ role: req.body.role });
+  if (roles)
+    return res.status(400).json({ message: "Role has been registered!" });
+
+  // Role Save
+  const saveRole: any = new Role({
+    role
+  });
+
+  // Save new Role
+  try {
+    await saveRole.save();
+    res.status(201).json({ message: "Role has been saved successfully!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Something went Wromg!" });
+    res.status(500).json({ message: "Something went wrong!" });
   }
 };
 export const updateRole = async (req: Request, res: Response) => {

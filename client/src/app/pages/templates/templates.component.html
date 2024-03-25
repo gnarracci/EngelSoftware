@@ -26,8 +26,7 @@
           </div>
           <div *ngIf="userLogged.role[0].role === 'user'">
             <select class="form-select" formControlName="companies">
-              <option value=""> -- Select Company -- </option>
-              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+              <option value=""> {{ userLogged.company[0].name }} </option>
             </select>
           </div>
           <div>
@@ -53,7 +52,7 @@
               <th scope="row"> {{ opt.name }} </th>
               <td>
                 <i class="fa-solid fa-share-from-square"></i>
-                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                <i (click)="editTemplate(opt._id)" class="fa-solid fa-pen-to-square text-primary"></i>
                 <i (click)="deleteTemplate(opt._id)" class="fa-solid fa-trash text-danger"></i>
               </td>
             </tr>
@@ -65,13 +64,16 @@
         <legend><i class="fa-solid fa-gear"></i> Template Setup</legend>
         <form [formGroup]="fields">
           <div>
-            <input type="text" class="form-control mt-2" formControlName="name" placeholder="New Field">
+            <input type="text" class="form-control mt-2" formControlName="name" placeholder="Input Name">
           </div>
           <div class="form-check">
             <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container">
             <label class="form-check-label" for="flexCheckDefault">
               Is a Container
-            </label>            
+            </label>
+          </div>
+          <div>
+            <input type="text" class="form-control mt-2" formControlName="label" placeholder="Input Label">
           </div>
           <div>
             <input type="number" class="form-control mt-2" formControlName="order" placeholder="Order">
@@ -83,16 +85,16 @@
             </select>
           </div>
           <div class="form-check mt-2">
-            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container">
+            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="evtitle">
             <label class="form-check-label" for="flexCheckDefault">
               Is an Event Title
-            </label>            
+            </label>
           </div>
           <div class="form-check mt-2">
             <input class="form-check-input mt-2" type="checkbox" value="" formControlName="req">
             <label class="form-check-label" for="flexCheckDefault">
               Required
-            </label>            
+            </label>
           </div>
           <div>
             <select class="form-select mt-2" formControlName="temp">
@@ -107,7 +109,8 @@
             </select>
           </div>
           <div class="d-grid gap-2 mt-2">
-            <button class="btn btn-lg btn-primary" (click)="newField()" type="submit"><i class="fa-solid fa-plus"></i>
+            <button class="btn btn-lg btn-primary" (click)="newFields()" type="submit" [disabled]="!fields.valid"><i
+                class="fa-solid fa-plus"></i>
               Add Field</button>
           </div>
         </form>

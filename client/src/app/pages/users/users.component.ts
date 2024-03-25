@@ -69,7 +69,7 @@ export class UsersComponent implements OnInit {
     });
 
     this.roleForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
+      role: ['', [Validators.required, Validators.minLength(4)]],
     });
 
     this.loginService.currentUserLoginOn.subscribe({
@@ -123,7 +123,7 @@ export class UsersComponent implements OnInit {
   }
 
   saveUser() {
-    console.log('FORM', this.userForm.value);
+    // console.log('FORM', this.userForm.value);
     if (this.userForm.valid) {
       this.userService.save(this.userForm.value).subscribe({
         next: (userData) => {

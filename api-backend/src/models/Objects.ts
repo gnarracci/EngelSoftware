@@ -6,7 +6,7 @@ export interface IObject extends Document {
     edit_user: string;
     type_obj: string,
     companies: string,
-    fields: any
+    fields: String[]
 }
 
 const objectSchema = new Schema({
@@ -15,10 +15,7 @@ const objectSchema = new Schema({
     edit_user: String,
     companies: String,
     type_obj: String,
-    fields: [{
-        ref: "fielfd",
-        type: Schema.Types.ObjectId
-    }]
+    fields: Array
 },{
     versionKey: false,
     timestamps: true

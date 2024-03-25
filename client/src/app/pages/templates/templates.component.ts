@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { TemplatesService } from 'src/app/services/template/templates.service';
@@ -11,22 +16,25 @@ import Swal from 'sweetalert2';
   styleUrls: ['./templates.component.scss'],
 })
 export class TemplatesComponent implements OnInit {
-
   template!: FormGroup;
 
   fields!: FormGroup;
-  
+
   userLogged: any = {};
 
   companyData: any = [];
 
+  newField: any = [];
+
+  localSto: any = '';
+
   objData: any = [];
-  
+
   objGrl: any = [];
 
-  userCompany: any = '';
-
   dataType: any = [];
+
+  dataFields: any = [];
 
   saveError: string = '';
 
@@ -35,30 +43,36 @@ export class TemplatesComponent implements OnInit {
     private companyServie: CompanyService,
     private formBuilder: FormBuilder,
     private temp: TemplatesService
-  ) {}  
+  ) {}
 
   ngOnInit(): void {
-  this.template = this.formBuilder.group({
-    companies: new FormControl('', Validators.compose([Validators.required])),
-    name: new  FormControl('', Validators.compose([Validators.required])),
-    type_obj: new FormControl('', Validators.compose([Validators.required]))
-  });
-  this.fields = this.formBuilder.group({
-    name: new FormControl('', Validators.compose([Validators.required])),
-    container: new FormControl(false, Validators.compose([Validators.required])),
-    order: new FormControl(null, Validators.compose([Validators.required])),
-    type: new FormControl('', Validators.compose([Validators.required])),
-    evtitle: new FormControl(false, Validators.compose([Validators.required])),
-    req: new FormControl(false, Validators.compose([Validators.required])),
-    temp: new FormControl('', Validators.compose([Validators.required])),
-    par: new FormControl('', Validators.compose([Validators.required]))
-  })
-  
+    this.template = this.formBuilder.group({
+      companies: new FormControl('', Validators.compose([Validators.required])),
+      name: new FormControl('', Validators.compose([Validators.required])),
+      type_obj: new FormControl('', Validators.compose([Validators.required])),
+    });
+    this.fields = this.formBuilder.group({
+      name: new FormControl('', Validators.compose([Validators.required])),
+      container: new FormControl(
+        false,
+        Validators.compose([Validators.required])
+      ),
+      label: new FormControl('', Validators.compose([Validators.required])),
+      order: new FormControl(null, Validators.compose([Validators.required])),
+      type: new FormControl('', Validators.compose([Validators.required])),
+      evtitle: new FormControl(
+        false,
+        Validators.compose([Validators.required])
+      ),
+      req: new FormControl(false, Validators.compose([Validators.required])),
+      temp: new FormControl('', Validators.compose([Validators.required])),
+      par: new FormControl('', Validators.compose([Validators.required])),
+    });
+
     this.dataUser();
     this.getCompanies();
     this.getAllDatatypes();
     this.getAllObj();
-    this.userCompany = this.userLogged.company[0].name;
   }
 
   dataUser() {
@@ -72,24 +86,22 @@ export class TemplatesComponent implements OnInit {
     this.companyServie.getCompanies().subscribe((res) => {
       this.companyData = res;
       // console.log('COMPANIES', this.companyData);
-    })
-  };
+    });
+  }
 
   getAllDatatypes() {
-    this.temp.getAllDatatypes().subscribe(
-      res => {
-        this.dataType = res;
-        // console.log('TYPES', this.dataType);
-      }
-    )
+    this.temp.getAllDatatypes().subscribe((res) => {
+      this.dataType = res;
+      // console.log('TYPES', this.dataType);
+    });
   }
 
   saveObj() {
     const build_user = this.userLogged.username;
     const edit_user = this.userLogged.username;
     const val = this.template.value;
-    const newObj = {build_user, edit_user,...val};
-    if(this.template.valid) {
+    const newObj = { build_user, edit_user, ...val };
+    if (this.template.valid) {
       this.temp.saveObj(newObj).subscribe({
         next: (userData) => {
           console.log(userData);
@@ -117,7 +129,7 @@ export class TemplatesComponent implements OnInit {
           this.template.reset();
           this.getAllObj();
         },
-      })
+      });
     }
   }
 
@@ -141,22 +153,46 @@ export class TemplatesComponent implements OnInit {
           },
           (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
         );
-        Swal.fire('Deleted!', 'Template selected has been deleted!.', 'success');
+        Swal.fire(
+          'Deleted!',
+          'Template selected has been deleted!.',
+          'success'
+        );
       }
     });
   }
-  
+
   getAllObj() {
-    this.temp.getAllObj().subscribe(
-      res => {
-        this.objData = res;
-        console.log('OBJS', this.objData);
-      }
-    )
+    this.temp.getAllObj().subscribe((res) => {
+      this.objData = res;
+      console.log('OBJS', this.objData);
+    });
   }
 
-  newField() {
-    console.log('FIELD', this.fields.value)
+  editTemplate(id: string) {
+    const idc = {
+      _id: id,
+    };
+    localStorage.setItem('idc', JSON.stringify(idc));
   }
-  
+
+  newFields() {
+    if (this.fields.valid) {
+      if (localStorage.getItem('idc') === null) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'You must select a Template to continue!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        this.newField = this.fields.value;
+        const id = JSON.parse(localStorage.getItem('idc')!);
+        console.log('ID', id);
+        console.log('VALUES', this.newField);
+        this.temp.updateObj(this.fields.value);
+      }
+    }
+  }
 }

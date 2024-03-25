@@ -43,6 +43,7 @@ export class LoginService {
 
   logout():void {
     sessionStorage.removeItem("token");
+    localStorage.removeItem("idc");
     this.currentUserLoginOn.next(false);
   }
 
