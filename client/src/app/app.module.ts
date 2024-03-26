@@ -24,6 +24,7 @@ import { CompaniesComponent } from './pages/companies/companies.component';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TreeModule } from 'primeng/tree';
+import { TemplateDocumentComponent } from './pages/template-document/template-document.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TreeModule } from 'primeng/tree';
     RemindersComponent,
     CompaniesComponent,
     NotallowedComponent,
-    FilterPipe
+    FilterPipe,
+    TemplateDocumentComponent
   ],
   imports: [
     BrowserModule,

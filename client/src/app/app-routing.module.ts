@@ -14,6 +14,7 @@ import { CompaniesComponent } from './pages/companies/companies.component';
 import { authGuard } from './guards/authguard.guard';
 import { hasRoleGuard } from './guards/has-role.guard';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
+import { TemplateDocumentComponent } from './pages/template-document/template-document.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -75,6 +76,11 @@ const routes: Routes = [
   {
     path: 'not-allowed',
     component: NotallowedComponent,
+  },
+  {
+    path: 'template-document',
+    component: TemplateDocumentComponent,
+    data: { roles: ['admin', 'user'] }
   },
   { path: '**', component: NotfoundComponent },
 ];

@@ -61,7 +61,6 @@ export const updateObject = async (req: Request, res: Response) => {
   try {
     const { container, name, evtitle, label, order, temp, requ, par, type } =
       req.body;
-    // Check if Object exits
 
     const newfield = new Fields({
       container,
@@ -81,6 +80,37 @@ export const updateObject = async (req: Request, res: Response) => {
 
     await Objects.updateOne(query, updateTemplate);
     res.status(201).json({ message: "The object field was updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+
+export const updateObjectFields = async (req: Request, res: Response) => {
+  try {
+    const { container, name, evtitle, label, order, temp, requ, par, type } =
+      req.body;
+
+    const newfield = new Fields({
+      container,
+      name,
+      evtitle,
+      label,
+      order,
+      temp,
+      requ,
+      par,
+      type,
+    });
+
+    const query = { _id: req.params.id };
+
+    console.log("DATA", newfield);
+
+    const updateTemplate = { $push: { SubFields: newfield } };
+
+    await Objects.updateOne(query, updateTemplate);
+    res.status(201).json({ message: "The object subfield was updated" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });

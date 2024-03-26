@@ -31,9 +31,16 @@ export class TemplatesService {
       .pipe(catchError(this.handlerError));
   }
 
-  updateObj(data:any) {
-    
-    console.log(data)
+  updateObj(id: string, updatedField: string[]): Observable<Obj> {
+    return this.http
+      .put<Obj>(`${this.API_URI}api/objects/${id}`, updatedField)
+      .pipe(catchError(this.handlerError));
+  }
+
+  updateFields(id: string, updatedField: string[]): Observable<Obj> {
+    return this.http
+      .put<Obj>(`${this.API_URI}api/objects/fields/${id}`, updatedField)
+      .pipe(catchError(this.handlerError));
   }
 
   deleteObj(id: string): Observable<Obj> {

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { TemplatesService } from 'src/app/services/template/templates.service';
@@ -36,13 +37,16 @@ export class TemplatesComponent implements OnInit {
 
   dataFields: any = [];
 
+  verif = false;
+
   saveError: string = '';
 
   constructor(
     private userService: UserService,
     private companyServie: CompanyService,
     private formBuilder: FormBuilder,
-    private temp: TemplatesService
+    private temp: TemplatesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +62,7 @@ export class TemplatesComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       label: new FormControl('', Validators.compose([Validators.required])),
-      order: new FormControl(null, Validators.compose([Validators.required])),
+      order: new FormControl(null),
       type: new FormControl('', Validators.compose([Validators.required])),
       evtitle: new FormControl(
         false,
@@ -94,6 +98,14 @@ export class TemplatesComponent implements OnInit {
       this.dataType = res;
       // console.log('TYPES', this.dataType);
     });
+  }
+
+  onChange() {
+    if(this.fields.value.container) {
+      this.verif = true;
+    }else{
+      this.verif = false;
+    }
   }
 
   saveObj() {
@@ -165,7 +177,7 @@ export class TemplatesComponent implements OnInit {
   getAllObj() {
     this.temp.getAllObj().subscribe((res) => {
       this.objData = res;
-      console.log('OBJS', this.objData);
+      // console.log('OBJS', this.objData);
     });
   }
 
@@ -188,11 +200,72 @@ export class TemplatesComponent implements OnInit {
         });
       } else {
         this.newField = this.fields.value;
-        const id = JSON.parse(localStorage.getItem('idc')!);
-        console.log('ID', id);
-        console.log('VALUES', this.newField);
-        this.temp.updateObj(this.fields.value);
+        const idr = JSON.parse(localStorage.getItem('idc')!);
+        const id = idr._id;
+        const updatedField = this.fields.value;
+        this.temp.updateObj(id, updatedField).subscribe(
+          (res) => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'These fields have been added!',
+              showConfirmButton: false,
+              timer: 1300,
+            });
+            console.log(res);
+            this.fields.reset();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
       }
+    }
+  }
+
+  updateSubFields() {
+    if(this.fields.valid) {
+      if(localStorage.getItem('idc') === null) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'You must select a Template to continue!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        this.newField = this.fields.value;
+        const idr = JSON.parse(localStorage.getItem('idc')!);
+        const id = idr._id;
+        const updatedField = this.fields.value;
+        this.temp.updateFields(id, updatedField).subscribe(
+          (res) => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'These fields have been added!',
+              showConfirmButton: false,
+              timer: 1300,
+            });
+            console.log(res);
+            this.fields.reset();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+      }
+    }
+  }
+  viewTemplate() {
+    this.router.navigate(['/template-document']);
+  }
+
+  reset() {
+    if(this.fields.valid) {
+      this.fields.reset();
+    }
+  }
+
+  clear() {
+    if(this.template.valid) {
+      this.template.reset();
     }
   }
 }

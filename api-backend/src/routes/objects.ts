@@ -4,11 +4,12 @@ const router: Router = Router();
 
 
 import { AuthJwt } from '../libs';
-import { deleteObject, getObject, getObjects, saveObject, updateObject} from '../controllers/object.controller';
+import { deleteObject, getObject, getObjects, saveObject, updateObject, updateObjectFields} from '../controllers/object.controller';
 
-router.get('/', [AuthJwt.TokenValidation], getObjects);
-router.get('/:id', [AuthJwt.TokenValidation], getObject);
+router.get('/', getObjects);
+router.get('/:id', getObject);
 router.put('/:id', updateObject);
+router.put('/fields/:id', updateObjectFields),
 router.post('/', [AuthJwt.TokenValidation], saveObject);
 router.delete('/:id', [AuthJwt.TokenValidation], deleteObject);
 

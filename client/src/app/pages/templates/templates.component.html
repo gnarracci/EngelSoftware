@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-pen-to-square"></i> Templates</h1>
+    <h1 class="display-4"><i class="fa-solid fa-pen-to-square"></i> Templates Setup</h1>
     <hr class="my-2" />
     <p class="lead">
       Dynamics Documents
@@ -37,8 +37,11 @@
           </div>
         </form>
         <div class="d-grid gap-2">
-          <button class="btn btn-lg btn-primary mt-2" type="button" (click)="saveObj()"><i class="fa-solid fa-plus"></i>
+          <button class="btn btn-lg btn-primary mt-2" type="button" [disabled]="!template.valid" (click)="saveObj()"><i
+              class="fa-solid fa-plus"></i>
             New Template</button>
+          <button class="btn btn-lg btn-warning" (click)="clear()" type="button"><i class="fa-solid fa-soap"></i>
+            Reset</button>
         </div>
         <table class="table table-hover">
           <thead>
@@ -51,8 +54,8 @@
             <tr class="table-dark" *ngFor="let opt of objData">
               <th scope="row"> {{ opt.name }} </th>
               <td>
-                <i class="fa-solid fa-share-from-square"></i>
-                <i (click)="editTemplate(opt._id)" class="fa-solid fa-pen-to-square text-primary"></i>
+                <i (click)="viewTemplate()" class="fa-solid fa-share-from-square"></i>
+                <i (click)="editTemplate(opt._id)" class="fa-solid fa-puzzle-piece"></i>
                 <i (click)="deleteTemplate(opt._id)" class="fa-solid fa-trash text-danger"></i>
               </td>
             </tr>
@@ -67,12 +70,13 @@
             <input type="text" class="form-control mt-2" formControlName="name" placeholder="Input Name">
           </div>
           <div class="form-check">
-            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container">
+            <input class="form-check-input mt-2" type="checkbox" value="" formControlName="container"
+              (change)="onChange()">
             <label class="form-check-label" for="flexCheckDefault">
               Is a Container
             </label>
           </div>
-          <div>
+          <div *ngIf="!verif">
             <input type="text" class="form-control mt-2" formControlName="label" placeholder="Input Label">
           </div>
           <div>
@@ -90,7 +94,7 @@
               Is an Event Title
             </label>
           </div>
-          <div class="form-check mt-2">
+          <div class="form-check mt-2" *ngIf="!verif">
             <input class="form-check-input mt-2" type="checkbox" value="" formControlName="req">
             <label class="form-check-label" for="flexCheckDefault">
               Required
@@ -109,9 +113,11 @@
             </select>
           </div>
           <div class="d-grid gap-2 mt-2">
-            <button class="btn btn-lg btn-primary" (click)="newFields()" type="submit" [disabled]="!fields.valid"><i
-                class="fa-solid fa-plus"></i>
+            <button class="btn btn-lg btn-primary" (click)="verif ? newFields() : updateSubFields()" type="submit"
+              [disabled]="!fields.valid"><i class="fa-solid fa-plus"></i>
               Add Field</button>
+            <button class="btn btn-lg btn-warning" (click)="reset()" type="button"><i class="fa-solid fa-soap"></i>
+              Reset</button>
           </div>
         </form>
       </div>
