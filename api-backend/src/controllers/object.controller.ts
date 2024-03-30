@@ -13,7 +13,6 @@ export const getObjects = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
-
 export const getObject = async (req: Request, res: Response) => {
   try {
     const objects = await Objects.findById(req.params.id);
@@ -103,13 +102,17 @@ export const updateObjectFields = async (req: Request, res: Response) => {
       type,
     });
 
-    const query = { _id: req.params.id };
-
     console.log("DATA", newfield);
 
-    const updateTemplate = { $push: { SubFields: newfield } };
+    const query = {
+      _id: req.params.id,
+      "fields.0.SubFields": { $exists: false },
+    };
 
-    await Objects.updateOne(query, updateTemplate);
+    const updateTemplate = { $set: {} };
+
+    const result = await Objects.updateOne(query, updateTemplate);
+    console.log(result);
     res.status(201).json({ message: "The object subfield was updated" });
   } catch (error) {
     console.error(error);

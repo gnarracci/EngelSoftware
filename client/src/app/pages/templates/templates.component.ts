@@ -43,7 +43,7 @@ export class TemplatesComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private companyServie: CompanyService,
+    private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private temp: TemplatesService,
     private router: Router
@@ -87,7 +87,7 @@ export class TemplatesComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companyServie.getCompanies().subscribe((res) => {
+    this.companyService.getCompanies().subscribe((res) => {
       this.companyData = res;
       // console.log('COMPANIES', this.companyData);
     });
@@ -101,9 +101,9 @@ export class TemplatesComponent implements OnInit {
   }
 
   onChange() {
-    if(this.fields.value.container) {
+    if (this.fields.value.container) {
       this.verif = true;
-    }else{
+    } else {
       this.verif = false;
     }
   }
@@ -189,41 +189,39 @@ export class TemplatesComponent implements OnInit {
   }
 
   newFields() {
-    if (this.fields.valid) {
-      if (localStorage.getItem('idc') === null) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'You must select a Template to continue!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        this.newField = this.fields.value;
-        const idr = JSON.parse(localStorage.getItem('idc')!);
-        const id = idr._id;
-        const updatedField = this.fields.value;
-        this.temp.updateObj(id, updatedField).subscribe(
-          (res) => {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'These fields have been added!',
-              showConfirmButton: false,
-              timer: 1300,
-            });
-            console.log(res);
-            this.fields.reset();
-          },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
-        );
-      }
+    if (localStorage.getItem('idc') === null) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'You must select a Template to continue!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      this.newField = this.fields.value;
+      const idr = JSON.parse(localStorage.getItem('idc')!);
+      const id = idr._id;
+      const updatedField = this.fields.value;
+      this.temp.updateObj(id, updatedField).subscribe(
+        (res) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'These fields have been added!',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+          console.log(res);
+          this.fields.reset();
+        },
+        (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      );
     }
   }
 
   updateSubFields() {
-    if(this.fields.valid) {
-      if(localStorage.getItem('idc') === null) {
+    if (this.fields.valid) {
+      if (localStorage.getItem('idc') === null) {
         Swal.fire({
           position: 'center',
           icon: 'warning',
@@ -258,13 +256,13 @@ export class TemplatesComponent implements OnInit {
   }
 
   reset() {
-    if(this.fields.valid) {
+    if (this.fields.valid) {
       this.fields.reset();
     }
   }
 
   clear() {
-    if(this.template.valid) {
+    if (this.template.valid) {
       this.template.reset();
     }
   }

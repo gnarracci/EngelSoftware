@@ -17,3 +17,7 @@ export const deleteTemplate = async (req: Request, res: Response) => {
       res.status(500).json({ message: "Something went wrong!" });
     }
   };
+
+export const searcher = async  (req:Request, res:Response) => {
+  
+}

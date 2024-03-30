@@ -1,5 +1,10 @@
 <app-nav></app-nav>
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="text-end"><i class="fa-solid fa-user"></i> {{ userLogged.username }}</h6>
+    </div>
+  </div>
   <div class="jumbotron">
     <h1 class="display-4"><i class="fa-solid fa-sheet-plastic"></i> Templates View</h1>
     <hr class="my-2" />
@@ -8,41 +13,88 @@
     </p>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12 text-end">
+      <button type="button" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i> Export to PDF</button>
+    </div>
+    <hr class="my-2">
+  </div>
+  <form [formGroup]="searchForm">
+    <!-- Companies -->
+    <div class="row">
+      <div class="col-md-4">
+        <div>
+          <label for="exampleSelect1" class="form-label mt-4">Companies</label>
+          <select class="form-select" (change)="onSelectChange($event)" formControlName="companies">
+            <option value=""> -- Select Company -- </option>
+            <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+          </select>
+          <small id="emailHelp" class="form-text text-muted">Select Company.</small>
+        </div>
+      </div>
+      <!-- Templates -->
+      <div class="col-md-4">
+        <div>
+          <label for="exampleSelect1" class="form-label mt-4">Templates</label>
+          <select class="form-select" (change)="onSelectChange_1($event)" formArrayName="templates">
+            <option value=""> -- Select Template -- </option>
+            <option *ngFor="let option of objList" [value]="option.name"> {{ option.name }} </option>
+          </select>
+          <small id="emailHelp" class="form-text text-muted">Select Template.</small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div>
+          <label for="exampleInputEmail1" class="form-label mt-4">Template Code</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" formControlName="code"
+            placeholder="Type Code">
+          <small id="emailHelp" class="form-text text-muted">Type Template Code</small>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="filterbyTemplate()">Search</button>
+      <hr class="my-2">
+    </div>
+  </form>
+  <div class="row" *ngFor="let item of filtrated">
+    <div class="col-md-6">
       <div>
-        <label for="exampleSelect1" class="form-label mt-4">Companies</label>
-        <select class="form-select" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+        <div>
+          <fieldset>
+            <label class="form-label mt-4" for="readOnlyInput">Installation / Object</label>
+            <div class="form-control"> {{ item.type_obj }} </div>
+          </fieldset>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div>
-        <label for="exampleSelect1" class="form-label mt-4">Templates</label>
-        <select class="form-select" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+        <label for="exampleInputEmail1" class="form-label mt-4">Management Area</label>
+        <div class="form-control"> {{ item.name }} </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div>
-        <label for="exampleSelect1" class="form-label mt-4">Object Code</label>
-        <select class="form-select" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+    <hr class="my-2">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-info mb-3">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <div *ngFor="let val of totFlds">
+              <form>
+                <label>{{ val.label }}</label>
+                <input class="form-control"
+                  type="{{ val.type }}"
+                  name="{{ val.name }}"
+                  [placeholder]="val.name"
+                  [required]="val.requ"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Other -->
+      
     </div>
+
   </div>
 </div>

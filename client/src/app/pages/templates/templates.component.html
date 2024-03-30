@@ -33,7 +33,7 @@
             <input type="text" class="form-control mt-2" formControlName="name" placeholder="Add Template Name">
           </div>
           <div>
-            <input type="text" class="form-control mt-2" formControlName="type_obj" placeholder="Template Type" />
+            <input type="number" class="form-control mt-2" formControlName="type_obj" placeholder="Template Code" />
           </div>
         </form>
         <div class="d-grid gap-2">
@@ -94,7 +94,7 @@
               Is an Event Title
             </label>
           </div>
-          <div class="form-check mt-2" *ngIf="!verif">
+          <div class="form-check mt-2">
             <input class="form-check-input mt-2" type="checkbox" value="" formControlName="req">
             <label class="form-check-label" for="flexCheckDefault">
               Required
@@ -113,8 +113,8 @@
             </select>
           </div>
           <div class="d-grid gap-2 mt-2">
-            <button class="btn btn-lg btn-primary" (click)="verif ? newFields() : updateSubFields()" type="submit"
-              [disabled]="!fields.valid"><i class="fa-solid fa-plus"></i>
+            <button class="btn btn-lg btn-primary" (click)="newFields()" type="submit"><i
+                class="fa-solid fa-plus"></i>
               Add Field</button>
             <button class="btn btn-lg btn-warning" (click)="reset()" type="button"><i class="fa-solid fa-soap"></i>
               Reset</button>

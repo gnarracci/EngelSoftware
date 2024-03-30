@@ -25,6 +25,12 @@ export class TemplatesService {
       .pipe(catchError(this.handlerError));
   }
 
+  getOneObj(id: string): Observable<Obj> {
+    return this.http
+      .get<Obj>(`${this.API_URI}api/objects/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
   getAllDatatypes(): Observable<Types> {
     return this.http
       .get<Types>(`${this.API_URI}api/types`)
@@ -48,6 +54,7 @@ export class TemplatesService {
       .delete<Obj>(`${this.API_URI}api/objects/${id}`)
       .pipe(catchError(this.handlerError));
   }
+
 
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
