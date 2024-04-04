@@ -25,6 +25,11 @@ import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TreeModule } from 'primeng/tree';
 import { TemplateDocumentComponent } from './pages/template-document/template-document.component';
+import { InstallationsComponent } from './pages/installations/installations.component';
+import { InstallationConfigComponent } from './pages/installation-config/installation-config.component';
+import { DynamicDocumentsComponent } from './pages/dynamic-documents/dynamic-documents.component';
+import { DescriptionTemplateComponent } from './pages/description-template/description-template.component';
+import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,12 @@ import { TemplateDocumentComponent } from './pages/template-document/template-do
     CompaniesComponent,
     NotallowedComponent,
     FilterPipe,
-    TemplateDocumentComponent
+    TemplateDocumentComponent,
+    InstallationsComponent,
+    InstallationConfigComponent,
+    DynamicDocumentsComponent,
+    DescriptionTemplateComponent,
+    HistoricalActivitiesComponent
   ],
   imports: [
     BrowserModule,

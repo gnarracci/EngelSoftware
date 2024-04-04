@@ -8,6 +8,7 @@ import { Roles } from 'src/app/interfaces/roles';
 })
 export class RoleService {
   API_URI = 'http://localhost:5000/';
+  //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 

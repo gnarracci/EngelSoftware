@@ -15,6 +15,11 @@ import { authGuard } from './guards/authguard.guard';
 import { hasRoleGuard } from './guards/has-role.guard';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 import { TemplateDocumentComponent } from './pages/template-document/template-document.component';
+import { InstallationsComponent } from './pages/installations/installations.component';
+import { InstallationConfigComponent } from './pages/installation-config/installation-config.component';
+import { DynamicDocumentsComponent } from './pages/dynamic-documents/dynamic-documents.component';
+import { DescriptionTemplateComponent } from './pages/description-template/description-template.component';
+import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -80,7 +85,32 @@ const routes: Routes = [
   {
     path: 'template-document',
     component: TemplateDocumentComponent,
-    data: { roles: ['admin', 'user'] }
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'installations',
+    component: InstallationsComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'installation-config',
+    component: InstallationConfigComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'dynamic-documents',
+    component: DynamicDocumentsComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'description-template',
+    component: DescriptionTemplateComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'historical-activities',
+    component: HistoricalActivitiesComponent,
+    data: { roles: ['admin', 'user'] },
   },
   { path: '**', component: NotfoundComponent },
 ];

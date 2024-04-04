@@ -1,0 +1,96 @@
+<app-nav></app-nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="text-end"><i class="fa-solid fa-user"></i> {{ userLogged.username }}</h6>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <h1 class="display-4"><i class="fa-solid fa-gears"></i> Installation Management</h1>
+    <hr class="my-2" />
+    <p class="lead">
+      Object Setup
+    </p>
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">General</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1"
+              role="tab">Associated Data Template</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#dropdown1" aria-selected="false" tabindex="-1"
+              role="tab">Associated Description Template</a>
+          </li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade show active" id="home" role="tabpanel">
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="code" class="col-sm-2 col-form-label">Code:</label>
+                  <div>
+                    <input type="text" class="form-control" id="code" placeholder="Code">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <label for="descrip" class="col-sm-2 col-form-label">Description:</label>
+                  <div>
+                    <input type="text" class="form-control" id="descrip" placeholder="Name / Description">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <label for="instal" class="col-sm-2 col-form-label">Installation Type:</label>
+                  <div>
+                    <input type="text" class="form-control" id="instal" placeholder="Installation Type">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="start" class="col-sm-4 col-form-label">Start Date:</label>
+                  <div>
+                    <input type="date" class="form-control" id="start">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="btn-group mt-4">
+                    <button class="btn btn-lg btn-primary me-2" type="button"><i class="fa-solid fa-circle-check"></i>
+                      Save</button>
+                    <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
+                      Clear</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <hr class="my-2">
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1
+              labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
+              beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+              vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+          </div>
+          <div class="tab-pane fade" id="dropdown1">
+            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
+              fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
+              skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
+              gentrify squid 8-bit cred pitchfork.</p>
+          </div>
+          <div class="tab-pane fade" id="dropdown2">
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+              cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+              locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they
+              sold out farm-to-table VHS viral locavore cosby sweater.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

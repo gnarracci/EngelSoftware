@@ -9,6 +9,7 @@ import { Companies } from 'src/app/interfaces/companies';
 export class CompanyService {
 
   API_URI = 'http://localhost:5000/';
+  //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) { }
 
