@@ -1,28 +1,23 @@
 import { Schema, model, Document} from "mongoose";
-
 export interface IFields extends Document {
-    name: string,
-    order: number,
-    type: string,
-    label: string,
-    requ: boolean,
-    container: boolean,
-    evtitle: boolean,
-    temp: string
+    fld_name: string;
+    is_container: boolean;
+    order: number;
+    type: string;
+    requ: boolean;
+    par: string;
 }
 
-const fieldsSchema = new Schema({
-    name: String,
+const objectSchema = new Schema({
+    fld_name: String,
+    is_container: Boolean,
     order: Number,
-    label: String,
     type: String,
     requ: Boolean,
-    container: Boolean,
-    evtitle: Boolean,
-    temp: String,
-    SubFields: []
+    par: String
 },{
-    versionKey: false
+    versionKey: false,
+    timestamps: true
 })
 
-export default model<IFields>('Fields', fieldsSchema);
+export default model<IFields>('Template', objectSchema);

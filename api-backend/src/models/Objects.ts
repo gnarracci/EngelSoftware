@@ -1,21 +1,20 @@
 import { Schema, model, Document} from "mongoose";
 
 export interface IObject extends Document {
-    name: string;
-    build_user: string;
-    edit_user: string;
-    type_obj: string,
-    companies: string,
-    fields: String[]
+    code: string;
+    descrip: string;
+    inst_type: any;
+    sdate: Date
 }
 
 const objectSchema = new Schema({
-    name: String,
-    build_user: String,
-    edit_user: String,
-    companies: String,
-    type_obj: String,
-    fields: Array
+    code: String,
+    descrip: String,
+    inst_type: [{
+        ref: "Template",
+        type: Schema.Types.ObjectId
+    }],
+    sdate: Date
 },{
     versionKey: false,
     timestamps: true

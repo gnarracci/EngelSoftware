@@ -1,15 +1,14 @@
 import { Schema, model, Document} from "mongoose";
-
 export interface ITemplate extends Document {
-    companies: string;
-    dma: string;
-    fields?: string[]
+    name_templ: String,
+    fields: [{
+        ref: "Fields",
+        type: Schema.Types.ObjectId
+    }]
 }
 
 const objectSchema = new Schema({
-    companies: String,
-    dma: String,
-    fields: [String]
+    name_templ: String    
 },{
     versionKey: false,
     timestamps: true

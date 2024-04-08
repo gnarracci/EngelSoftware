@@ -10,9 +10,8 @@ import usersRoutes from "./routes/users";
 import companyRoutes from "./routes/companies";
 import rolesRoutes from "./routes/roles";
 import objectsRoutes from './routes/objects';
-import templateRoutes from './routes/template';
 import typeRoutes from "./routes/type";
-import fieldsRoutes from './routes/fields';
+import dynamicsDocs from "./routes/dynamicdoc";
 
 const app: Application = express();
 createRoles();
@@ -29,9 +28,8 @@ app.use("/api/users", usersRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/roles", rolesRoutes);
 app.use("/api/objects", objectsRoutes);
-app.use("/api/templates", templateRoutes);
-app.use('/api/types', typeRoutes);
-app.use('/api/fields', fieldsRoutes);
+app.use("/api/types", typeRoutes);
+app.use("/api/dynamics", dynamicsDocs);
 
 // Settings
 app.set("port", process.env.PORT || 4000);

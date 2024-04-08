@@ -42,7 +42,8 @@ export const saveType = async (req: Request, res: Response) => {
 
   // Save new company
   try {
-    await saveType.save();
+    console.log('TYPE', saveType)
+    //await saveType.save();
     res.status(200).json({ message: "Datatype has been saved successfully!" });
   } catch (error) {
     console.error(error);
