@@ -18,7 +18,8 @@
             </select>
           </div>
           <div class="d-grid gap-2">
-            <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i class="fa-solid fa-plus"></i> New
+            <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i
+                class="fa-solid fa-plus"></i> New
               Installation</button>
           </div>
         </form>
@@ -30,20 +31,28 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col"></th>
               <th scope="col">Code</th>
               <th scope="col">Type</th>
               <th scope="col">Description</th>
               <th scope="col">Associated Data Models</th>
               <th scope="col">Start Date</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="table-dark">
-              <th scope="row">Dark</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
+            <tr class="table-dark" *ngFor="let item of objData">
+              <th scope="row">
+                <i class="fa-solid fa-folder"></i>
+              </th>
+              <th scope="row"> {{ item.code }} </th>
+              <td> {{ item.name_templ[0].name_templ }} </td>
+              <td>  {{ item.descrip }} </td>
+              <td> {{ item.adm }}  </td>
+              <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
+              <td>
+                <i class="fa-solid fa-trash text-danger"></i>
+              </td>
             </tr>
           </tbody>
         </table>

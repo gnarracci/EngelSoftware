@@ -4,8 +4,9 @@ const router: Router = Router();
 
 
 import { AuthJwt } from '../libs';
-import { saveTemplate } from '../controllers/dynamicdoc';
+import { getTemplates, saveTemplate } from '../controllers/dynamicdoc.controller';
 
+router.get('/', getTemplates);
 router.post('/', saveTemplate);
 
 

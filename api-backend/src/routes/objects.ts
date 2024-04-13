@@ -4,7 +4,7 @@ const router: Router = Router();
 
 
 import { AuthJwt } from '../libs';
-import { deleteObject, getObject, getObjects, saveObject, saveTemplate, updateObject} from '../controllers/object.controller';
+import { deleteObject, getObject, getObjects, saveObject, updateObject} from '../controllers/object.controller';
 
 router.get('/', getObjects);
 router.get('/:id', getObject);

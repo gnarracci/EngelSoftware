@@ -12,4 +12,81 @@
       Dynamic Documents
     </p>
   </div>
+  <div class="row nb-2">
+    <!-- Folders -->
+    <div class="col-md-6">
+      <form [formGroup]="templateForm">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" formControlName="label"
+            placeholder="Data Management Area:">
+          <label for="floatingInput">New Model</label>
+        </div>
+        <hr class="my-2">
+        <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
+      </form>
+      <hr class="my-2">
+    </div>
+    <!-- New Fields -->
+    <div class="col-md-6">
+      <div>
+        <select class="form-select">
+          <option value=""> -- Select Company -- </option>
+          <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+        </select>
+      </div>
+      <hr class="my-2">
+      <legend><i class="fa-solid fa-table-list"></i> Template New Fields</legend>
+      <hr class="my-2">
+      <!-- New Templates Fields -->
+      <form >
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="Name Field">
+          <label for="floatingInput">Name Field</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input mt-2" type="checkbox" value="">
+          <label class="form-check-label" for="flexCheckDefault">
+            Is a Container
+          </label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control mt-2" id="floatingInput" placeholder="Order">
+          <label for="floatingInput">Order</label>
+        </div>
+        <div>
+          <label for="exampleSelect1" class="form-label mt-2">Input Type</label>
+          <select class="form-select" id="exampleSelect1">
+            <option value=""> -- Select Input Type --</option>
+            <option *ngFor="let item of dataType" [value]="item.type"> {{ item.type }} </option>
+          </select>
+        </div>
+        <div class="form-check mt-2">
+          <input class="form-check-input mt-2" type="checkbox" value="">
+          <label class="form-check-label" for="flexCheckDefault">
+            Required
+          </label>
+        </div>
+        <div>
+          <label for="exampleSelect3" class="form-label mt-2">Parent</label>
+          <select class="form-select" id="exampleSelect3">
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr class="my-2">
+  <!-- Actions Buttons -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="btn-group mt-4">
+        <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveNewModel()"><i
+            class="fa-solid fa-circle-check"></i>
+          Save</button>
+        <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
+          Clear</button>
+      </div>
+    </div>
+  </div>
 </div>

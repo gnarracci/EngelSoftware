@@ -49,7 +49,6 @@ export class TemplateDocumentComponent implements OnInit {
   ngOnInit(): void {
     this.getCompanies();
     this.dataUser();
-    this.getAllObj();
 }
 
   dataUser() {
@@ -64,23 +63,7 @@ export class TemplateDocumentComponent implements OnInit {
       console.log('COMPANIES', this.companyData);
     });
   }
-  getAllObj() {
-    this.temp.getAllObj().subscribe(
-      res => {
-        this.objList = res;
-        console.log('TEMPLATES', this.objList);
-      }
-    )
-  }
 
-  getOneTemplate(id: string) {
-    this.temp.getOneObj(id).subscribe(
-      res => {
-        this.oneObj = res;
-        console.log('ONE OBJ', this.oneObj);
-      }
-    )
-  }
 
   onSelectChange(event: any) {
     const selectedValue = event.target.value;    

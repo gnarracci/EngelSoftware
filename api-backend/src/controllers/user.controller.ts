@@ -34,7 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
       password,
     });
 
-    // Role Setuo
+    // Role Setup
     if (role) {
       const foundRoles = await Role.find({ role: { $in: role } });
       user.role = foundRoles.map((role) => role._id);
@@ -78,8 +78,8 @@ export const editUser = async (req: Request, res: Response) => {
 
     console.log(us);
 
-    us = await User.findOneAndUpdate({ _id: req.params.id }, us, { new: true });
-    res.status(200).json({ message: "User has been updated successfully!" });
+    await User.findOneAndUpdate({ _id: req.params.id }, us, { new: true });
+    res.status(201).json({ message: "User has been updated successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });

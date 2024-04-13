@@ -1,34 +1,32 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Obj } from 'src/app/interfaces/objects';
-import { Template } from 'src/app/interfaces/template';
-import { Types } from 'src/app/interfaces/types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TemplatesService {
+export class ObjectsService {
   API_URI = 'http://localhost:5000/';
   //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 
-  saveTemp(data: Template): Observable<Template> {
+  getObjs(): Observable<Obj> {
     return this.http
-      .post<Template>(`${this.API_URI}api/dynamics`, data)
+      .get<Obj>(`${this.API_URI}api/objects`)
       .pipe(catchError(this.handlerError));
   }
 
-  getAllDatatypes(): Observable<Types> {
+  saveObjs(data: Obj): Observable<Obj> {
     return this.http
-      .get<Types>(`${this.API_URI}api/types`)
+      .post<Obj>(`${this.API_URI}api/objects`, data)
       .pipe(catchError(this.handlerError));
   }
 
-  getAllTemplates(): Observable<Template> {
+  updateObj(id: string, val: string): Observable<Obj> {
     return this.http
-      .get<Template>(`${this.API_URI}api/dynamics`)
+      .put<Obj>(`${this.API_URI}api/objects/${id}`, val)
       .pipe(catchError(this.handlerError));
   }
 
@@ -39,7 +37,7 @@ export class TemplatesService {
       console.error('Server return status code', error.status, error.error);
     }
     return throwError(
-      () => new Error('Something went wrong!, please try again')
+      () => new Error('Something went wrong, please try again')
     );
   }
 }

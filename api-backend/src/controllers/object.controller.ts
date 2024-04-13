@@ -4,11 +4,9 @@ import Template from "../models/Template";
 
 export const getObjects = async (req: Request, res: Response) => {
   try {
-    const objects = await Objects.find();
+    const objects = await Objects.find().populate("name_templ");
     if (objects.length > 0) {
-      res.status(200).json(objects);
-    } else {
-      res.status(404).json({ message: "No Objects found!" });
+      res.status(201).json(objects);
     }
   } catch (error) {
     console.error(error);
@@ -17,11 +15,13 @@ export const getObjects = async (req: Request, res: Response) => {
 };
 export const getObject = async (req: Request, res: Response) => {
   try {
-    const objects = await Objects.findById(req.params.id);
+    const objects = await Objects.findById(req.params.id).populate(
+      "name_templ"
+    );
     if (!objects) {
       res.status(404).json({ message: "Object wasn't found!" });
     } else {
-      res.status(200).json(objects);
+      res.status(201).json(objects);
     }
   } catch (error) {
     console.error(error);
@@ -30,24 +30,33 @@ export const getObject = async (req: Request, res: Response) => {
 };
 
 export const saveObject = async (req: Request, res: Response) => {
-  const { code, descrip, inst_type, sdate } = req.body;
+  const { code, descrip, name_templ, company, adm } = req.body;
 
   //If previously exits
-  const objects = await Objects.findOne({ name: req.body.name });
+  const objects = await Objects.findOne({ name: req.body.name_templ });
   if (objects)
     return res
       .status(400)
-      .json({ message: "Object has been registered!" });
+      .json({ message: "Object has already been registered!" });
 
   // Company Save
   const saveObject: any = new Objects({
     code,
     descrip,
-    inst_type,
-    sdate,
+    company,
+    adm
   });
 
-  // Save new company
+  // Installation Type Setup
+  if (name_templ) {
+    const foundTemp = await Template.find({ name_templ: { $in: name_templ } });
+    saveObject.name_templ = foundTemp.map((name_templ) => name_templ._id);
+  } else {
+    const role = await Template.findOne({ role: "example" });
+    saveObject.name_templ = [name_templ?._id];
+  }
+
+  // Save new Obj
   try {
     await saveObject.save();
     res.status(201).json({ message: "Object has been saved successfully!" });
@@ -59,18 +68,12 @@ export const saveObject = async (req: Request, res: Response) => {
 
 export const updateObject = async (req: Request, res: Response) => {
   try {
-    const { container, name, evtitle, label, order, temp, requ, par, type } =
-      req.body;
-
-    const query = { _id: req.params.id };
-
-    const updateTemplate = { $push: { fields: newfield } };
-
-    await Objects.updateOne(query, updateTemplate);
-    res.status(201).json({ message: "The object field was updated" });
-  } catch (error) {
+    const { adm } = req.body;
+    console.log('ADM', adm);
+  } catch(error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });
+
   }
 };
 

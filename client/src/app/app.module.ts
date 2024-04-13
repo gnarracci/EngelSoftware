@@ -16,7 +16,6 @@ import { ErrorInterceptorService } from './services/auth/error-interceptor.servi
 import { ContactusComponent } from './pages/contactus/contactus.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DocumentsComponent } from './pages/documents/documents.component';
-import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
@@ -43,7 +42,6 @@ import { HistoricalActivitiesComponent } from './pages/historical-activities/his
     ContactusComponent,
     SettingsComponent,
     DocumentsComponent,
-    TemplatesComponent,
     UsersComponent,
     TrackingComponent,
     RemindersComponent,

@@ -6,7 +6,6 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ContactusComponent } from './pages/contactus/contactus.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DocumentsComponent } from './pages/documents/documents.component';
-import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
@@ -34,12 +33,6 @@ const routes: Routes = [
     path: 'companies',
     component: CompaniesComponent,
     data: { roles: ['admin'] },
-    canActivate: [authGuard, hasRoleGuard],
-  },
-  {
-    path: 'templates',
-    component: TemplatesComponent,
-    data: { roles: ['admin', 'user'] },
     canActivate: [authGuard, hasRoleGuard],
   },
   {
