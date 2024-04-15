@@ -40,7 +40,7 @@ export class InstallationConfigComponent implements OnInit {
     descrip: ['', [Validators.required]],
     company: ['', [Validators.required]],
     adm: [''],
-    name_templ: [''],
+    label: [''],
   });
 
   ngOnInit(): void {

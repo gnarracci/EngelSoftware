@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { Template } from 'src/app/interfaces/template';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { DataTypesService } from 'src/app/services/data-types.service';
+import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { TemplatesService } from 'src/app/services/template/templates.service';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
@@ -14,9 +15,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dynamic-documents.component.scss'],
 })
 export class DynamicDocumentsComponent implements OnInit {
-  loading: boolean = false;
-
-  files!: TreeNode[];
 
   userLogged: any = [];
 
@@ -24,24 +22,81 @@ export class DynamicDocumentsComponent implements OnInit {
 
   dataType: any = [];
 
+  objs: any = [];
+
+  obj: any = [];
+
+  dataTempl: any = [];
+
+  showForm: Boolean = false;
+
+  showField: any
+
   saveError: string = '';
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private companyService: CompanyService,
     private templateService: TemplatesService,
-    private typesService: DataTypesService
+    private typesService: DataTypesService,
+    private objService: ObjectsService
   ) {}
 
   templateForm = this.formBuilder.group({
     label: ['', [Validators.required, Validators.minLength(3)]],
   });
 
+  templForm = this.formBuilder.group({
+    fld_name: ['', [Validators.required, Validators.minLength(4)]],
+    is_container: [null],
+    label: ['', [Validators.required]],
+    order: [''],
+    type: [''],
+    requ: [null],
+    par: ['']
+  });
+
   ngOnInit(): void {
     this.dataUser();
     this.getCompanies();
     this.getAllDatatypes();
-    this.loading = true;
+    this.getAllObjs();
+  }
+
+  selectedTempl(id: string) {
+    console.log('SELECTED', id)
+  }
+
+  showForml() {
+    if(this.dataTempl.length > 0) {
+      this.showForm = true;
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Oops',
+        text: 'You must select a template!',
+        showConfirmButton: false,
+        timer: 1300,
+      });
+    }
+  }
+
+  onChange(event: any) {
+    this.showField = event.target.checked
+
+  }
+
+  getTemplateName(id: string) {    
+    this.templateService.getNameTemplate(id).subscribe(res => {
+      this.dataTempl = res;
+      console.log('ONE TEMPLATE', this.dataTempl);
+    })
+  }
+
+  saveFields() {
+    console.log(this.templForm.value);
+
   }
 
   dataUser() {
@@ -63,6 +118,18 @@ export class DynamicDocumentsComponent implements OnInit {
       this.dataType = res;
       console.log('TYPES', this.dataType);
     });
+  }
+
+  getAllObjs() {
+    this.objService.getObjs().subscribe(
+      (res: any) => {
+        this.objs = res;
+        console.log('OBJS', this.objs);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   saveNewModel() {
@@ -98,5 +165,11 @@ export class DynamicDocumentsComponent implements OnInit {
           },
         });
     }
+  }
+
+
+  reset() {
+    this.templateForm.reset();
+    this.templForm.reset();
   }
 }

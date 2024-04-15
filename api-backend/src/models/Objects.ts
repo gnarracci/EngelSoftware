@@ -5,7 +5,7 @@ export interface IObject extends Document {
     descrip: string;
     company: string;
     adm: string;
-    name_templ: any;
+    label: any;
 }
 
 const objectSchema = new Schema({
@@ -13,7 +13,7 @@ const objectSchema = new Schema({
     descrip: String,
     company: String,
     adm: String,
-    name_templ: [{
+    label: [{
         ref: "Template",
         type: Schema.Types.ObjectId
     }]

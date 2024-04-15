@@ -4,7 +4,7 @@ import Template from "../models/Template";
 
 export const getObjects = async (req: Request, res: Response) => {
   try {
-    const objects = await Objects.find().populate("name_templ");
+    const objects = await Objects.find().populate("label");
     if (objects.length > 0) {
       res.status(201).json(objects);
     }
@@ -30,10 +30,10 @@ export const getObject = async (req: Request, res: Response) => {
 };
 
 export const saveObject = async (req: Request, res: Response) => {
-  const { code, descrip, name_templ, company, adm } = req.body;
+  const { code, descrip, label, company, adm } = req.body;
 
   //If previously exits
-  const objects = await Objects.findOne({ name: req.body.name_templ });
+  const objects = await Objects.findOne({ name: req.body.label });
   if (objects)
     return res
       .status(400)
@@ -48,12 +48,12 @@ export const saveObject = async (req: Request, res: Response) => {
   });
 
   // Installation Type Setup
-  if (name_templ) {
-    const foundTemp = await Template.find({ name_templ: { $in: name_templ } });
-    saveObject.name_templ = foundTemp.map((name_templ) => name_templ._id);
+  if (label) {
+    const foundTemp = await Template.find({ label: { $in: label } });
+    saveObject.label = foundTemp.map((name_templ) => name_templ._id);
   } else {
     const role = await Template.findOne({ role: "example" });
-    saveObject.name_templ = [name_templ?._id];
+    saveObject.label = [label?._id];
   }
 
   // Save new Obj

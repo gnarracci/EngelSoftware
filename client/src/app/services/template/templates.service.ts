@@ -32,6 +32,18 @@ export class TemplatesService {
       .pipe(catchError(this.handlerError));
   }
 
+  getTemplate(id: string): Observable<Template> {
+    return this.http
+      .get<Template>(`${this.API_URI}api/dynamics/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  getNameTemplate(id: string): Observable<Template> {
+    return this.http
+      .get<Template>(`${this.API_URI}api/dynamics/nt/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error has occurred', error.error);

@@ -12,7 +12,7 @@
       Dynamic Documents
     </p>
   </div>
-  <div class="row nb-2">
+  <div class="row mb-3">
     <!-- Folders -->
     <div class="col-md-6">
       <form [formGroup]="templateForm">
@@ -22,7 +22,31 @@
           <label for="floatingInput">New Model</label>
         </div>
         <hr class="my-2">
-        <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
+        <!-- Templates List -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Model</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="table-dark" *ngFor="let item of objs">
+              <td scope="row">
+                <i class="fa-solid fa-check"
+                  (click)="selectedTempl(item.label[0]._id); getTemplateName(item.label[0]._id)"></i>
+              </td>
+              <td scope="row"> {{ item.label[0].label }} </td>
+              <td>
+                <i class="fa-solid fa-eye"></i>
+                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                <i class="fa-solid fa-trash text-danger"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </form>
       <hr class="my-2">
     </div>
@@ -37,38 +61,60 @@
       <hr class="my-2">
       <legend><i class="fa-solid fa-table-list"></i> Template New Fields</legend>
       <hr class="my-2">
+      <!-- Selected Model -->
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <div class="card border-primary mb-3">
+            <div class="card-body">
+              <h5 class="card-title"> {{ dataTempl }} </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-grid gap-2">
+            <button class="btn btn-lg btn-primary" type="button" (click)="showForml()"><i class="fa-solid fa-plus"></i>
+              New Field</button>
+          </div>
+        </div>
+      </div>
       <!-- New Templates Fields -->
-      <form >
+      <form *ngIf="showForm" [formGroup]="templForm">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInput" placeholder="Name Field">
+          <input type="text" class="form-control" id="floatingInput" formControlName="fld_name"
+            placeholder="Name Field">
           <label for="floatingInput">Name Field</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input mt-2" type="checkbox" value="">
+          <input class="form-check-input mt-2" type="checkbox" formControlName="is_container" value=""
+            (change)="onChange($event)">
           <label class="form-check-label" for="flexCheckDefault">
             Is a Container
           </label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control mt-2" id="floatingInput" placeholder="Order">
+          <input type="text" class="form-control mt-2" id="floatingInput" formControlName="label" placeholder="Order">
+          <label for="floatingInput">Label</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order" placeholder="Order">
           <label for="floatingInput">Order</label>
         </div>
-        <div>
+        <div *ngIf="!showField">
           <label for="exampleSelect1" class="form-label mt-2">Input Type</label>
-          <select class="form-select" id="exampleSelect1">
+          <select class="form-select" id="exampleSelect1" formControlName="type">
             <option value=""> -- Select Input Type --</option>
             <option *ngFor="let item of dataType" [value]="item.type"> {{ item.type }} </option>
           </select>
         </div>
-        <div class="form-check mt-2">
-          <input class="form-check-input mt-2" type="checkbox" value="">
+        <div class="form-check mt-2" *ngIf="!showField">
+          <input class="form-check-input mt-2" type="checkbox" formControlName="requ" value="">
           <label class="form-check-label" for="flexCheckDefault">
             Required
           </label>
         </div>
         <div>
           <label for="exampleSelect3" class="form-label mt-2">Parent</label>
-          <select class="form-select" id="exampleSelect3">
+          <select class="form-select" id="exampleSelect3" formControlName="par">
             <option>1</option>
             <option>2</option>
           </select>
@@ -81,10 +127,10 @@
   <div class="row">
     <div class="col-md-8">
       <div class="btn-group mt-4">
-        <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveNewModel()"><i
-            class="fa-solid fa-circle-check"></i>
+        <button class="btn btn-lg btn-primary me-2" type="button"
+          (click)="templateForm.invalid ? saveFields() : saveNewModel()"><i class="fa-solid fa-circle-check"></i>
           Save</button>
-        <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
+        <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser" (click)="reset()"></i>
           Clear</button>
       </div>
     </div>

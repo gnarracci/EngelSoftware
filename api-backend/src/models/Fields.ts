@@ -1,16 +1,18 @@
 import { Schema, model, Document} from "mongoose";
 export interface IFields extends Document {
-    fld_name: string;
+    name: string;
     is_container: boolean;
+    label: string;
     order: number;
     type: string;
     requ: boolean;
     par: string;
 }
 
-const objectSchema = new Schema({
-    fld_name: String,
+const fieldsSchema = new Schema({
+    name: String,
     is_container: Boolean,
+    label: String,
     order: Number,
     type: String,
     requ: Boolean,
@@ -20,4 +22,4 @@ const objectSchema = new Schema({
     timestamps: true
 })
 
-export default model<IFields>('Template', objectSchema);
+export default model<IFields>('Fields', fieldsSchema);
