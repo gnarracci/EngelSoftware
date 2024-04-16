@@ -30,6 +30,12 @@ export class ObjectsService {
       .pipe(catchError(this.handlerError));
   }
 
+  deleteObj(id: string): Observable<Obj> {
+    return this.http
+      .delete<Obj>(`${this.API_URI}api/objects/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error has occurred', error.error);
@@ -40,5 +46,4 @@ export class ObjectsService {
       () => new Error('Something went wrong, please try again')
     );
   }
-  
 }

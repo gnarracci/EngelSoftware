@@ -26,6 +26,10 @@ export class DynamicDocumentsComponent implements OnInit {
 
   obj: any = [];
 
+  Templs: any = [];
+
+  data: any = [];
+
   dataTempl: any = [];
 
   showForm: Boolean = false;
@@ -61,6 +65,7 @@ export class DynamicDocumentsComponent implements OnInit {
     this.getCompanies();
     this.getAllDatatypes();
     this.getAllObjs();
+    this.getAllTempl();
   }
 
   selectedTempl(id: string) {
@@ -84,7 +89,6 @@ export class DynamicDocumentsComponent implements OnInit {
 
   onChange(event: any) {
     this.showField = event.target.checked
-
   }
 
   getTemplateName(id: string) {    
@@ -132,6 +136,18 @@ export class DynamicDocumentsComponent implements OnInit {
     )
   }
 
+  getAllTempl() {
+    this.templateService.getAllTemplates().subscribe(
+      res => {
+        this.Templs = res;
+        console.log('TEMPLS', this.Templs);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
   saveNewModel() {
     if (this.templateForm.valid) {
       this.templateService
@@ -160,7 +176,7 @@ export class DynamicDocumentsComponent implements OnInit {
               showConfirmButton: false,
               timer: 1300,
             });
-
+            this.getAllTempl();
             this.templateForm.reset();
           },
         });

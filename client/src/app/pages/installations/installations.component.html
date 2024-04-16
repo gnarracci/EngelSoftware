@@ -51,7 +51,7 @@
               <td> {{ item.adm }}  </td>
               <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
               <td>
-                <i class="fa-solid fa-trash text-danger"></i>
+                <i class="fa-solid fa-trash text-danger" (click)="deleteObj(item._id)"></i>
               </td>
             </tr>
           </tbody>

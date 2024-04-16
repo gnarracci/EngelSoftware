@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-installations',
@@ -23,8 +24,8 @@ export class InstallationsComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.dataUser();
-    this.getCompanies();
     this.getObjs();
+    this.getCompanies();
   }
 
   dataUser() {
@@ -49,4 +50,29 @@ export class InstallationsComponent implements OnInit {
       }
     )
   }
+
+  deleteObj(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        //Want Delete
+        this.objService.deleteObj(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.getObjs();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+        Swal.fire('Deleted!', 'Object selected has been deleted!.', 'success');
+      }
+    });
+  }
+
 }
