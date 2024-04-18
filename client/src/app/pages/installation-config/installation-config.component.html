@@ -47,8 +47,8 @@
                   <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Installation Type</label>
                     <select class="form-select" formControlName="label">
-                      <option value=""> -- Select Object -- </option>
-                      <option *ngFor="let obj of objs" [value]="obj.descrip"> {{ obj.descrip }} </option>
+                      <option value=""> -- Select Template -- </option>
+                      <option *ngFor="let obj of templs" [value]="obj.label"> {{ obj.label }} </option>
                     </select>
                   </div>
                 </div>

@@ -12,7 +12,6 @@ import rolesRoutes from "./routes/roles";
 import objectsRoutes from "./routes/objects";
 import typeRoutes from "./routes/type";
 import dynamicsDocs from "./routes/dynamicdoc";
-import folders from "./routes/folders";
 
 const app: Application = express();
 createRoles();
@@ -31,7 +30,6 @@ app.use("/api/roles", rolesRoutes);
 app.use("/api/objects", objectsRoutes);
 app.use("/api/types", typeRoutes);
 app.use("/api/dynamics", dynamicsDocs);
-app.use("/api/folders", folders);
 
 // Settings
 app.set("port", process.env.PORT || 4000);

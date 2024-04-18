@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { Template } from 'src/app/interfaces/template';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -34,7 +34,7 @@ export class DynamicDocumentsComponent implements OnInit {
 
   showForm: Boolean = false;
 
-  showField: any
+  showField: Boolean = false;
 
   saveError: string = '';
   constructor(
@@ -59,6 +59,16 @@ export class DynamicDocumentsComponent implements OnInit {
     requ: [null],
     par: ['']
   });
+
+  // Getters
+
+  get fld_name() {
+    return this.templForm.controls.fld_name;
+  }
+
+  get label() {
+    return this.templForm.controls.label;
+  }
 
   ngOnInit(): void {
     this.dataUser();
@@ -89,6 +99,7 @@ export class DynamicDocumentsComponent implements OnInit {
 
   onChange(event: any) {
     this.showField = event.target.checked
+    console.log(this.showField)
   }
 
   getTemplateName(id: string) {    
@@ -99,8 +110,11 @@ export class DynamicDocumentsComponent implements OnInit {
   }
 
   saveFields() {
-    console.log(this.templForm.value);
-
+    if(!this.showField){
+      alert("FORM");
+    }else{
+      alert("FOLDER");
+    }
   }
 
   dataUser() {
@@ -181,6 +195,30 @@ export class DynamicDocumentsComponent implements OnInit {
           },
         });
     }
+  }
+
+  deleteModel(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        //Want Delete
+        this.templateService.deleteTemplate(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.getAllTempl();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+        Swal.fire('Deleted!', 'Templete selected has been deleted!.', 'success');
+      }
+    });
   }
 
 
