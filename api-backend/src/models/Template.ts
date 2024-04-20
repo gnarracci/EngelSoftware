@@ -1,15 +1,12 @@
 import { Schema, model, Document} from "mongoose";
 export interface ITemplate extends Document {
     label: string;
-    folder: any;
+    folders: any;
 }
 
 const templateSchema = new Schema({
     label: String,
-    children: [{
-        ref: "Folder",
-        type: Schema.Types.ObjectId
-    }]    
+    folders: []    
 },{
     versionKey: false,
     timestamps: true

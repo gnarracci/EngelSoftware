@@ -44,7 +44,7 @@ export const saveObject = async (req: Request, res: Response) => {
     code,
     descrip,
     company,
-    adm
+    adm,
   });
 
   // Installation Type Setup
@@ -69,11 +69,10 @@ export const saveObject = async (req: Request, res: Response) => {
 export const updateObject = async (req: Request, res: Response) => {
   try {
     const { adm } = req.body;
-    console.log('ADM', adm);
-  } catch(error) {
+    console.log("ADM", adm);
+  } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });
-
   }
 };
 

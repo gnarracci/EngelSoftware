@@ -1,14 +1,16 @@
-import { Schema, model, Document} from "mongoose";
+import { Schema, model, Document, AnyArray} from "mongoose";
 
-export interface IFolder extends Document {
-    label: string
+export interface IFolders extends Document {
+    name: string;
+    fields: any;
 }
 
-const folderSchema = new Schema({
-    label: String
+const foldersSchema = new Schema({
+    name: String,
+    fields: []
+        
 },{
-    versionKey: false,
-    timestamps: true
+    versionKey: false
 })
 
-export default model<IFolder>('Folder', folderSchema);
+export default model<IFolders>('Folders', foldersSchema);

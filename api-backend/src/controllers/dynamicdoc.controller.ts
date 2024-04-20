@@ -56,22 +56,6 @@ export const saveTemplate = async (req: Request, res: Response) => {
   }
 };
 
-export const saveFields = async (req: Request, res: Response) => {
-  const { is_container, fld_name, label, order, requ, par, type } = req.body;
-
-  const newfield = new Fields({
-    is_container,
-    fld_name,
-    label,
-    order,
-    requ,
-    par,
-    type,
-  });
-
-  console.log("FORM", newfield);
-};
-
 export const deleteTemplate = async (req: Request, res: Response) => {
   try {
     let comp = await Template.findById(req.params.id);
@@ -86,18 +70,84 @@ export const deleteTemplate = async (req: Request, res: Response) => {
   }
 };
 
-// Folders
+// Folders Scripts
+
+export const getfolders = async (req: Request, res: Response) => {
+  try {
+    const folders = await Folders.find();
+    if (folders.length > 0) {
+      res.status(201).json(folders);
+    } else {
+      res.status(404).json({ message: "Folders not found!" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
 
 export const newfolder = async (req: Request, res: Response) => {
   try {
-    const { label } = req.body;
-    const newfolder = new Folders({
-      label,
+    const { name } = req.body;
+    const query = { _id: req.params.id };
+    const folderName = new Folders({
+      name,
     });
-    const id = { _id: req.params.id };
-    const folder = { $push: { children: newfolder } };
-    await Template.updateOne(id, folder);
+    const newfolder = { $push: { folders: folderName } };
+    await Template.updateOne(query, newfolder);
     res.status(201).json({ message: "Folder is saved successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
+  }
+};
+
+// Fields Scripts
+
+// No Folder
+export const newfield = async (req: Request, res: Response) => {
+  try {
+    const { name, label, order, type, requ, par } = req.body;
+    const query = { _id: req.params.id };
+    const newfields = new Fields({
+      name,
+      label,
+      order,
+      type,
+      requ,
+      par,
+    });
+    const newfield = { $push: { folders: newfields } };
+    await Template.updateOne(query, newfield);
+    res.status(201).json({ message: "Fields have been added successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
+  }
+};
+
+// With Folder
+export const newfieldwithfolder = async (req: Request, res: Response) => {
+  try {
+    const { name, label, order, type, requ, par } = req.body;
+    const query = { _id: req.params.id };
+    const updateQuery = {
+      $set: {
+        "folders.$.fields": {
+          name,
+          label,
+          order,
+          type,
+          requ,
+          par,
+        },
+      },
+    };
+    const options = { upsert: false };
+    console.log(updateQuery);
+    const newfield = { $push: { fields: updateQuery, options } };
+    await Template.updateOne(query, newfield);
+    res.status(201).json({ message: "Fields have been added successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });

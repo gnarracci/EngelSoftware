@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
 
   roleType: any = {};
 
+  currentYear: number = new Date().getFullYear();
+
   constructor(private loginService: LoginService, private userService: UserService) {}
 
   ngOnInit(): void {
