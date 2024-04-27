@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Template from "../models/Template";
 import Fields from "../models/Fields";
 import Folders from "../models/Folders";
+import Objects from "../models/Objects";
 
 export const getTemplates = async (req: Request, res: Response) => {
   try {
@@ -94,7 +95,8 @@ export const newfolder = async (req: Request, res: Response) => {
       name,
     });
     const newfolder = { $push: { folders: folderName } };
-    await Template.updateOne(query, newfolder);
+    const result = await Template.updateOne(query, newfolder);
+    console.log(result);
     res.status(201).json({ message: "Folder is saved successfully!" });
   } catch (error) {
     console.error(error);
@@ -130,23 +132,17 @@ export const newfield = async (req: Request, res: Response) => {
 export const newfieldwithfolder = async (req: Request, res: Response) => {
   try {
     const { name, label, order, type, requ, par } = req.body;
-    const query = { _id: req.params.id };
-    const updateQuery = {
-      $set: {
-        "folders.$.fields": {
-          name,
-          label,
-          order,
-          type,
-          requ,
-          par,
-        },
-      },
-    };
-    const options = { upsert: false };
-    console.log(updateQuery);
-    const newfield = { $push: { fields: updateQuery, options } };
-    await Template.updateOne(query, newfield);
+    const filter = { _id: req.params.id };
+    const newfields = new Fields({
+      name,
+      label,
+      order,
+      type,
+      requ,
+      par,
+    });
+    const newfield = { $push: { "folders.1.formfield": newfields}};
+    await Template.updateMany(filter, newfield);
     res.status(201).json({ message: "Fields have been added successfully!" });
   } catch (error) {
     console.error(error);

@@ -1,25 +1,32 @@
-import { Router } from 'express';
+import { Router } from "express";
 
 const router: Router = Router();
 
+import { AuthJwt } from "../libs";
+import {
+  deleteTemplate,
+  getfolders,
+  getTemplate,
+  getTemplates,
+  nameTemplate,
+  newfield,
+  newfieldwithfolder,
+  newfolder,
+  saveTemplate,
+} from "../controllers/dynamicdoc.controller";
 
-import { AuthJwt } from '../libs';
-import { deleteTemplate, getfolders, getTemplate, getTemplates, nameTemplate, newfield, newfieldwithfolder, newfolder, saveTemplate } from '../controllers/dynamicdoc.controller';
-
-router.get('/', getTemplates);
-router.get('/:id', getTemplate);
-router.get('/nt/:id', nameTemplate);
-router.post('/', saveTemplate);
-router.delete('/:id', deleteTemplate)
+router.get("/", getTemplates);
+router.get("/:id", getTemplate);
+router.get("/nt/:id", nameTemplate);
+router.post("/", saveTemplate);
+router.delete("/:id", deleteTemplate);
 
 // Folder
-router.get('/folders/', getfolders);
-router.put('/:id', newfolder);
+router.get("/folders/", getfolders);
+router.put("/:id", newfolder);
 
 // Fields
-router.put('/nf/:id', newfield);
-router.put('/nfwf/:id', newfieldwithfolder);
-
-
+router.put("/nf/:id", newfield);                // New Field
+router.put("/nfwf/:id", newfieldwithfolder);    // New Field with Folder
 
 export default router;

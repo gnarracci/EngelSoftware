@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dynamic-documents.component.scss'],
 })
 export class DynamicDocumentsComponent implements OnInit {
-
   userLogged: any = [];
 
   companyData: any = [];
@@ -35,6 +34,8 @@ export class DynamicDocumentsComponent implements OnInit {
   showForm: Boolean = false;
 
   showField: Boolean = false;
+
+  showTable: Boolean = true;
 
   saveError: string = '';
   constructor(
@@ -57,7 +58,7 @@ export class DynamicDocumentsComponent implements OnInit {
     order: [''],
     type: [''],
     requ: [null],
-    par: ['']
+    par: [''],
   });
 
   // Getters
@@ -79,13 +80,13 @@ export class DynamicDocumentsComponent implements OnInit {
   }
 
   selectedTempl(id: string) {
-    console.log('SELECTED', id)
+    console.log('SELECTED', id);
   }
 
   showForml() {
-    if(this.dataTempl.length > 0) {
+    if (this.dataTempl.length > 0) {
       this.showForm = true;
-    }else{
+    } else {
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -98,22 +99,22 @@ export class DynamicDocumentsComponent implements OnInit {
   }
 
   onChange(event: any) {
-    this.showField = event.target.checked
-    console.log(this.showField)
+    this.showField = event.target.checked;
+    console.log(this.showField);
   }
 
-  getTemplateName(id: string) {    
-    this.templateService.getNameTemplate(id).subscribe(res => {
+  getTemplateName(id: string) {
+    this.templateService.getNameTemplate(id).subscribe((res) => {
       this.dataTempl = res;
       console.log('ONE TEMPLATE', this.dataTempl);
-    })
+    });
   }
 
   saveFields() {
-    if(!this.showField){
-      alert("FORM");
-    }else{
-      alert("FOLDER");
+    if (!this.showField) {
+      alert('FORM');
+    } else {
+      alert('FOLDER');
     }
   }
 
@@ -141,25 +142,25 @@ export class DynamicDocumentsComponent implements OnInit {
   getAllObjs() {
     this.objService.getObjs().subscribe(
       (res: any) => {
-        this.objs = res;
-        console.log('OBJS', this.objs);
+        this.data = res;
+        console.log('OBJS', this.data);
       },
-      error => {
+      (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   getAllTempl() {
     this.templateService.getAllTemplates().subscribe(
-      res => {
+      (res) => {
         this.Templs = res;
         console.log('TEMPLS', this.Templs);
       },
-      error => {
+      (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   saveNewModel() {
@@ -216,11 +217,14 @@ export class DynamicDocumentsComponent implements OnInit {
           },
           (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
         );
-        Swal.fire('Deleted!', 'Templete selected has been deleted!.', 'success');
+        Swal.fire(
+          'Deleted!',
+          'Templete selected has been deleted!.',
+          'success'
+        );
       }
     });
   }
-
 
   reset() {
     this.templateForm.reset();

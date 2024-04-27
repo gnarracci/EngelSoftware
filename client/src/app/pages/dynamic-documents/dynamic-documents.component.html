@@ -22,30 +22,24 @@
           <label for="floatingInput">New Template</label>
         </div>
         <hr class="my-2">
-        <!-- Templates List -->
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Template</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr class="table-dark" *ngFor="let item of Templs">
-              <td scope="row">
-                <i class="fa-solid fa-check" (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
-              </td>
-              <td scope="row"> {{ item.label }} </td>
-              <td>
-                <i class="fa-solid fa-eye"></i>
-                <i class="fa-solid fa-pen-to-square text-primary"></i>
-                <i class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Treeview -->
+        <h5>Templates List</h5>
+        <div *ngFor="let item of Templs">
+          <ul class="true">
+            <li>
+              <details>
+                <summary><i class="fa-solid fa-check" (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
+                  {{ item.label }} <i class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
+                </summary>
+                <ul>
+                  <li *ngFor="let folder of item.folders">
+                    {{ folder.name }}
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
       </form>
       <hr class="my-2">
     </div>
@@ -63,11 +57,7 @@
       <!-- Selected Model -->
       <div class="row">
         <div class="col-md-6 mb-2">
-          <div class="card border-primary mb-3">
-            <div class="card-body">
-              <h5 class="card-title"> {{ dataTempl }} </h5>
-            </div>
-          </div>
+          <p class="text-success-emphasis"> {{ dataTempl }} </p>
         </div>
         <div class="col-md-6 mb-2">
           <div class="d-grid gap-2">
