@@ -135,7 +135,7 @@ export class DynamicDocumentsComponent implements OnInit {
   getAllDatatypes() {
     this.typesService.getDataTypes().subscribe((res) => {
       this.dataType = res;
-      console.log('TYPES', this.dataType);
+      // console.log('TYPES', this.dataType);
     });
   }
 

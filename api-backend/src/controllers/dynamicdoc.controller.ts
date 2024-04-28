@@ -146,6 +146,6 @@ export const newfieldwithfolder = async (req: Request, res: Response) => {
     res.status(201).json({ message: "Fields have been added successfully!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Something went Wrong!" });
+    res.status(500).json({ success: false, error: "Something went wrong!" });
   }
 };

@@ -25,15 +25,23 @@
         <!-- Treeview -->
         <h5>Templates List</h5>
         <div *ngFor="let item of Templs">
-          <ul class="true">
+          <ul class="tree">
             <li>
-              <details>
+              <details open>
                 <summary><i class="fa-solid fa-check" (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
-                  {{ item.label }} <i class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
+                  {{ item.label }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                    class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
                 </summary>
                 <ul>
                   <li *ngFor="let folder of item.folders">
-                    {{ folder.name }}
+                    <details>
+                      <summary> {{ folder.name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                          class="fa-solid fa-trash text-danger"></i></summary>
+                      <ul *ngFor="let inp of folder.formfield">
+                        <li> {{ inp.name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                            class="fa-solid fa-trash text-danger"></i></li>
+                      </ul>
+                    </details>
                   </li>
                 </ul>
               </details>
