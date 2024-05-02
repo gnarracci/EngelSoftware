@@ -35,8 +35,8 @@
                 <ul>
                   <li *ngFor="let folder of item.folders">
                     <details>
-                      <summary> {{ folder.name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                          class="fa-solid fa-trash text-danger"></i></summary>
+                      <summary> {{ folder.fld_name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                          class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i></summary>
                       <ul *ngFor="let inp of folder.formfield">
                         <li> {{ inp.name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
                             class="fa-solid fa-trash text-danger"></i></li>

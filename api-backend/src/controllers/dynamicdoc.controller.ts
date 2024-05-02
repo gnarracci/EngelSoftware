@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import Template from "../models/Template";
 import Fields from "../models/Fields";
 import Folders from "../models/Folders";
-import Objects from "../models/Objects";
 
 export const getTemplates = async (req: Request, res: Response) => {
   try {
@@ -63,7 +62,7 @@ export const deleteTemplate = async (req: Request, res: Response) => {
     if (!comp) throw new Error("The Template is not available");
     await Template.findOneAndRemove({ _id: req.params.id });
     res
-      .status(200)
+      .status(201)
       .json({ message: "Template has been deleted successfully!" });
   } catch (error) {
     console.error(error);
@@ -89,10 +88,10 @@ export const getfolders = async (req: Request, res: Response) => {
 
 export const newfolder = async (req: Request, res: Response) => {
   try {
-    const { name } = req.body;
+    const { fld_name } = req.body;
     const query = { _id: req.params.id };
     const folderName = new Folders({
-      name,
+      fld_name,
     });
     const newfolder = { $push: { folders: folderName } };
     const result = await Template.updateOne(query, newfolder);
@@ -121,7 +120,7 @@ export const newfield = async (req: Request, res: Response) => {
     });
     const newfield = { $push: { folders: newfields } };
     await Template.updateOne(query, newfield);
-    res.status(201).json({ message: "Fields have been added successfully!" });
+    res.status(201).json({ message: "Field have been added successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });
@@ -141,11 +140,22 @@ export const newfieldwithfolder = async (req: Request, res: Response) => {
       requ,
       par,
     });
-    const newfield = { $push: { "folders.1.formfield": newfields}};
+    const newfield = { $push: { "folders.0.formfield": newfields } };
     await Template.updateMany(filter, newfield);
-    res.status(201).json({ message: "Fields have been added successfully!" });
+    res
+      .status(201)
+      .json({ message: "Subfield has have been added successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went wrong!" });
+  }
+};
+
+export const deleteFolder = async (req: Request, res: Response) => {
+  try {
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
   }
 };

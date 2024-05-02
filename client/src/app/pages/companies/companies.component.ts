@@ -129,7 +129,7 @@ export class CompaniesComponent implements OnInit {
     this.companiesService.updateCompany(this.idc, this.companyData).subscribe(
       (res) => {
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: 'Company selected has been updated!',
           showConfirmButton: false,

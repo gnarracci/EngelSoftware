@@ -37,6 +37,10 @@ export class DynamicDocumentsComponent implements OnInit {
 
   showTable: Boolean = true;
 
+  selected: string = '';
+
+  folder: any = '';
+
   saveError: string = '';
   constructor(
     private userService: UserService,
@@ -80,6 +84,7 @@ export class DynamicDocumentsComponent implements OnInit {
   }
 
   selectedTempl(id: string) {
+    this.selected = id;
     console.log('SELECTED', id);
   }
 
@@ -114,8 +119,52 @@ export class DynamicDocumentsComponent implements OnInit {
     if (!this.showField) {
       alert('FORM');
     } else {
-      alert('FOLDER');
+      // Add Folder to Template
+      this.folder = this.templForm.value;
+      this.templateService.addFolder(this.selected, this.folder).subscribe(
+        (res) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Folder has been added to selected Template!',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+          console.log(res);
+          this.getAllTempl();
+          this.templForm.reset();
+        },
+        (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      );
     }
+  }
+
+  deleteFolder(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        //Want Delete
+        this.templateService.deleteFolder(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.getAllTempl();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+        Swal.fire(
+          'Deleted!',
+          'Folder selected has been deleted!.',
+          'success'
+        );
+      }
+    });
   }
 
   dataUser() {
@@ -162,7 +211,6 @@ export class DynamicDocumentsComponent implements OnInit {
       }
     );
   }
-
   saveNewModel() {
     if (this.templateForm.valid) {
       this.templateService
@@ -225,7 +273,6 @@ export class DynamicDocumentsComponent implements OnInit {
       }
     });
   }
-
   reset() {
     this.templateForm.reset();
     this.templForm.reset();

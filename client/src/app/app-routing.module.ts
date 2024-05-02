@@ -19,6 +19,7 @@ import { InstallationConfigComponent } from './pages/installation-config/install
 import { DynamicDocumentsComponent } from './pages/dynamic-documents/dynamic-documents.component';
 import { DescriptionTemplateComponent } from './pages/description-template/description-template.component';
 import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
+import { ActiveDocumentsComponent } from './pages/active-documents/active-documents.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -103,6 +104,11 @@ const routes: Routes = [
   {
     path: 'historical-activities',
     component: HistoricalActivitiesComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'active-documents',
+    component: ActiveDocumentsComponent,
     data: { roles: ['admin', 'user'] },
   },
   { path: '**', component: NotfoundComponent },

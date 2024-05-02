@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Obj } from 'src/app/interfaces/objects';
+import { Fields } from 'src/app/interfaces/fields';
 import { Template } from 'src/app/interfaces/template';
 import { Types } from 'src/app/interfaces/types';
 
@@ -47,6 +47,19 @@ export class TemplatesService {
   deleteTemplate(id: string): Observable<Template> {
     return this.http
       .delete(`${this.API_URI}api/dynamics/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  // Add Folder
+  addFolder(id: string, folder: Fields): Observable<Fields> {
+    return this.http
+      .put<Fields>(`${this.API_URI}api/dynamics/${id}`, folder)
+      .pipe(catchError(this.handlerError));
+  }
+
+  deleteFolder(id: string): Observable<Fields> {
+    return this.http
+      .delete<Fields>(`${this.API_URI}api/dynamics/deletefolder/${id}`)
       .pipe(catchError(this.handlerError));
   }
 

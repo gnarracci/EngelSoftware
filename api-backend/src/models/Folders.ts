@@ -1,12 +1,12 @@
 import { Schema, model, Document, AnyArray} from "mongoose";
 
 export interface IFolders extends Document {
-    name: string;
+    fld_name: string;
     formfield: any
 }
 
 const foldersSchema = new Schema({
-    name: String,
+    fld_name: String,
     formfield: []
         
 },{

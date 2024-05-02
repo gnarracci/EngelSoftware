@@ -52,7 +52,7 @@ export const saveObject = async (req: Request, res: Response) => {
     const foundTemp = await Template.find({ label: { $in: label } });
     saveObject.label = foundTemp.map((name_templ) => name_templ._id);
   } else {
-    const role = await Template.findOne({ role: "example" });
+    const foundTemp = await Template.findOne({ role: "example" });
     saveObject.label = [label?._id];
   }
 

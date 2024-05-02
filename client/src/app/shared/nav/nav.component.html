@@ -27,6 +27,12 @@
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
+          <a class="nav-link" routerLink="/active-documents"
+            ><i class="fa-solid fa-clipboard"></i> Active Documents</a
+          >
+        </li>
+
+        <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/documents"
             ><i class="fa-solid fa-file"></i> Documents</a
           >

@@ -4,6 +4,7 @@ const router: Router = Router();
 
 import { AuthJwt } from "../libs";
 import {
+  deleteFolder,
   deleteTemplate,
   getfolders,
   getTemplate,
@@ -23,10 +24,14 @@ router.delete("/:id", deleteTemplate);
 
 // Folder
 router.get("/folders/", getfolders);
-router.put("/:id", newfolder);
+router.put("/:id", newfolder); // Add Only Folder "Container"
 
-// Fields
-router.put("/nf/:id", newfield);                // New Field
-router.put("/nfwf/:id", newfieldwithfolder);    // New Field with Folder
+// Fields & Folders
+router.put("/nf/:id", newfield); // New Field
+router.put("/nfwf/:id", newfieldwithfolder); // New Field with Folder
+router.delete("/df/:id"); // Delete Field
+router.delete("/deletefolder/:id", deleteFolder); // Delete Folder
+
+// Auth
 
 export default router;

@@ -1,9 +1,8 @@
 export interface Fields {
-    container?: boolean;
-    name?: string;
-    evtitle?: boolean;
+    is_container?: boolean;
+    fld_name?: string;
+    label?: string;
     requ?: boolean;
-    temp?: string;
     type?: string;
     order?: number;
     par?: string
