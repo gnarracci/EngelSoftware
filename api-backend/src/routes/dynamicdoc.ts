@@ -6,6 +6,7 @@ import { AuthJwt } from "../libs";
 import {
   deleteFolder,
   deleteTemplate,
+  getFolders,
   getfolders,
   getTemplate,
   getTemplates,
@@ -24,6 +25,7 @@ router.delete("/:id", deleteTemplate);
 
 // Folder
 router.get("/folders/", getfolders);
+router.get("/folders/:id", getFolders);
 router.put("/:id", newfolder); // Add Only Folder "Container"
 
 // Fields & Folders

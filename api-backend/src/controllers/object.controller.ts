@@ -16,7 +16,7 @@ export const getObjects = async (req: Request, res: Response) => {
 export const getObject = async (req: Request, res: Response) => {
   try {
     const objects = await Objects.findById(req.params.id).populate(
-      "name_templ"
+      "label"
     );
     if (!objects) {
       res.status(404).json({ message: "Object wasn't found!" });
@@ -50,9 +50,9 @@ export const saveObject = async (req: Request, res: Response) => {
   // Installation Type Setup
   if (label) {
     const foundTemp = await Template.find({ label: { $in: label } });
-    saveObject.label = foundTemp.map((name_templ) => name_templ._id);
+    saveObject.label = foundTemp.map((label) => label._id);
   } else {
-    const foundTemp = await Template.findOne({ role: "example" });
+    const foundTemp = await Template.findOne({ label: "example" });
     saveObject.label = [label?._id];
   }
 
@@ -86,6 +86,21 @@ export const deleteObject = async (req: Request, res: Response) => {
     res
       .status(200)
       .json({ message: "Template has been deleted successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export const getObjTemplate = async (req: Request, res: Response) => {
+  try {
+    const objects = await Objects.findById(req.params.id).populate(
+      "label"
+    );
+    if (!objects) {
+      res.status(404).json({ message: "Object wasn't found!" });
+    } else {
+      res.status(201).json(objects.label[0]);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });

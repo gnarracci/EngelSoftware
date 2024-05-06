@@ -5,6 +5,5 @@ export interface Fields {
     requ?: boolean;
     type?: string;
     order?: number;
-    par?: string
-      
+    par?: string      
 }

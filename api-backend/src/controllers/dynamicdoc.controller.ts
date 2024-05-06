@@ -28,6 +28,17 @@ export const getTemplate = async (req: Request, res: Response) => {
   }
 };
 
+export const getFolders = async (req: Request, res: Response) => {
+  try {
+    const template = await Template.findById(req.params.id);
+    if (!template) throw new Error("Template not found");
+    return res.status(201).json(template);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
+  }
+};
+
 export const nameTemplate = async (req: Request, res: Response) => {
   try {
     const template = await Template.findById(req.params.id);
@@ -108,15 +119,15 @@ export const newfolder = async (req: Request, res: Response) => {
 // No Folder
 export const newfield = async (req: Request, res: Response) => {
   try {
-    const { name, label, order, type, requ, par } = req.body;
+    const { fld_name, label, order, type, requ, par } = req.body;
     const query = { _id: req.params.id };
     const newfields = new Fields({
-      name,
+      fld_name,
       label,
       order,
       type,
       requ,
-      par,
+      par
     });
     const newfield = { $push: { folders: newfields } };
     await Template.updateOne(query, newfield);
@@ -130,10 +141,10 @@ export const newfield = async (req: Request, res: Response) => {
 // With Folder
 export const newfieldwithfolder = async (req: Request, res: Response) => {
   try {
-    const { name, label, order, type, requ, par } = req.body;
+    const { fld_name, label, order, type, requ, par } = req.body;
     const filter = { _id: req.params.id };
     const newfields = new Fields({
-      name,
+      fld_name,
       label,
       order,
       type,

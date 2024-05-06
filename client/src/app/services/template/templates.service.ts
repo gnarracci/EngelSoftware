@@ -63,6 +63,24 @@ export class TemplatesService {
       .pipe(catchError(this.handlerError));
   }
 
+  getFolders(id: string): Observable<Fields> {
+    return this.http
+      .get<Fields>(`${this.API_URI}api/dynamics/folders/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+  // Add Field under Folder  
+  addFieldsWF(id: string, subfield: Fields): Observable<Fields> {
+    return this.http
+      .put<Fields>(`${this.API_URI}api/dynamics/nfwf/${id}`, subfield)
+      .pipe(catchError(this.handlerError));
+  }
+  // Add Field under name Template directly
+  addField(id: string, field: Fields): Observable<Fields> {
+    return this.http
+      .put<Fields>(`${this.API_URI}api/dynamics/nf/${id}`, field)
+      .pipe(catchError(this.handlerError));
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error has occurred', error.error);

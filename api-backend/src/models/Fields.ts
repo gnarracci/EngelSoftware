@@ -1,6 +1,6 @@
 import { Schema, model, Document} from "mongoose";
 export interface IFields extends Document {
-    name: string;
+    fld_name: string;
     label: string;
     order: number;
     type: string;
@@ -9,7 +9,7 @@ export interface IFields extends Document {
 }
 
 const fieldsSchema = new Schema({
-    name: String,
+    fld_name: String,
     label: String,
     order: Number,
     type: String,

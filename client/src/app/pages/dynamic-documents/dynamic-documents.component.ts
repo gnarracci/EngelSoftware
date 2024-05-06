@@ -39,7 +39,13 @@ export class DynamicDocumentsComponent implements OnInit {
 
   selected: string = '';
 
+  selectedField: string = '';
+
   folder: any = '';
+
+  subfields: any = [];
+
+  fld: any = [];
 
   saveError: string = '';
   constructor(
@@ -111,13 +117,27 @@ export class DynamicDocumentsComponent implements OnInit {
   getTemplateName(id: string) {
     this.templateService.getNameTemplate(id).subscribe((res) => {
       this.dataTempl = res;
-      console.log('ONE TEMPLATE', this.dataTempl);
+      console.log('TEMPLATENAME', this.dataTempl);
     });
   }
-
   saveFields() {
     if (!this.showField) {
-      alert('FORM');
+      this.subfields = this.templForm.value;
+      this.templateService.addFieldsWF(this.selected, this.subfields).subscribe(
+        (res) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Field has been added to selected Folder',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+          console.log(res);
+          this.getAllTempl();
+          this.templForm.reset();
+        },
+        (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      );
     } else {
       // Add Folder to Template
       this.folder = this.templForm.value;
@@ -158,11 +178,7 @@ export class DynamicDocumentsComponent implements OnInit {
           },
           (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
         );
-        Swal.fire(
-          'Deleted!',
-          'Folder selected has been deleted!.',
-          'success'
-        );
+        Swal.fire('Deleted!', 'Folder selected has been deleted!.', 'success');
       }
     });
   }

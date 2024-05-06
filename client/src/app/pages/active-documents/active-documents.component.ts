@@ -17,6 +17,8 @@ export class ActiveDocumentsComponent implements OnInit {
 
   flds: any = [];
 
+  model: any = [];
+
   constructor(
     private loginService: LoginService,
     private userService: UserService,
@@ -50,6 +52,19 @@ export class ActiveDocumentsComponent implements OnInit {
         console.log(this.objsData);
       },
     )
+  }
+
+  getObj(id: string) {
+    this.objsService.getObjTemplate(id).subscribe(
+      res => {
+        this.model = res;
+        console.log('MODEL', this.model);
+      }
+    )
+  }
+
+  checkfolders() {
+
   }
 
 }

@@ -35,6 +35,11 @@ export class ObjectsService {
       .delete<Obj>(`${this.API_URI}api/objects/${id}`)
       .pipe(catchError(this.handlerError));
   }
+  getObjTemplate(id: string): Observable<Obj> {
+    return this.http
+      .get<Obj>(`${this.API_URI}api/objects/ot/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
 
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -28,18 +28,44 @@
           <ul class="tree">
             <li>
               <details open>
-                <summary><i class="fa-solid fa-check" (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
-                  {{ item.label }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                    class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
+                <summary>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <i class="fa-solid fa-caret-down"
+                        (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
+                      {{ item.label }}
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <i class="fa-solid fa-pen-to-square text-primary"></i><i class="fa-solid fa-trash text-danger"
+                        (click)="deleteModel(item._id)"></i>
+                    </div>
+                  </div>
                 </summary>
                 <ul>
                   <li *ngFor="let folder of item.folders">
                     <details>
-                      <summary> {{ folder.fld_name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                          class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i></summary>
+                      <summary>
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <i class="fa-regular fa-folder" (click)="selectedTempl(folder._id)"></i>
+                            {{ folder.fld_name }}
+                          </div>
+                          <div class="col-sm-4 text-end">
+                            <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                              class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i>
+                          </div>
+                        </div>
+                      </summary>
                       <ul *ngFor="let inp of folder.formfield">
-                        <li> {{ inp.name }} <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                            class="fa-solid fa-trash text-danger"></i></li>
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <li><i class="fa-regular fa-folder"></i> {{ inp.label }} </li>
+                          </div>
+                          <div class="col-sm-4 text-end">
+                            <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                              class="fa-solid fa-trash text-danger"></i>
+                          </div>
+                        </div>
                       </ul>
                     </details>
                   </li>
@@ -125,10 +151,7 @@
         </div>
         <div *ngIf="!showField">
           <label for="exampleSelect3" class="form-label mt-2">Parent</label>
-          <select class="form-select" id="exampleSelect3" formControlName="par">
-            <option>1</option>
-            <option>2</option>
-          </select>
+          <input type="text" class="form-control" formControlName="par">
         </div>
       </form>
     </div>
