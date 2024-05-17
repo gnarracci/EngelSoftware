@@ -28,10 +28,24 @@ export const getTemplate = async (req: Request, res: Response) => {
   }
 };
 
-export const getFolders = async (req: Request, res: Response) => {
+// Get Length of Template.folders
+export const getlengthTemplate = async (req: Request, res: Response) => {
   try {
     const template = await Template.findById(req.params.id);
     if (!template) throw new Error("Template not found");
+    let te = template.folders;
+    let fr = te.length;
+    res.status(201).json(fr);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
+  }
+};
+
+export const getFolders = async (req: Request, res: Response) => {
+  try {
+    const template = await Template.findById(req.params.id);
+    if (!template) throw new Error("Folders not found");
     return res.status(201).json(template);
   } catch (error) {
     console.error(error);
@@ -96,10 +110,9 @@ export const getfolders = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
-
 export const newfolder = async (req: Request, res: Response) => {
   try {
-    const { fld_name } = req.body;
+    const { fld_name, order } = req.body;
     const query = { _id: req.params.id };
     const folderName = new Folders({
       fld_name,
@@ -127,7 +140,7 @@ export const newfield = async (req: Request, res: Response) => {
       order,
       type,
       requ,
-      par
+      par,
     });
     const newfield = { $push: { folders: newfields } };
     await Template.updateOne(query, newfield);
@@ -138,11 +151,14 @@ export const newfield = async (req: Request, res: Response) => {
   }
 };
 
-// With Folder
-export const newfieldwithfolder = async (req: Request, res: Response) => {
+// Fields under Folder
+export const newfieldsuaF = async (req: Request, res: Response) => {
   try {
+    // Get Input Information
     const { fld_name, label, order, type, requ, par } = req.body;
+    // Get Template ID
     const filter = { _id: req.params.id };
+    // Input Form
     const newfields = new Fields({
       fld_name,
       label,
@@ -151,11 +167,40 @@ export const newfieldwithfolder = async (req: Request, res: Response) => {
       requ,
       par,
     });
-    const newfield = { $push: { "folders.0.formfield": newfields } };
-    await Template.updateMany(filter, newfield);
+
+    let ord = newfields.order;
+
+    // Set position to save object on Folders Array
+    let temp_options: Record<string, string> = {
+      "1": "folders.0.formfield",
+      "2": "folders.1.formfield",
+      "3": "folders.2.formfield",
+      "4": "folders.3.formfield",
+      "5": "folders.4.formfield",
+      "6": "folders.5.formfield",
+      "7": "folders.6.formfield",
+      "8": "folders.7.formfield",
+      "9": "folders.8.formfield",
+      "10": "folders.9.formfield",
+      "11": "folders.10.formfield",
+      "12": "folders.11.formfield",
+      "13": "folders.12.formfield",
+      "14": "folders.13.formfield",
+      "15": "folders.14.formfield",
+    };
+
+    const opt_default = "0";
+
+    const opt = temp_options[ord] || opt_default;
+
+    const newfield = { $push: { [opt]: newfields } };
+    await Template.updateOne(filter, newfield);
     res
       .status(201)
-      .json({ message: "Subfield has have been added successfully!" });
+      .json({
+        message:
+          "Subfield has have been added successfully to selected folder!",
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went wrong!" });
@@ -164,7 +209,23 @@ export const newfieldwithfolder = async (req: Request, res: Response) => {
 
 export const deleteFolder = async (req: Request, res: Response) => {
   try {
-    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Something went Wrong!" });
+  }
+};
+
+export const newsubfolder = async (req: Request, res: Response) => {
+  try {
+    const { fld_name } = req.body;
+    const query = { _id: req.params.id };
+    const folderName = new Folders({
+      fld_name,
+    });
+    const newfolder = { $push: { "folders.2.formfield": folderName } };
+    const result = await Template.updateOne(query, newfolder);
+    console.log(result);
+    res.status(201).json({ message: "Subfolder is saved successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });

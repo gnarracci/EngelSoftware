@@ -8,12 +8,14 @@ import {
   deleteTemplate,
   getFolders,
   getfolders,
+  getlengthTemplate,
   getTemplate,
   getTemplates,
   nameTemplate,
   newfield,
-  newfieldwithfolder,
+  newfieldsuaF,
   newfolder,
+  newsubfolder,
   saveTemplate,
 } from "../controllers/dynamicdoc.controller";
 
@@ -23,14 +25,18 @@ router.get("/nt/:id", nameTemplate);
 router.post("/", saveTemplate);
 router.delete("/:id", deleteTemplate);
 
+// Get Template Length
+router.get('/length/:id', getlengthTemplate);
+
 // Folder
 router.get("/folders/", getfolders);
 router.get("/folders/:id", getFolders);
 router.put("/:id", newfolder); // Add Only Folder "Container"
 
+
 // Fields & Folders
 router.put("/nf/:id", newfield); // New Field
-router.put("/nfwf/:id", newfieldwithfolder); // New Field with Folder
+router.put('/subfield/:id', newfieldsuaF) // Add a subFolder under Principal Folder
 router.delete("/df/:id"); // Delete Field
 router.delete("/deletefolder/:id", deleteFolder); // Delete Folder
 

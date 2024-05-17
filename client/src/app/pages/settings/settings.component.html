@@ -1,11 +1,39 @@
 <app-nav></app-nav>
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="text-end"><i class="fa-solid fa-user"></i> {{ userLogged.username }}</h6>
+    </div>
+  </div>
   <div class="jumbotron">
     <h1 class="display-4"><i class="fa-solid fa-gears"></i> Settings</h1>
     <hr class="my-2" />
     <p class="lead">
       Installations Types Management
     </p>
+    <hr class="my-2">
+    <div class="row mx-auto">
+      <div class="col-md-4">
+        <a class="nav-link" routerLink="/historical-activities">
+          <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
+            <div class="card-header"><i class="fa-solid fa-outdent"></i> Historical Data</div>
+            <div class="card-body">
+              <p class="card-text">Historical Data</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="nav-link" routerLink="">
+          <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
+            <div class="card-header"><i class="fa-solid fa-font"></i> Language Settings</div>
+            <div class="card-body">
+              <p class="card-text">Language Setup</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -9,7 +9,7 @@
     <h1 class="display-4"><i class="fa-solid fa-list-check"></i> Dynamic Management</h1>
     <hr class="my-2" />
     <p class="lead">
-      Dynamic Documents
+      Documentos Dinamicos 
     </p>
   </div>
   <div class="row mb-3">
@@ -19,20 +19,19 @@
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInput" formControlName="label"
             placeholder="Data Management Area:">
-          <label for="floatingInput">New Template</label>
+          <label for="floatingInput">Nuevo Template</label>
         </div>
         <hr class="my-2">
         <!-- Treeview -->
-        <h5>Templates List</h5>
+        <h5>Lista de Templates</h5>
         <div *ngFor="let item of Templs">
           <ul class="tree">
             <li>
               <details open>
                 <summary>
                   <div class="row">
-                    <div class="col-sm-8">
-                      <i class="fa-solid fa-caret-down"
-                        (click)="selectedTempl(item._id); getTemplateName(item._id)"></i>
+                    <div class="col-sm-8" (click)="selectedTempl(item._id); getTemplateName(item._id)">
+                      <i class="fa-solid fa-caret-down"></i>
                       {{ item.label }}
                     </div>
                     <div class="col-sm-4 text-end">
@@ -42,30 +41,38 @@
                   </div>
                 </summary>
                 <ul>
-                  <li *ngFor="let folder of item.folders">
+                  <li *ngFor="let folder of item.folders; let ind = index">
                     <details>
                       <summary>
                         <div class="row">
-                          <div class="col-sm-8">
-                            <i class="fa-regular fa-folder" (click)="selectedTempl(folder._id)"></i>
+                          <div class="col-sm-8" (click)="selectedFd(ind)">
+                            <i class="fa-regular fa-folder"></i>
                             {{ folder.fld_name }}
                           </div>
                           <div class="col-sm-4 text-end">
+                            <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
                             <i class="fa-solid fa-pen-to-square text-primary"></i><i
                               class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i>
                           </div>
                         </div>
                       </summary>
-                      <ul *ngFor="let inp of folder.formfield">
-                        <div class="row">
-                          <div class="col-sm-8">
-                            <li><i class="fa-regular fa-folder"></i> {{ inp.label }} </li>
-                          </div>
-                          <div class="col-sm-4 text-end">
-                            <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                              class="fa-solid fa-trash text-danger"></i>
-                          </div>
-                        </div>
+                      <ul>
+                        <li *ngFor="let inp of folder.formfield">
+                          <details>
+                            <summary>
+                              <div class="row">
+                                <div class="col-sm-8">
+                                  <i class="fa-regular fa-file"></i>
+                                  {{ inp.label }}
+                                </div>
+                                <div class="col-sm-4 text-end">
+                                  <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                                    class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i>
+                                </div>
+                              </div>
+                            </summary>
+                          </details>
+                        </li>
                       </ul>
                     </details>
                   </li>
@@ -81,22 +88,23 @@
     <div class="col-md-6">
       <div>
         <select class="form-select">
-          <option value=""> -- Select Company -- </option>
+          <option value=""> -- Seleccionar Compania -- </option>
           <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
         </select>
       </div>
       <hr class="my-2">
-      <legend><i class="fa-solid fa-table-list"></i> Template New Fields</legend>
+      <legend><i class="fa-solid fa-table-list"></i> Template Nuevos Campos</legend>
       <hr class="my-2">
       <!-- Selected Model -->
       <div class="row">
-        <div class="col-md-6 mb-2">
-          <p class="text-success-emphasis"> {{ dataTempl }} </p>
+        <div class="col-md-8 mb-2">
+          <input type="text" class="form-control" value="{{ dataTempl }}">
+          <small id="emailHelp" class="form-text text-muted">Templete Seleccionado</small>
         </div>
-        <div class="col-md-6 mb-2">
+        <div class="col-md-4 mb-2">
           <div class="d-grid gap-2">
             <button class="btn btn-lg btn-primary" type="button" (click)="showForml()"><i class="fa-solid fa-plus"></i>
-              New Field</button>
+              Nuevo Campo</button>
           </div>
         </div>
       </div>
@@ -105,52 +113,65 @@
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInput" formControlName="fld_name"
             placeholder="Name Field">
-          <label for="floatingInput">Name Field</label>
+          <label for="floatingInput">Nombre del Campo</label>
         </div>
         <div *ngIf="fld_name.invalid && (fld_name.dirty || fld_name.touched)" class="text-danger">
-          <div *ngIf="fld_name.errors?.['required']">Name Field is required.</div>
+          <div *ngIf="fld_name.errors?.['required']">Nuevo Campo es requerido.</div>
           <div *ngIf="fld_name.errors?.['minlength']">
-            Name must be at least 4 characters long.
+            Nombre debe tener al menos 4 caracteres.
           </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input mt-2" type="checkbox" formControlName="is_container" value=""
-            (change)="onChange($event)">
-          <label class="form-check-label" for="flexCheckDefault">
-            Is a Container
-          </label>
-        </div>
-        <div class="form-floating mb-3" *ngIf="!showField">
-          <input type="text" class="form-control mt-2" id="floatingInput" formControlName="label" placeholder="Order">
-          <label for="floatingInput">Label</label>
-        </div>
-        <div>
-          <div *ngIf="label.invalid && (label.dirty || label.touched)" class="text-danger">
-            <div *ngIf="label.errors?.['required']">Must be lowercase.</div>
-            <div *ngIf="label.errors?.['minlength']">
-              Name must be at least 4 characters long.
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-check">
+              <input class="form-check-input mt-2" type="checkbox" formControlName="is_container" value=""
+                (change)="onChange($event)">
+              <label class="form-check-label" for="flexCheckDefault">
+                Es un Contenedor?
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-check" *ngIf="!showField">
+              <input class="form-check-input mt-2" type="checkbox" value="" (change)="isOnlyField($event)">
+              <label class="form-check-label" for="flexCheckDefault">
+                Es solo un Campo?
+              </label>
             </div>
           </div>
         </div>
-        <div class="form-floating mb-3">
-          <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order" placeholder="Order">
-          <label for="floatingInput">Order</label>
+        <div class="form-floating mb-3" *ngIf="!showField">
+          <input type="text" class="form-control mt-2" id="floatingInput" formControlName="label" placeholder="Order">
+          <label for="floatingInput">Etiqueta</label>
+        </div>
+        <div>
+          <div *ngIf="label.invalid && (label.dirty || label.touched)" class="text-danger">
+            <div *ngIf="label.errors?.['required']">Debe ser minuscula.</div>
+            <div *ngIf="label.errors?.['minlength']">
+              Nombre debe al menos tener 4 caracteres.
+            </div>
+          </div>
+        </div>
+        <div class="form-floating mb-3" *ngIf="!showField">
+          <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order"
+            value="{{ selectedFolder }}">
+          <label for="floatingInput">Orden</label>
         </div>
         <div *ngIf="!showField">
-          <label for="exampleSelect1" class="form-label mt-2">Input Type</label>
+          <label for="exampleSelect1" class="form-label mt-2">Tipo de Dato</label>
           <select class="form-select" id="exampleSelect1" formControlName="type">
-            <option value=""> -- Select Input Type --</option>
+            <option value=""> -- Seleccionar Tipo de Dato --</option>
             <option *ngFor="let item of dataType" [value]="item.type"> {{ item.type }} </option>
           </select>
         </div>
         <div class="form-check mt-2" *ngIf="!showField">
           <input class="form-check-input mt-2" type="checkbox" formControlName="requ" value="">
           <label class="form-check-label" for="flexCheckDefault">
-            Required
+            Requerido
           </label>
         </div>
         <div *ngIf="!showField">
-          <label for="exampleSelect3" class="form-label mt-2">Parent</label>
+          <label for="exampleSelect3" class="form-label mt-2">Carpeta Contenedora</label>
           <input type="text" class="form-control" formControlName="par">
         </div>
       </form>
@@ -163,9 +184,9 @@
       <div class="btn-group mt-4">
         <button class="btn btn-lg btn-primary me-2" type="button"
           (click)="templateForm.invalid ? saveFields() : saveNewModel()"><i class="fa-solid fa-circle-check"></i>
-          Save</button>
+          Salvar</button>
         <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser" (click)="reset()"></i>
-          Clear</button>
+          Borrar Campos</button>
       </div>
     </div>
   </div>

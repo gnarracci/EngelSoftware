@@ -2,7 +2,7 @@ import { Schema, model, Document} from "mongoose";
 export interface IFields extends Document {
     fld_name: string;
     label: string;
-    order: number;
+    order: string;
     type: string;
     requ: boolean;
     par: string;
@@ -11,7 +11,7 @@ export interface IFields extends Document {
 const fieldsSchema = new Schema({
     fld_name: String,
     label: String,
-    order: Number,
+    order: String,
     type: String,
     requ: Boolean,
     par: String

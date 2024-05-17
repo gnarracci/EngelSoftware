@@ -68,16 +68,23 @@ export class TemplatesService {
       .get<Fields>(`${this.API_URI}api/dynamics/folders/${id}`)
       .pipe(catchError(this.handlerError));
   }
-  // Add Field under Folder  
+  // Add Field under Folder
   addFieldsWF(id: string, subfield: Fields): Observable<Fields> {
     return this.http
-      .put<Fields>(`${this.API_URI}api/dynamics/nfwf/${id}`, subfield)
+      .put<Fields>(`${this.API_URI}api/dynamics/subfield/${id}`, subfield)
       .pipe(catchError(this.handlerError));
   }
   // Add Field under name Template directly
   addField(id: string, field: Fields): Observable<Fields> {
     return this.http
       .put<Fields>(`${this.API_URI}api/dynamics/nf/${id}`, field)
+      .pipe(catchError(this.handlerError));
+  }
+
+  // Get Template Folders
+  getLength(id: string): Observable<Fields> {
+    return this.http
+      .get<Fields>(`${this.API_URI}api/dynamics/length/${id}`)
       .pipe(catchError(this.handlerError));
   }
 

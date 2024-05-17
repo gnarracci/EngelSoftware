@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
 import { Template } from 'src/app/interfaces/template';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { DataTypesService } from 'src/app/services/data-types.service';
@@ -35,17 +34,19 @@ export class DynamicDocumentsComponent implements OnInit {
 
   showField: Boolean = false;
 
-  showTable: Boolean = true;
+  isField: Boolean = false;
 
   selected: string = '';
 
-  selectedField: string = '';
+  selectedFolder: any = '';
 
   folder: any = '';
 
   subfields: any = [];
 
   fld: any = [];
+
+  len: any 
 
   saveError: string = '';
   constructor(
@@ -94,6 +95,11 @@ export class DynamicDocumentsComponent implements OnInit {
     console.log('SELECTED', id);
   }
 
+  selectedFd(id: any) {
+    this.selectedFolder = id + 1;
+    console.log('SELFOLDER', id);
+  }
+
   showForml() {
     if (this.dataTempl.length > 0) {
       this.showForm = true;
@@ -114,6 +120,10 @@ export class DynamicDocumentsComponent implements OnInit {
     console.log(this.showField);
   }
 
+  isOnlyField(event: any) {
+    this.isField = event.target.checked;
+  }
+
   getTemplateName(id: string) {
     this.templateService.getNameTemplate(id).subscribe((res) => {
       this.dataTempl = res;
@@ -122,24 +132,45 @@ export class DynamicDocumentsComponent implements OnInit {
   }
   saveFields() {
     if (!this.showField) {
-      this.subfields = this.templForm.value;
-      this.templateService.addFieldsWF(this.selected, this.subfields).subscribe(
-        (res) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Field has been added to selected Folder',
-            showConfirmButton: false,
-            timer: 1300,
-          });
-          console.log(res);
-          this.getAllTempl();
-          this.templForm.reset();
-        },
-        (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
-      );
+      if (this.isField) {
+        // Is only a Field
+        this.fld = this.templForm.value;
+        this.templateService.addField(this.selected, this.fld).subscribe(
+          (res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Field has been added to selected Template!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(res);
+            this.getAllTempl();
+            this.templForm.reset();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        )
+      } else {
+        // Is a Field under Folder
+        this.subfields = this.templForm.value;
+        this.templateService.addFieldsWF(this.selected, this.subfields).subscribe(
+          (res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Field has been added to selected Folder!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(res);
+            this.getAllTempl();
+            this.templForm.reset();
+          },
+          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        );
+      }
     } else {
-      // Add Folder to Template
+      // Is a Folder
       this.folder = this.templForm.value;
       this.templateService.addFolder(this.selected, this.folder).subscribe(
         (res) => {
@@ -148,10 +179,11 @@ export class DynamicDocumentsComponent implements OnInit {
             icon: 'success',
             title: 'Folder has been added to selected Template!',
             showConfirmButton: false,
-            timer: 1300,
+            timer: 1500,
           });
           console.log(res);
           this.getAllTempl();
+          this.showField = false;
           this.templForm.reset();
         },
         (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
@@ -261,7 +293,7 @@ export class DynamicDocumentsComponent implements OnInit {
         });
     }
   }
-
+  
   deleteModel(id: string) {
     Swal.fire({
       title: 'Are you sure?',

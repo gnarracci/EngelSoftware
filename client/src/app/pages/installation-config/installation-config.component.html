@@ -6,10 +6,10 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-gears"></i> Installation Management</h1>
+    <h1 class="display-4"><i class="fa-solid fa-gears"></i> Gestion de la Instalacion</h1>
     <hr class="my-2" />
     <p class="lead">
-      Object Setup
+      Ajustes del Objeto
     </p>
     <div class="row">
       <div class="col-md-12">
@@ -29,13 +29,13 @@
             <form [formGroup]="objForm">
               <div class="row">
                 <div class="col-md-4">
-                  <label for="code" class="col-sm-2 col-form-label">Code:</label>
+                  <label for="code" class="col-sm-2 col-form-label">Codigo:</label>
                   <div>
                     <input type="text" class="form-control" id="code" formControlName="code" placeholder="Code">
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <label for="descrip" class="col-sm-2 col-form-label">Description:</label>
+                  <label for="descrip" class="col-sm-2 col-form-label">Descripcion:</label>
                   <div>
                     <input type="text" class="form-control" id="descrip" formControlName="descrip"
                       placeholder="Name / Description">
@@ -45,18 +45,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Installation Type</label>
+                    <label for="exampleSelect1" class="form-label mt-4">Tipo de Instalacion</label>
                     <select class="form-select" formControlName="label">
-                      <option value=""> -- Select Template -- </option>
+                      <option value=""> -- Seleccionar Template -- </option>
                       <option *ngFor="let obj of templs" [value]="obj.label"> {{ obj.label }} </option>
                     </select>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleSelect2" class="form-label mt-4">Company</label>
+                    <label for="exampleSelect2" class="form-label mt-4">Compañia</label>
                     <select class="form-select" formControlName="company">
-                      <option value=""> -- Select Company -- </option>
+                      <option value=""> -- Seleccione Compañia -- </option>
                       <option *ngFor="let item of companyData" [value]="item.name"> {{ item.name }} </option>
                     </select>
                   </div>
@@ -67,7 +67,7 @@
                   <div class="form-group">
                     <label for="exampleSelect2" class="form-label mt-4">Associated Data Model</label>
                     <select class="form-select" formControlName="adm">
-                      <option value=""> -- Select Associated Data Model -- </option>
+                      <option value=""> -- Seleccionar Modelo de Datos Asociado -- </option>
                       <option *ngFor="let item of templs" [value]="item.label"> {{ item.label }} </option>
                     </select>
                   </div>
@@ -78,9 +78,9 @@
                   <div class="btn-group mt-4">
                     <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveObj()"><i
                         class="fa-solid fa-circle-check"></i>
-                      Save</button>
+                      Salvar Objeto</button>
                     <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
-                      Clear</button>
+                      Borrar Campos</button>
                   </div>
                 </div>
               </div>

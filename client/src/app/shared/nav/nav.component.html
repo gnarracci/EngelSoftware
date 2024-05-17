@@ -16,48 +16,48 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" routerLink="/dashboard"
-            ><i class="fa fa-home"></i> Home
+            ><i class="fa fa-home"></i> Inicio
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/dashboard"
-            ><i class="fa-solid fa-gauge"></i> Dashboard</a
+            ><i class="fa-solid fa-gauge"></i> Panel de Control</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/active-documents"
-            ><i class="fa-solid fa-clipboard"></i> Active Documents</a
+            ><i class="fa-solid fa-clipboard"></i> Documentos Activos</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/documents"
-            ><i class="fa-solid fa-file"></i> Documents</a
+            ><i class="fa-solid fa-file"></i> Documentos</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/settings"
-            ><i class="fa-solid fa-gears"></i> Settings</a
+            ><i class="fa-solid fa-gears"></i> Ajustes</a
           >
         </li>
 
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/contactus"
-            ><i class="fa-solid fa-address-book"></i> Contact Us</a
+            ><i class="fa-solid fa-address-book"></i> Contactanos</a
           >
         </li>
 
         <li *ngIf="!userLoginOn" class="nav-item">
           <a class="nav-link" routerLink="/login"
-            ><i class="fa-solid fa-door-open"></i> Sign In</a
+            ><i class="fa-solid fa-door-open"></i> Iniciar Sesion</a
           >
         </li>
         <li *ngIf="userLoginOn" class="nav-item">
           <a class="nav-link" (click)="logout()"
-            ><i class="fa-solid fa-door-closed"></i> Sign Out</a
+            ><i class="fa-solid fa-door-closed"></i> Cerrar Sesion</a
           >
         </li>
       </ul>

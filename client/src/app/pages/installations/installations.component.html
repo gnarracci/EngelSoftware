@@ -6,21 +6,20 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-object-group"></i> Installation Management</h1>
+    <h1 class="display-4"><i class="fa-solid fa-object-group"></i> Gestion de la Instalacion</h1>
     <hr class="my-2" />
     <div class="row">
       <div class="col-md-4">
         <form>
           <div *ngIf="userLogged.role[0].role === 'admin'">
             <select class="form-select">
-              <option value=""> -- Select Company -- </option>
+              <option value=""> -- Seleccionar Compañia -- </option>
               <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
             </select>
           </div>
           <div class="d-grid gap-2">
             <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i
-                class="fa-solid fa-plus"></i> New
-              Installation</button>
+                class="fa-solid fa-plus"></i> Nueva Instalacion</button>
           </div>
         </form>
       </div>
@@ -32,11 +31,11 @@
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col">Code</th>
-              <th scope="col">Type</th>
-              <th scope="col">Description</th>
-              <th scope="col">Associated Data Models</th>
-              <th scope="col">Start Date</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Modelo de Datos Asociado</th>
+              <th scope="col">Fecha de Inicio</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -56,7 +55,7 @@
             </tr>
           </tbody>
         </table>
-        <h5 *ngIf="objData.length == 0" class="text-info mt-4 text-center">No data to display</h5>
+        <h5 *ngIf="objData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
       </div>
     </div>
   </div>

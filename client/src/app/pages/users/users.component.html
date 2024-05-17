@@ -6,67 +6,67 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-user"></i> Users Management</h1>
+    <h1 class="display-4"><i class="fa-solid fa-user"></i> Gestion de Usuarios</h1>
     <hr class="my-2" />
     <p class="lead">
-      Users Management Area
+      Administracion de Usuarios del Sistema
     </p>
     <div class="row">
       <div class="col-md-3">
         <div class="card border-primary mb-3">
-          <div class="card-header">Set New User</div>
+          <div class="card-header">Agregar Nuevo Usuario</div>
           <div class="card-body">
             <form [formGroup]="userForm">
               <fieldset>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Username</label>
+                  <label for="name" class="form-label mt-4">Nombre de Usuario</label>
                   <input type="text" formControlName="username" class="form-control" id="username"
-                    placeholder="Username" />
+                    placeholder="Nombre de Usuario" />
                 </div>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Name</label>
-                  <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name" />
+                  <label for="name" class="form-label mt-4">Nombre</label>
+                  <input type="text" formControlName="name" class="form-control" id="name" placeholder="Nombre" />
                 </div>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Surname</label>
-                  <input type="text" formControlName="surname" class="form-control" id="surname"
+                  <label for="name" class="form-label mt-4">Apellido</label>
+                  <input type="text" formControlName="surname" class="form-control" id="Apellido"
                     placeholder="Surname" />
                 </div>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Email</label>
+                  <label for="name" class="form-label mt-4">Correo Electronico</label>
                   <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email" />
                 </div>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Password</label>
-                  <input type="password" formControlName="password" class="form-control" id="password"
+                  <label for="name" class="form-label mt-4">Contraseña</label>
+                  <input type="password" formControlName="password" class="form-control" id="Contraseña"
                     placeholder="Password" />
                 </div>
                 <div class="form-group">
-                  <label for="name" class="form-label mt-4">Retype Password</label>
+                  <label for="name" class="form-label mt-4">Repita Contraseña</label>
                   <input type="password" formControlName="repassword" class="form-control" id="repassword"
-                    placeholder="Retype Password" />
+                    placeholder="Repita su Contraseña" />
                 </div>
                 <div class="form-group">
                   <label for="exampleSelect1" class="form-label mt-4">Roles</label>
                   <select class="form-select" formControlName="role">
-                    <option value=""> -- Select Role -- </option>
+                    <option value=""> -- Seleccionar Rol -- </option>
                     <option *ngFor="let rol of totalRoles" [value]="rol.role"> {{ rol.role }} </option>>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleSelect2" class="form-label mt-4">Company</label>
+                  <label for="exampleSelect2" class="form-label mt-4">Compañias</label>
                   <select class="form-select" formControlName="company">
-                    <option value=""> -- Select Company -- </option>
+                    <option value=""> -- Seleccionar Compañia -- </option>
                     <option *ngFor="let item of totalCompanies" [value]="item.name"> {{ item.name }} </option>
                   </select>
                 </div>
                 <div class="d-grid gap-2 mt-4 mb-3">
                   <button class="btn btn-lg btn-primary" type="submit" (click)="edit ? updateUser() : saveUser()"
                     [disabled]="userForm.invalid">
-                    <i class="fa-solid fa-plus"></i> Save User
+                    <i class="fa-solid fa-plus"></i> Salvar Usuario
                   </button>
                   <button class="btn btn-lg btn-warning" type="reset" (click)="reset()">
-                    <i class="fa-solid fa-soap"></i> Reset
+                    <i class="fa-solid fa-soap"></i> Borrar Campos
                   </button>
                 </div>
               </fieldset>
@@ -76,15 +76,15 @@
       </div>
       <div class="col-md-9">
         <div class="row">
-          <h5>System Users</h5>
+          <h5>Usuarios del Sistema</h5>
           <table class="table table-hover table-responsive table-striped">
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Surname</th>
+                <th>Nombre de Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Email</th>
-                <th>Company</th>
+                <th>Compañia</th>
                 <th>Roles</th>
                 <th>OPS</th>
               </tr>
@@ -116,18 +116,17 @@
       <hr class="my" />
       <div class="col-md-4">
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-          <div class="card-header">Add Roles</div>
+          <div class="card-header">Agregar Roles</div>
           <div class="card-body">
             <form [formGroup]="roleForm">
               <fieldset>
                 <div class="form-group">
-                  <label for="rolName" class="form-label mt-4">Role Name</label>
+                  <label for="rolName" class="form-label mt-4">Nombre del Rol</label>
                   <input type="text" formControlName="role" class="form-control" id="rolName" placeholder="Role Name">
                 </div>
                 <div class="d-grid gap-2 mt-4 mb-3">
                   <button (click)="edit ? updateRole() : saveRole()" class="btn btn-lg btn-primary" type="button"
-                    [disabled]="roleForm.invalid"> <i class="fa-solid fa-plus"></i> Add
-                    Role</button>
+                    [disabled]="roleForm.invalid"> <i class="fa-solid fa-plus"></i> Agregar Rol</button>
                 </div>
               </fieldset>
             </form>
@@ -135,11 +134,11 @@
         </div>
       </div>
       <div class="col-md-8">
-        <h5>Users System Roles</h5>
+        <h5>Roles de Usuario del Sistema</h5>
         <table class="table table-hover table-responsive table-stripe">
           <thead>
             <tr>
-              <th scope="col">Role</th>
+              <th scope="col">Rol</th>
               <th scope="col">Ops</th>
             </tr>
           </thead>
