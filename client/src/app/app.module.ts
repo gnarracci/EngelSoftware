@@ -22,7 +22,7 @@ import { RemindersComponent } from './pages/reminders/reminders.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { NotallowedComponent } from './pages/notallowed/notallowed.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { TreeModule } from 'primeng/tree';
+import { FormsModule } from '@angular/forms';
 import { TemplateDocumentComponent } from './pages/template-document/template-document.component';
 import { InstallationsComponent } from './pages/installations/installations.component';
 import { InstallationConfigComponent } from './pages/installation-config/installation-config.component';
@@ -62,7 +62,7 @@ import { ActiveDocumentsComponent } from './pages/active-documents/active-docume
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TreeModule
+    FormsModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptorService, multi: true},

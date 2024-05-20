@@ -10,13 +10,10 @@
     <hr class="my-2" />
     <div class="row">
       <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" name="filterObjs" class="form-control" placeholder="Buscar..." [(ngModel)]="filterObjs">
+        </div>
         <form>
-          <div *ngIf="userLogged.role[0].role === 'admin'">
-            <select class="form-select">
-              <option value=""> -- Seleccionar Compañia -- </option>
-              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
-            </select>
-          </div>
           <div class="d-grid gap-2">
             <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i
                 class="fa-solid fa-plus"></i> Nueva Instalacion</button>
@@ -40,7 +37,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="table-dark" *ngFor="let item of objData">
+            <tr class="table-dark" *ngFor="let item of objData | filter:filterObjs">
               <th scope="row">
                 <i class="fa-solid fa-folder"></i>
               </th>

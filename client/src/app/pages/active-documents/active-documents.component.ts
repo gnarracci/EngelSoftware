@@ -19,6 +19,10 @@ export class ActiveDocumentsComponent implements OnInit {
 
   model: any = [];
 
+  filterProperty: any = "";
+
+  properties: any;
+
   constructor(
     private loginService: LoginService,
     private userService: UserService,

@@ -237,7 +237,7 @@ export class DynamicDocumentsComponent implements OnInit {
 
   fillUpdateFolder(id: string) {
     if(id !== null) {
-      this.templateService.getFolders(id).subscribe(
+      this.templateService.getTemplate(id).subscribe(
         (data) => {
           console.log(data);
         }

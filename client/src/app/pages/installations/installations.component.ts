@@ -17,6 +17,8 @@ export class InstallationsComponent implements OnInit {
 
   objData: any = [];
 
+  filterObjs = "";
+
   constructor(
     private userService: UserService,
     private companyService: CompanyService,
