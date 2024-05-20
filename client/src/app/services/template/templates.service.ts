@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Fields } from 'src/app/interfaces/fields';
+import { Folder } from 'src/app/interfaces/folder';
 import { Template } from 'src/app/interfaces/template';
 import { Types } from 'src/app/interfaces/types';
 
@@ -41,6 +42,15 @@ export class TemplatesService {
   getNameTemplate(id: string): Observable<Template> {
     return this.http
       .get<Template>(`${this.API_URI}api/dynamics/nt/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  updateTemplate(id: string, updatedTemplate: Template): Observable<Template> {
+    return this.http
+      .put<Template>(
+        `${this.API_URI}api/dynamics/update/${id}`,
+        updatedTemplate
+      )
       .pipe(catchError(this.handlerError));
   }
 

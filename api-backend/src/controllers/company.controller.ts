@@ -69,7 +69,7 @@ export const updateCompany = async (req: Request, res: Response) => {
         comp.plant_type = plant_type;
 
         comp = await Company.findOneAndUpdate({_id: req.params.id}, comp, {new:true})
-        res.status(200).json({ message: "Company has been updated successfully!"});
+        res.status(201).json({ message: "Company has been updated successfully!"});
 
     } catch(error) {
         console.error(error);

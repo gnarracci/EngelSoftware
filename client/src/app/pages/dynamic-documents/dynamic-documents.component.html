@@ -6,10 +6,10 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-list-check"></i> Dynamic Management</h1>
+    <h1 class="display-4"><i class="fa-solid fa-list-check"></i> Gestion Dinamica</h1>
     <hr class="my-2" />
     <p class="lead">
-      Documentos Dinamicos 
+      Documentos Dinamicos
     </p>
   </div>
   <div class="row mb-3">
@@ -17,13 +17,13 @@
     <div class="col-md-6">
       <form [formGroup]="templateForm">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInput" formControlName="label"
+          <input type="text" class="form-control" id="label" formControlName="label"
             placeholder="Data Management Area:">
-          <label for="floatingInput">Nuevo Template</label>
+          <label for="floatingInput">Nueva Hoja de Trabajo</label>
         </div>
         <hr class="my-2">
         <!-- Treeview -->
-        <h5>Lista de Templates</h5>
+        <h5>Lista de Hojas de Trabajo</h5>
         <div *ngFor="let item of Templs">
           <ul class="tree">
             <li>
@@ -35,8 +35,8 @@
                       {{ item.label }}
                     </div>
                     <div class="col-sm-4 text-end">
-                      <i class="fa-solid fa-pen-to-square text-primary"></i><i class="fa-solid fa-trash text-danger"
-                        (click)="deleteModel(item._id)"></i>
+                      <i class="fa-solid fa-pen-to-square text-primary" (click)="fillUpdateTemplate(item._id)"></i><i
+                        class="fa-solid fa-trash text-danger" (click)="deleteModel(item._id)"></i>
                     </div>
                   </div>
                 </summary>
@@ -51,13 +51,13 @@
                           </div>
                           <div class="col-sm-4 text-end">
                             <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
-                            <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                            <i class="fa-solid fa-pen-to-square text-primary" (click)="fillUpdateFolder(item._id)"></i><i
                               class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i>
                           </div>
                         </div>
                       </summary>
                       <ul>
-                        <li *ngFor="let inp of folder.formfield">
+                        <li *ngFor="let inp of folder.formfield;let ind = index">
                           <details>
                             <summary>
                               <div class="row">
@@ -66,8 +66,10 @@
                                   {{ inp.label }}
                                 </div>
                                 <div class="col-sm-4 text-end">
-                                  <i class="fa-solid fa-pen-to-square text-primary"></i><i
-                                    class="fa-solid fa-trash text-danger" (click)="deleteFolder(item._id)"></i>
+                                  <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
+                                  <i class="fa-solid fa-pen-to-square text-primary"
+                                    (click)="fillUpdateFields(ind)"></i><i class="fa-solid fa-trash text-danger"
+                                    (click)="deleteFolder(item._id)"></i>
                                 </div>
                               </div>
                             </summary>
@@ -93,7 +95,7 @@
         </select>
       </div>
       <hr class="my-2">
-      <legend><i class="fa-solid fa-table-list"></i> Template Nuevos Campos</legend>
+      <legend><i class="fa-solid fa-table-list"></i> Nuevos Campos para la Hoja de Trabajo</legend>
       <hr class="my-2">
       <!-- Selected Model -->
       <div class="row">
@@ -144,14 +146,6 @@
           <input type="text" class="form-control mt-2" id="floatingInput" formControlName="label" placeholder="Order">
           <label for="floatingInput">Etiqueta</label>
         </div>
-        <div>
-          <div *ngIf="label.invalid && (label.dirty || label.touched)" class="text-danger">
-            <div *ngIf="label.errors?.['required']">Debe ser minuscula.</div>
-            <div *ngIf="label.errors?.['minlength']">
-              Nombre debe al menos tener 4 caracteres.
-            </div>
-          </div>
-        </div>
         <div class="form-floating mb-3" *ngIf="!showField">
           <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order"
             value="{{ selectedFolder }}">
@@ -183,7 +177,8 @@
     <div class="col-md-8">
       <div class="btn-group mt-4">
         <button class="btn btn-lg btn-primary me-2" type="button"
-          (click)="templateForm.invalid ? saveFields() : saveNewModel()"><i class="fa-solid fa-circle-check"></i>
+          (click)="edit ? updateTemplate() : saveNewModel();!edit ? saveFields() : null"><i
+            class="fa-solid fa-circle-check"></i>
           Salvar</button>
         <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser" (click)="reset()"></i>
           Borrar Campos</button>

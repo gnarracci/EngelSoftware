@@ -3,5 +3,5 @@ export interface Obj {
     descrip?: string;
     company?: string;
     adm?: string;
-    name_templ?: string;
+    fld_name?: string;
 }

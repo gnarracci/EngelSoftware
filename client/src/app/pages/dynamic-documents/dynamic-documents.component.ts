@@ -46,7 +46,13 @@ export class DynamicDocumentsComponent implements OnInit {
 
   fld: any = [];
 
-  len: any 
+  len: any;
+
+  idc: string = '';
+
+  edit = false;
+
+  templateData: any = {};
 
   saveError: string = '';
   constructor(
@@ -63,7 +69,7 @@ export class DynamicDocumentsComponent implements OnInit {
   });
 
   templForm = this.formBuilder.group({
-    fld_name: ['', [Validators.required, Validators.minLength(4)]],
+    fld_name: ['', [Validators.required, Validators.minLength(3)]],
     is_container: [null],
     label: ['', [Validators.required]],
     order: [''],
@@ -108,7 +114,7 @@ export class DynamicDocumentsComponent implements OnInit {
         position: 'center',
         icon: 'warning',
         title: 'Oops',
-        text: 'You must select a template!',
+        text: 'Usted debe seleccionar una Hoja de Trabajo!',
         showConfirmButton: false,
         timer: 1300,
       });
@@ -140,7 +146,8 @@ export class DynamicDocumentsComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Field has been added to selected Template!',
+              title:
+                'Campo a sido agregado satisdactoriamente a la Hoja de Trabajo!',
               showConfirmButton: false,
               timer: 1500,
             });
@@ -148,26 +155,29 @@ export class DynamicDocumentsComponent implements OnInit {
             this.getAllTempl();
             this.templForm.reset();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
-        )
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
+        );
       } else {
         // Is a Field under Folder
         this.subfields = this.templForm.value;
-        this.templateService.addFieldsWF(this.selected, this.subfields).subscribe(
-          (res) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Field has been added to selected Folder!',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(res);
-            this.getAllTempl();
-            this.templForm.reset();
-          },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
-        );
+        this.templateService
+          .addFieldsWF(this.selected, this.subfields)
+          .subscribe(
+            (res) => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title:
+                  'Campo agregado satisfactoriamente a la carpeta seleionada!',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              console.log(res);
+              this.getAllTempl();
+              this.templForm.reset();
+            },
+            (err) => Swal.fire('Error!', 'Algp salio mal!', 'error')
+          );
       }
     } else {
       // Is a Folder
@@ -177,7 +187,8 @@ export class DynamicDocumentsComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Folder has been added to selected Template!',
+            title:
+              'La Carpeta a sido agregada a la hoja de trabajo seleccionada!',
             showConfirmButton: false,
             timer: 1500,
           });
@@ -186,20 +197,69 @@ export class DynamicDocumentsComponent implements OnInit {
           this.showField = false;
           this.templForm.reset();
         },
-        (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+        (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
       );
+    }
+  }
+
+  // Update Operations
+  fillUpdateTemplate(id: string) {
+    if (id !== null) {
+      this.templateService.getTemplate(id).subscribe((data) => {
+        this.templateForm.patchValue({
+          label: data.label,
+        });
+      });
+      this.edit = true;
+      this.idc = id;
+    }
+  }
+
+  updateTemplate() {
+    this.templateData = this.templateForm.value;
+    this.templateService.updateTemplate(this.idc, this.templateData).subscribe(
+      (res) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Titulo de la Hoja de Trabajo a sido actualizada con exito!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(res);
+        this.getAllTempl();
+        this.edit = false;
+        this.templateForm.reset();
+      },
+      (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
+    );
+  }
+
+  fillUpdateFolder(id: string) {
+    if(id !== null) {
+      this.templateService.getFolders(id).subscribe(
+        (data) => {
+          console.log(data);
+        }
+      )
+    }
+  }
+
+  fillUpdateFields(id: any) {
+    if (id !== null) {
+      console.log('IDFIELD', id)
     }
   }
 
   deleteFolder(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted seguro?',
+      text: 'Esta accion no puede ser revertida!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -208,9 +268,13 @@ export class DynamicDocumentsComponent implements OnInit {
             console.log(res);
             this.getAllTempl();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
         );
-        Swal.fire('Deleted!', 'Folder selected has been deleted!.', 'success');
+        Swal.fire(
+          'Eliminado!',
+          'La Carpeta seleccionada a sido eliminada!.',
+          'success'
+        );
       }
     });
   }
@@ -274,7 +338,7 @@ export class DynamicDocumentsComponent implements OnInit {
               position: 'center',
               icon: 'error',
               title: 'Oops',
-              text: 'Something went wrong!',
+              text: 'Algo salio mal!',
               showConfirmButton: false,
               timer: 1300,
             });
@@ -283,7 +347,7 @@ export class DynamicDocumentsComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Saved Successfully!',
+              title: 'Hoja de Trabajo guardada satisfactoriamente!',
               showConfirmButton: false,
               timer: 1300,
             });
@@ -293,16 +357,16 @@ export class DynamicDocumentsComponent implements OnInit {
         });
     }
   }
-  
+
   deleteModel(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted Seguro?',
+      text: 'Esta acccion no puede ser revertida!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -311,11 +375,11 @@ export class DynamicDocumentsComponent implements OnInit {
             console.log(res);
             this.getAllTempl();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
         );
         Swal.fire(
-          'Deleted!',
-          'Templete selected has been deleted!.',
+          'Eliminada!',
+          'La Hoja de Trabajo seleccionada a sido eliminada!.',
           'success'
         );
       }

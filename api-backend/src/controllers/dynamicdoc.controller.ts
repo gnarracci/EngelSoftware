@@ -46,7 +46,9 @@ export const getFolders = async (req: Request, res: Response) => {
   try {
     const template = await Template.findById(req.params.id);
     if (!template) throw new Error("Folders not found");
-    return res.status(201).json(template);
+
+    
+    return res.status(201).json(template.folders);
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Something went Wrong!" });
@@ -80,6 +82,22 @@ export const saveTemplate = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!." });
   }
 };
+
+export const updateTemplate = async (req: Request, res: Response) => {
+  try {
+    const { label } = req.body;
+    let templa = await Template.findById(req.params.id);
+    if(!templa) throw new Error("Template not found");
+
+    templa.label = label;
+
+  templa = await Template.findOneAndUpdate({_id: req.params.id }, templa, { new: true });
+  res.status(201).json({ message: "Template has been updated!"})
+  } catch(error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!." });
+  }
+}
 
 export const deleteTemplate = async (req: Request, res: Response) => {
   try {

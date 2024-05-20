@@ -76,7 +76,7 @@ export class CompaniesComponent implements OnInit {
               position: 'center',
               icon: 'error',
               title: 'Oops',
-              text: 'Something went wrong!',
+              text: 'Alo salio mal!',
               showConfirmButton: false,
               timer: 1300,
             });
@@ -85,7 +85,7 @@ export class CompaniesComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Saved Successfully!',
+              title: 'Guardado Satisfactoriamente!',
               showConfirmButton: false,
               timer: 1300,
             });
@@ -131,27 +131,28 @@ export class CompaniesComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Company selected has been updated!',
+          title: 'La Compañia seleccionada ha sido actualiada satisfactoriamente!',
           showConfirmButton: false,
-          timer: 1300,
+          timer: 1500,
         });
         console.log(res);
         this.getCompanies();
+        this.edit = false;
         this.companyForm.reset();
       },
-      (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
     );
   }
 
   deleteCompany(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted Seguro?',
+      text: "Esta accion no puede ser revertida!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, Borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -161,9 +162,9 @@ export class CompaniesComponent implements OnInit {
             this.getCompanies();
             this.companyForm.reset();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
         );
-        Swal.fire('Deleted!', 'Company selected has been deleted!.', 'success');
+        Swal.fire('Eliminada!', 'La Compañia seleccionada a sido eliminada con exito!.', 'success');
       }
     });
   }
