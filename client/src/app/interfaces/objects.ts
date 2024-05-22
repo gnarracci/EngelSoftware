@@ -1,7 +1,7 @@
 export interface Obj {
     code?: string;
     descrip?: string;
-    company?: string;
+    company?: any;
     adm?: string;
     fld_name?: string;
 }

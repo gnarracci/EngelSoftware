@@ -16,21 +16,114 @@
     <hr class="my-2">
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <label for="exampleSelect2" class="form-label mt-3">Busqueda por:</label>
-      <select class="form-select" [(ngModel)]="properties" multiple>
-        <option value="Compañia"> Compañia </option>
-        <option value="Codigo"> Codigo </option>
-        <option value="Descripcion"> Descripcion </option>
-        <option value="Modelo de Datos Asociado"> Modelo de Datos Asociado </option>
-      </select>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="exampleSelect2" class="form-label mt-2">Seleccione un Item para su Busqueda</label>
+        <select class="form-select" name="properties" [(ngModel)]="properties" multiple>
+          <option value="adm"> Modelo de Datos </option>
+          <option value="code"> Codigo </option>
+          <option value="descrip"> Descripcion </option>
+          <option value="company"> Compañia </option>
+        </select>
+      </div>
     </div>
-    <div class="col-md-4">
-      <input type="text" name="filterProperty" class="form-control mt-5" [(ngModel)]="filterProperty">
+    <div class="col-md-6">
+      <label for="exampleSelect2" class="form-label mt-2">Ingrese su Busqueda</label>
+      <input type="text" name="filterProperties" class="form-control form-control-lg" [(ngModel)]="filterProperty"
+        placeholder="Buscar...">
     </div>
     <hr class="my-2">
   </div>
+  <!-- Objs Lists -->
   <div class="row">
-
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Hoja de Trabajo</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Modelo de Datos Asociado</th>
+            <th scope="col">Fecha de Inicio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-dark" *ngFor="let item of objsData | filter:filterProperty">
+            <th scope="row">
+              <i class="fa fa-check-circle" aria-hidden="true"
+                (click)="getObj(item._id); getObjTemplate(item._id); getObjComp(item._id); longObj()"></i>
+            </th>
+            <th scope="row"> {{ item.code }} </th>
+            <td> {{ item.label[0].label }} </td>
+            <td> {{ item.descrip }} </td>
+            <td> {{ item.adm }} </td>
+            <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 *ngIf="objsData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
+    </div>
   </div>
+  <!-- Template Form -->
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" value="{{ objInfo.code }}">
+          <label for="floatingInput">Instalacion / Objeto</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" value="{{ objInfo.adm }}">
+          <label for="floatingInput">Modelo de Datos / Template</label>
+        </div>
+      </div>
+    </div>
+    <!-- Template Data -->
+    <div class="row">
+      <div class="col-md-6">
+        <form>
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="floatingInput" value="{{ objComp.company_name }}">
+            <label for="floatingInput">Compañia</label>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_name }}">
+          <label for="floatingInput">Nombre de Planta</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_type }}">
+          <label for="floatingInput">Tipo de Planta</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_code }}">
+          <label for="floatingInput">Codigo de Planta</label>
+        </div>
+      </div>
+    </div>
+    <hr class="my-2">
+    <!-- Cards & Folders -->
+    <div class="row">
+      <div>
+        <div class="col-md-12">
+          <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
+            <div class="card-header">
+              {{ val.fld_name }}  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

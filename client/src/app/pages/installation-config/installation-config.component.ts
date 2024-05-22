@@ -38,7 +38,15 @@ export class InstallationConfigComponent implements OnInit {
   objForm = this.formbuilder.group({
     code: ['', [Validators.required, Validators.minLength(4)]],
     descrip: ['', [Validators.required]],
-    company: ['', [Validators.required]],
+    company_name: [''],
+    adm: [''],
+    label: [''],
+  });
+
+  objForm2 = this.formbuilder.group({
+    code: ['', [Validators.required, Validators.minLength(4)]],
+    descrip: ['', [Validators.required]],
+    company_name: [''],
     adm: [''],
     label: [''],
   });
@@ -86,18 +94,18 @@ export class InstallationConfigComponent implements OnInit {
             position: 'center',
             icon: 'error',
             title: 'Oops',
-            text: 'Something went wrong!',
+            text: 'Algo salio mal!',
             showConfirmButton: false,
-            timer: 1300,
+            timer: 1500,
           });
         },
         complete: () => {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Saved Successfully!',
+            title: 'Objeto Guardado satisfactoriamente!',
             showConfirmButton: false,
-            timer: 1300,
+            timer: 1500,
           });
 
           this.objForm.reset();

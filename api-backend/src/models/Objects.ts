@@ -3,7 +3,7 @@ import { Schema, model, Document} from "mongoose";
 export interface IObject extends Document {
     code: string;
     descrip: string;
-    company: string;
+    company: any;
     adm: string;
     label: any;
 }
@@ -11,7 +11,10 @@ export interface IObject extends Document {
 const objectSchema = new Schema({
     code: String,
     descrip: String,
-    company: String,
+    company: [{
+        ref: "Company",
+        type: Schema.Types.ObjectId
+    }],
     adm: String,
     label: [{
         ref: "Template",

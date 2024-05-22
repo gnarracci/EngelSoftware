@@ -9,7 +9,7 @@ export class FilterPipe implements PipeTransform {
     //if(arg === '' || arg.length < 3) return value;
     const resultObjs = [];
     for(const item of value) {
-      if (item.descrip.indexOf(arg) > -1) {
+      if (item.code.indexOf(arg) > -1) {
         resultObjs.push(item);
       };
     };

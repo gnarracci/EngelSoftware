@@ -30,6 +30,7 @@ import { DynamicDocumentsComponent } from './pages/dynamic-documents/dynamic-doc
 import { DescriptionTemplateComponent } from './pages/description-template/description-template.component';
 import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
 import { ActiveDocumentsComponent } from './pages/active-documents/active-documents.component';
+import { FilterObjsPipe } from './pipes/filter-objs.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ActiveDocumentsComponent } from './pages/active-documents/active-docume
     DynamicDocumentsComponent,
     DescriptionTemplateComponent,
     HistoricalActivitiesComponent,
-    ActiveDocumentsComponent
+    ActiveDocumentsComponent,
+    FilterObjsPipe
   ],
   imports: [
     BrowserModule,

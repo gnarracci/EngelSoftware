@@ -34,7 +34,7 @@ export class CompaniesComponent implements OnInit {
   ) {}
 
   companyForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
+    company_name: ['', [Validators.required, Validators.minLength(3)]],
     plant_type: ['', [Validators.required, Validators.minLength(3)]],
     plant_code: ['', [Validators.required, Validators.minLength(3)]],
     plant_name: ['', [Validators.required, Validators.minLength(3)]],
@@ -67,7 +67,7 @@ export class CompaniesComponent implements OnInit {
         .save(this.companyForm.value as Companies)
         .subscribe({
           next: (companyData) => {
-            // console.log(companyData);
+            console.log(companyData);
           },
           error: (errorData) => {
             console.error(errorData);
@@ -76,7 +76,7 @@ export class CompaniesComponent implements OnInit {
               position: 'center',
               icon: 'error',
               title: 'Oops',
-              text: 'Alo salio mal!',
+              text: 'Algo salio mal!',
               showConfirmButton: false,
               timer: 1300,
             });
@@ -87,9 +87,8 @@ export class CompaniesComponent implements OnInit {
               icon: 'success',
               title: 'Guardado Satisfactoriamente!',
               showConfirmButton: false,
-              timer: 1300,
+              timer: 1500,
             });
-
             this.companyForm.reset();
             this.getCompanies();
           },
@@ -111,7 +110,7 @@ export class CompaniesComponent implements OnInit {
     if (id !== null) {
       this.companiesService.getCompany(id).subscribe((data) => {
         this.companyForm.patchValue({
-          name: data.name,
+          company_name: data.company_name,
           plant_type: data.plant_type,
           plant_code: data.plant_code,
           plant_name: data.plant_name,

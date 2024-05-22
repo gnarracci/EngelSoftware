@@ -8,11 +8,11 @@
   <div class="jumbotron">
     <h1 class="display-4"><i class="fa-solid fa-object-group"></i> Gestion de la Instalacion</h1>
     <hr class="my-2" />
+    <p class="lead">
+      Objetos de Trabajo
+    </p>
     <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <input type="text" name="filterObjs" class="form-control" placeholder="Buscar..." [(ngModel)]="filterObjs">
-        </div>
+      <div class="col-md-4">        
         <form>
           <div class="d-grid gap-2">
             <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i
@@ -20,16 +20,22 @@
           </div>
         </form>
       </div>
+      <div class="col-md-8">
+        <div class="form-group mt-2">
+          <input type="text" name="filterObjs" class="form-control form-control-lg" placeholder="Buscar..." [(ngModel)]="filterObjs">
+        </div>
+      </div>
     </div>
     <hr class="my-2">
     <div class="row">
-      <div class="col-md-12">
-        <table class="table table-hover">
+      <div class="col-md-12 mt-2">
+        <h5>Hojas de Trabajo Dinamicas</h5>
+        <table *ngIf="objData.length > 0" class="table table-hover mt-2">
           <thead>
             <tr>
               <th scope="col"></th>
               <th scope="col">Codigo</th>
-              <th scope="col">Tipo</th>
+              <th scope="col">Hoja de Trabajo</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Modelo de Datos Asociado</th>
               <th scope="col">Fecha de Inicio</th>
@@ -43,7 +49,7 @@
               </th>
               <th scope="row"> {{ item.code }} </th>
               <td> {{ item.label[0].label }} </td>
-              <td>  {{ item.descrip }} </td>
+              <td> {{ item.descrip }} </td>
               <td> {{ item.adm }}  </td>
               <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
               <td>
@@ -53,6 +59,9 @@
           </tbody>
         </table>
         <h5 *ngIf="objData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
+      </div>
+      <div class="col-md-12">
+        <h5>Hojas de Trabajo Estaticas</h5>
       </div>
     </div>
   </div>

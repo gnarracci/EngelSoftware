@@ -15,12 +15,13 @@
       <div class="col-md-12">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">General</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Hoja de
+              Trabajo Dinamica</a>
           </li>
-          
+
           <li class="nav-item" role="presentation">
             <a class="nav-link" data-bs-toggle="tab" href="#dropdown1" aria-selected="false" tabindex="-1"
-              role="tab">Associated Description Template</a>
+              role="tab">Hoja de Trabajo Estatica</a>
           </li>
 
         </ul>
@@ -45,9 +46,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Tipo de Instalacion</label>
+                    <label for="exampleSelect1" class="form-label mt-4">Hoja de Trabajo</label>
                     <select class="form-select" formControlName="label">
-                      <option value=""> -- Seleccionar Template -- </option>
+                      <option value=""> -- Seleccionar Hoja de Trabajo -- </option>
                       <option *ngFor="let obj of templs" [value]="obj.label"> {{ obj.label }} </option>
                     </select>
                   </div>
@@ -55,9 +56,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleSelect2" class="form-label mt-4">Compañia</label>
-                    <select class="form-select" formControlName="company">
+                    <select class="form-select" formControlName="company_name">
                       <option value=""> -- Seleccione Compañia -- </option>
-                      <option *ngFor="let item of companyData" [value]="item.name"> {{ item.name }} </option>
+                      <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }} </option>
                     </select>
                   </div>
                 </div>
@@ -65,7 +66,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="exampleSelect2" class="form-label mt-4">Associated Data Model</label>
+                    <label for="exampleSelect2" class="form-label mt-4">Modelo de Datos Asociado</label>
                     <select class="form-select" formControlName="adm">
                       <option value=""> -- Seleccionar Modelo de Datos Asociado -- </option>
                       <option *ngFor="let item of templs" [value]="item.label"> {{ item.label }} </option>
@@ -87,11 +88,11 @@
             </form>
             <hr class="my-2">
           </div>
-          
+
           <div class="tab-pane fade" id="dropdown1">
             <form>
               <div class="row">
-                <form [formGroup]="objForm">
+                <form [formGroup]="objForm2">
                   <div class="row">
                     <div class="col-md-4">
                       <label for="code" class="col-sm-2 col-form-label">Codigo:</label>
@@ -110,9 +111,9 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="exampleSelect1" class="form-label mt-4">Tipo de Instalacion</label>
+                        <label for="exampleSelect1" class="form-label mt-4">Hoja de Trabajo</label>
                         <select class="form-select" formControlName="label">
-                          <option value=""> -- Seleccionar Template -- </option>
+                          <option value=""> -- Seleccionar Hoja de Trabajo -- </option>
                           <option *ngFor="let obj of templs" [value]="obj.label"> {{ obj.label }} </option>
                         </select>
                       </div>
@@ -120,9 +121,9 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="exampleSelect2" class="form-label mt-4">Compañia</label>
-                        <select class="form-select" formControlName="company">
+                        <select class="form-select" formControlName="company_name">
                           <option value=""> -- Seleccione Compañia -- </option>
-                          <option *ngFor="let item of companyData" [value]="item.name"> {{ item.name }} </option>
+                          <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }} </option>
                         </select>
                       </div>
                     </div>
@@ -130,7 +131,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="exampleSelect2" class="form-label mt-4">Associated Data Model</label>
+                        <label for="exampleSelect2" class="form-label mt-4">Modelo de Datos Asociado</label>
                         <select class="form-select" formControlName="adm">
                           <option value=""> -- Seleccionar Modelo de Datos Asociado -- </option>
                           <option *ngFor="let item of templs" [value]="item.label"> {{ item.label }} </option>
@@ -152,12 +153,6 @@
                 </form>
               </div>
             </form>
-          </div>
-          <div class="tab-pane fade" id="dropdown2">
-            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
-              cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
-              locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they
-              sold out farm-to-table VHS viral locavore cosby sweater.</p>
           </div>
         </div>
       </div>

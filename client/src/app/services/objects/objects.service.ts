@@ -41,6 +41,18 @@ export class ObjectsService {
       .pipe(catchError(this.handlerError));
   }
 
+  getObjCompany(id: string): Observable<Obj> {
+    return this.http
+      .get<Obj>(`${this.API_URI}api/objects/oc/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  getObj(id: string): Observable<Obj> {
+    return this.http
+      .get<Obj>(`${this.API_URI}api/objects/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error has occurred', error.error);

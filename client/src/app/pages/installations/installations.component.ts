@@ -55,13 +55,13 @@ export class InstallationsComponent implements OnInit {
 
   deleteObj(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted seguro?',
+      text: "Esta accion no puede ser revertida!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, Borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -70,9 +70,9 @@ export class InstallationsComponent implements OnInit {
             console.log(res);
             this.getObjs();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
         );
-        Swal.fire('Deleted!', 'Object selected has been deleted!.', 'success');
+        Swal.fire('Eliminado!', 'El Objeto seleccionado a sido eliminado!.', 'success');
       }
     });
   }

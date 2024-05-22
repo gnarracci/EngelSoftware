@@ -15,13 +15,19 @@ export class ActiveDocumentsComponent implements OnInit {
 
   objsData: any = [];
 
+  objInfo: any = [];
+
   flds: any = [];
 
   model: any = [];
 
-  filterProperty: any = "";
+  objComp: any = [];
 
-  properties: any;
+  filterProperty = '';
+
+  properties!: string;
+
+  longer: any;
 
   constructor(
     private loginService: LoginService,
@@ -58,7 +64,7 @@ export class ActiveDocumentsComponent implements OnInit {
     )
   }
 
-  getObj(id: string) {
+  getObjTemplate(id: string) {
     this.objsService.getObjTemplate(id).subscribe(
       res => {
         this.model = res;
@@ -67,8 +73,28 @@ export class ActiveDocumentsComponent implements OnInit {
     )
   }
 
-  checkfolders() {
-
+  getObj(id: string) {
+    this.objsService.getObj(id).subscribe(
+      res => {
+        this.objInfo = res;
+        console.log('ONLY MODEL', this.objInfo);
+      }
+    )
   }
+
+  getObjComp(id: string) {
+    this.objsService.getObjCompany(id).subscribe(
+      res => {
+        this.objComp = res;
+        console.log('OBJCOMP', this.objComp);
+      }
+    )
+  }
+
+  longObj() {
+    
+  }
+
+  
 
 }

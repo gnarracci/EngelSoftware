@@ -24,9 +24,9 @@
                   >
                   <input
                     type="text"
-                    formControlName="name"
+                    formControlName="company_name"
                     class="form-control"
-                    id="name"
+                    id="company_name"
                     aria-describedby="emailHelp"
                     placeholder="Nombre de la Compañia"
                   />
@@ -128,7 +128,7 @@
             </thead>
             <tbody>
               <tr class="table-primary" *ngFor="let item of companiesData">
-                <td>{{ item.name }}</td>
+                <td>{{ item.company_name }}</td>
                 <td>{{ item.plant_type }}</td>
                 <td>{{ item.plant_code }}</td>
                 <td>{{ item.plant_name }}</td>
@@ -140,7 +140,7 @@
               </tr>
             </tbody>
           </table>
-          <h5 *ngIf="companiesData.length == 0" class="text-info mt-4">No data to display</h5>
+          <h5 *ngIf="companiesData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
         </div>
       </div>
     </div>
