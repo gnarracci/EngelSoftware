@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import Template from "../models/Template";
 import Fields from "../models/Fields";
 import Folders from "../models/Folders";
+import DescripTemplate from "../models/DescripTemplate";
 
 export const getTemplates = async (req: Request, res: Response) => {
   try {
-    const templates = await Template.find();
+    const templates = await DescripTemplate.find();
     if (templates.length > 0) {
       res.status(201).json(templates);
     } else {
@@ -19,7 +19,7 @@ export const getTemplates = async (req: Request, res: Response) => {
 
 export const getTemplate = async (req: Request, res: Response) => {
   try {
-    const template = await Template.findById(req.params.id);
+    const template = await DescripTemplate.findById(req.params.id);
     if (!template) throw new Error("Template not found");
     return res.status(201).json(template);
   } catch (error) {
@@ -31,7 +31,7 @@ export const getTemplate = async (req: Request, res: Response) => {
 // Get Length of Template.folders
 export const getlengthTemplate = async (req: Request, res: Response) => {
   try {
-    const template = await Template.findById(req.params.id);
+    const template = await DescripTemplate.findById(req.params.id);
     if (!template) throw new Error("Template not found");
     let te = template.folders;
     let fr = te.length;
@@ -44,7 +44,7 @@ export const getlengthTemplate = async (req: Request, res: Response) => {
 
 export const getFolders = async (req: Request, res: Response) => {
   try {
-    const template = await Template.findById(req.params.id);
+    const template = await DescripTemplate.findById(req.params.id);
     if (!template) throw new Error("Folders not found");
 
     
@@ -57,7 +57,7 @@ export const getFolders = async (req: Request, res: Response) => {
 
 export const nameTemplate = async (req: Request, res: Response) => {
   try {
-    const template = await Template.findById(req.params.id);
+    const template = await DescripTemplate.findById(req.params.id);
     if (!template) throw new Error("Template not found");
     return res.status(201).json(template.label);
   } catch (error) {
@@ -70,7 +70,7 @@ export const saveTemplate = async (req: Request, res: Response) => {
   const { label } = req.body;
 
   // Save Template
-  const saveTempl: any = new Template({
+  const saveTempl: any = new DescripTemplate({
     label,
   });
 
@@ -86,12 +86,12 @@ export const saveTemplate = async (req: Request, res: Response) => {
 export const updateTemplate = async (req: Request, res: Response) => {
   try {
     const { label } = req.body;
-    let templa = await Template.findById(req.params.id);
+    let templa = await DescripTemplate.findById(req.params.id);
     if(!templa) throw new Error("Template not found");
 
     templa.label = label;
 
-  templa = await Template.findOneAndUpdate({_id: req.params.id }, templa, { new: true });
+  templa = await DescripTemplate.findOneAndUpdate({_id: req.params.id }, templa, { new: true });
   res.status(201).json({ message: "Template has been updated!"})
   } catch(error) {
     console.error(error);
@@ -101,9 +101,9 @@ export const updateTemplate = async (req: Request, res: Response) => {
 
 export const deleteTemplate = async (req: Request, res: Response) => {
   try {
-    let comp = await Template.findById(req.params.id);
+    let comp = await DescripTemplate.findById(req.params.id);
     if (!comp) throw new Error("The Template is not available");
-    await Template.findOneAndRemove({ _id: req.params.id });
+    await DescripTemplate.findOneAndRemove({ _id: req.params.id });
     res
       .status(201)
       .json({ message: "Template has been deleted successfully!" });
@@ -137,7 +137,7 @@ export const newfolder = async (req: Request, res: Response) => {
       fld_name,
     });
     const newfolder = { $push: { folders: folderName } };
-    const result = await Template.updateOne(query, newfolder);
+    const result = await DescripTemplate.updateOne(query, newfolder);
     console.log(result);
     res.status(201).json({ message: "Folder is saved successfully!" });
   } catch (error) {
@@ -162,7 +162,7 @@ export const newfield = async (req: Request, res: Response) => {
       par,
     });
     const newfield = { $push: { folders: newfields } };
-    await Template.updateOne(query, newfield);
+    await DescripTemplate.updateOne(query, newfield);
     res.status(201).json({ message: "Field have been added successfully!" });
   } catch (error) {
     console.error(error);
@@ -213,7 +213,7 @@ export const newfieldsuaF = async (req: Request, res: Response) => {
     const opt = temp_options[ord] || opt_default;
 
     const newfield = { $push: { [opt]: newfields } };
-    await Template.updateOne(filter, newfield);
+    await DescripTemplate.updateOne(filter, newfield);
     res
       .status(201)
       .json({
@@ -242,7 +242,7 @@ export const newsubfolder = async (req: Request, res: Response) => {
       fld_name,
     });
     const newfolder = { $push: { "folders.2.formfield": folderName } };
-    const result = await Template.updateOne(query, newfolder);
+    const result = await DescripTemplate.updateOne(query, newfolder);
     console.log(result);
     res.status(201).json({ message: "Subfolder is saved successfully!" });
   } catch (error) {

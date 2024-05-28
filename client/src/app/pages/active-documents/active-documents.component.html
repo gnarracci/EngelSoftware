@@ -51,14 +51,14 @@
         <tbody>
           <tr class="table-dark" *ngFor="let item of objsData | filter:filterProperty">
             <th scope="row">
-              <i class="fa fa-check-circle" aria-hidden="true"
-                (click)="getObj(item._id); getObjTemplate(item._id); getObjComp(item._id); longObj()"></i>
+              <i class="fa fa-check-circle"
+                (click)="getObj(item._id); getObjTemplate(item._id); getObjComp(item._id); getTemplateLength(item._id)"></i>
             </th>
             <th scope="row"> {{ item.code }} </th>
             <td> {{ item.label[0].label }} </td>
             <td> {{ item.descrip }} </td>
             <td> {{ item.adm }} </td>
-            <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
+            <td> {{ item.createdAt | date : "dd-MM-yyyy" }} </td>
           </tr>
         </tbody>
       </table>
@@ -115,11 +115,30 @@
     <hr class="my-2">
     <!-- Cards & Folders -->
     <div class="row">
-      <div>
+      <!-- Three Folders -->
+      <div *ngIf="showForm">
         <div class="col-md-12">
           <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
             <div class="card-header">
-              {{ val.fld_name }}  
+              {{ val.fld_name }}
+              <div class="card-body" *ngFor="let iter of val.formfield">
+                <label>{{ iter.label }}</label>
+                <input class="form-control" type="{{ iter.type }}" name="{{ iter.name }}" [required]="iter.requ">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- More 3 fields -->
+      <div class="col-md-12">
+        <div *ngIf="!showForm">
+          <div class="card border-dark mt-2 mb-4">
+            <div class="card-header">
+              {{ objInfo.adm }}
+            </div>
+            <div class="card-body" *ngFor="let item of model.folders">
+              <label>{{ item.label }}</label>
+              <input class="form-control" type="{{ item.type }}" name="{{ item.name }}" [required]="item.requ">
             </div>
           </div>
         </div>

@@ -48,18 +48,18 @@ export class LoginComponent {
             position: "center",
             icon: "error",
             title: "Oops",
-            text: "Something went wrong!",
+            text: "Algo salio mal!",
             showConfirmButton: false,
-            timer: 1000
+            timer: 1500
           })
         },
         complete: () => {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Login Successfull!',
+            title: 'Inicio de Sesion Exitoso!',
             showConfirmButton: false,
-            timer: 1000
+            timer: 1500
           })
           this.router.navigateByUrl('/dashboard');
           this.loginForm.reset();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Template } from 'src/app/interfaces/template';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { DataTypesService } from 'src/app/services/data-types.service';
@@ -168,7 +168,7 @@ export class DynamicDocumentsComponent implements OnInit {
                 position: 'center',
                 icon: 'success',
                 title:
-                  'Campo agregado satisfactoriamente a la carpeta seleionada!',
+                  'Campo agregado satisfactoriamente a la carpeta seleccionada!',
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -176,7 +176,7 @@ export class DynamicDocumentsComponent implements OnInit {
               this.getAllTempl();
               this.templForm.reset();
             },
-            (err) => Swal.fire('Error!', 'Algp salio mal!', 'error')
+            (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
           );
       }
     } else {

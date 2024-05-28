@@ -12,7 +12,7 @@ import {
   getObjTemplateLength,
   saveObject,
   updateObject,
-} from "../controllers/object.controller";
+} from "../controllers/descripobj.controller";
 
 router.get("/", getObjects);
 router.get("/:id", getObject);

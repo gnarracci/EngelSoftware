@@ -1,61 +1,62 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Obj } from 'src/app/interfaces/objects';
+import { Descripobj } from 'src/app/interfaces/descripobj';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class ObjectsService {
+export class DescripobjService {
+
   API_URI = 'http://localhost:5000/';
   //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 
-  getObjs(): Observable<Obj> {
+  getObjs(): Observable<Descripobj> {
     return this.http
-      .get<Obj>(`${this.API_URI}api/objects`)
+      .get<Descripobj>(`${this.API_URI}api/descripobj`)
       .pipe(catchError(this.handlerError));
   }
 
-  saveObjs(data: Obj): Observable<Obj> {
+  saveObjs(data: Descripobj): Observable<Descripobj> {
     return this.http
-      .post<Obj>(`${this.API_URI}api/objects`, data)
+      .post<Descripobj>(`${this.API_URI}api/descripobj`, data)
       .pipe(catchError(this.handlerError));
   }
 
-  updateObj(id: string, val: string): Observable<Obj> {
+  updateObj(id: string, val: string): Observable<Descripobj> {
     return this.http
-      .put<Obj>(`${this.API_URI}api/objects/${id}`, val)
+      .put<Descripobj>(`${this.API_URI}api/descripobj/${id}`, val)
       .pipe(catchError(this.handlerError));
   }
 
-  deleteObj(id: string): Observable<Obj> {
+  deleteObj(id: string): Observable<Descripobj> {
     return this.http
-      .delete<Obj>(`${this.API_URI}api/objects/${id}`)
+      .delete<Descripobj>(`${this.API_URI}api/descripobj/${id}`)
       .pipe(catchError(this.handlerError));
   }
-  getObjTemplate(id: string): Observable<Obj> {
+  getObjTemplate(id: string): Observable<Descripobj> {
     return this.http
-      .get<Obj>(`${this.API_URI}api/objects/ot/${id}`)
-      .pipe(catchError(this.handlerError));
-  }
-
-  getObjCompany(id: string): Observable<Obj> {
-    return this.http
-      .get<Obj>(`${this.API_URI}api/objects/oc/${id}`)
+      .get<Descripobj>(`${this.API_URI}api/descripobj/ot/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
-  getObj(id: string): Observable<Obj> {
+  getObjCompany(id: string): Observable<Descripobj> {
     return this.http
-      .get<Obj>(`${this.API_URI}api/objects/${id}`)
+      .get<Descripobj>(`${this.API_URI}api/descripobj/oc/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
-  getObjTemplateLength(id: string): Observable<Obj> {
+  getObj(id: string): Observable<Descripobj> {
     return this.http
-      .get<Obj>(`${this.API_URI}api/objects/length/${id}`)
+      .get<Descripobj>(`${this.API_URI}api/descripobj/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  getObjTemplateLength(id: string): Observable<Descripobj> {
+    return this.http
+      .get<Descripobj>(`${this.API_URI}api/descripobj/length/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
@@ -69,4 +70,10 @@ export class ObjectsService {
       () => new Error('Something went wrong, please try again')
     );
   }
+
+
+
+
+
+
 }

@@ -52,7 +52,7 @@ export const signup = async (req: Request, res: Response) => {
       { _id: savedUser._id },
       process.env.TOKEN_SECRET || "token_secret",
       {
-        expiresIn: 28800, // Token duration "8" hours
+        expiresIn: 43200, // Token duration "12" hours
       }
     );
     res.header("auth-token", token).json(token);
@@ -74,7 +74,7 @@ export const signin = async (req: Request, res: Response) => {
     { _id: user._id },
     process.env.TOKEN_SECRET || "token_secret",
     {
-      expiresIn: 28800, // Token duration "8" hours
+      expiresIn: 43200, // Token duration "12" hours
     }
   );
   res.header("Authorization", token).json({token, user});

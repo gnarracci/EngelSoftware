@@ -29,10 +29,12 @@ export class ActiveDocumentsComponent implements OnInit {
 
   longer: any;
 
+  showForm: any;
+
   constructor(
     private loginService: LoginService,
     private userService: UserService,
-    private objsService: ObjectsService,
+    private objsService: ObjectsService
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +79,7 @@ export class ActiveDocumentsComponent implements OnInit {
     this.objsService.getObj(id).subscribe(
       res => {
         this.objInfo = res;
-        console.log('ONLY MODEL', this.objInfo);
+        console.log('OBJECT', this.objInfo);
       }
     )
   }
@@ -91,10 +93,25 @@ export class ActiveDocumentsComponent implements OnInit {
     )
   }
 
-  longObj() {
-    
+  getTemplateLength(id: string) {
+    this.objsService.getObjTemplateLength(id).subscribe(
+      res => {
+        this.longer = res;
+        console.log('LONGER', this.longer);
+        this.templateForm();
+      }
+    )
   }
 
-  
+  templateForm() {
+    if(this.longer <= 2) {
+      this.showForm = true;
+      console.log(this.showForm)
+    } else {
+      this.showForm = false;
+      console.log(this.showForm)
+    }
+  }
+ 
 
 }

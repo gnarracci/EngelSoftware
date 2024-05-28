@@ -108,7 +108,28 @@ export const getObjTemplate = async (req: Request, res: Response) => {
     if (!objects) {
       res.status(404).json({ message: "Object wasn't found!" });
     } else {
+      let oty = objects.label[0];
+      let len = oty.folders;
+      let lar = len.length;
+      console.log(lar);
       res.status(201).json(objects.label[0]);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+
+export const getObjTemplateLength = async (req: Request, res: Response) => {
+  try {
+    const objects = await Objects.findById(req.params.id).populate("label");
+    if (!objects) {
+      res.status(404).json({ message: "Object wasn't found!" });
+    } else {
+      let oty = objects.label[0];
+      let len = oty.folders;
+      let lar = len.length;
+      res.status(201).json(lar);
     }
   } catch (error) {
     console.error(error);

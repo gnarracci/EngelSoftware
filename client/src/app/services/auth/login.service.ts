@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError, BehaviorSubject, tap, map } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { RoleService } from '../roles/role.service';
-import { Roles } from 'src/app/interfaces/roles';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +62,7 @@ export class LoginService {
       );
     }
     return throwError(
-      () => new Error('Something went wrong, please try again')
+      () => new Error('Nombre de Usuario o Contraseña incorrecta, por favor verifique e intente de nuevo!')
     );
   }
 

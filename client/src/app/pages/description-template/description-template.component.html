@@ -6,17 +6,91 @@
     </div>
   </div>
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-list-check"></i> Gestion Dinamica</h1>
+    <h1 class="display-4"><i class="fa-solid fa-list-check"></i> Gestion Estatica</h1>
     <hr class="my-2" />
     <p class="lead">
       Documentos Estaticos
     </p>
-    <div class="row">
+    <div class="row mb-3">
+      <!-- Folders -->
+      <div class="col-md-6">
         <div class="col-md-6">
+          <form [formGroup]="templateForm">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="label" formControlName="label"
+                placeholder="Data Management Area:">
+              <label for="floatingInput">Nueva Hoja de Trabajo</label>
+            </div>
+            <hr class="my-2">
+            <!-- Treeview -->
+            <h5>Lista de Hojas de Trabajo</h5>
+            <div *ngFor="let item of Templs">
+              <ul class="tree">
+                <li>
+                  <details open>
+                    <summary>
+                      <div class="row">
+                        <div class="col-sm-8" (click)="selectedTempl(item._id); ">
+                          <i class="fa-solid fa-caret-down"></i>
+                          {{ item.label }}
+                        </div>
+                        <div class="col-sm-4 text-end">
+                          <i class="fa-solid fa-pen-to-square text-primary"
+                            ></i><i class="fa-solid fa-trash text-danger"
+                            ></i>
+                        </div>
+                      </div>
+                    </summary>
+                    <ul>
+                      <li *ngFor="let folder of item.folders; let ind = index">
+                        <details>
+                          <summary>
+                            <div class="row">
+                              <div class="col-sm-8" (click)="selectedFd(ind)">
+                                <i class="fa-regular fa-folder"></i>
+                                {{ folder.fld_name }}
+                              </div>
+                              <div class="col-sm-4 text-end">
+                                <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
+                                <i class="fa-solid fa-pen-to-square text-primary"
+                                  ></i><i class="fa-solid fa-trash text-danger"
+                                  ></i>
+                              </div>
+                            </div>
+                          </summary>
+                          <ul>
+                            <li *ngFor="let inp of folder.formfield;let ind = index">
+                              <details>
+                                <summary>
+                                  <div class="row">
+                                    <div class="col-sm-8">
+                                      <i class="fa-regular fa-file"></i>
+                                      {{ inp.label }}
+                                    </div>
+                                    <div class="col-sm-4 text-end">
+                                      <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
+                                      <i class="fa-solid fa-pen-to-square text-primary"
+                                        ></i><i class="fa-solid fa-trash text-danger"
+                                        ></i>
+                                    </div>
+                                  </div>
+                                </summary>
+                              </details>
+                            </li>
+                          </ul>
+                        </details>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </div>
+          </form>
+          <hr class="my-2">
+        </div>
+      </div>
+      <div class="col-md-6">
 
-        </div>
-        <div class="col-md-6">
-            
-        </div>
+      </div>
     </div>
   </div>
