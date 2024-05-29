@@ -12,7 +12,7 @@
       Objetos de Trabajo
     </p>
     <div class="row">
-      <div class="col-md-4">        
+      <div class="col-md-4">
         <form>
           <div class="d-grid gap-2">
             <button class="btn btn-lg btn-primary mt-2" type="button" routerLink="/installation-config"><i
@@ -22,7 +22,8 @@
       </div>
       <div class="col-md-8">
         <div class="form-group mt-2">
-          <input type="text" name="filterObjs" class="form-control form-control-lg" placeholder="Buscar..." [(ngModel)]="filterObjs">
+          <input type="text" name="filterObjs" class="form-control form-control-lg" placeholder="Buscar..."
+            [(ngModel)]="filterObjs">
         </div>
       </div>
     </div>
@@ -50,8 +51,8 @@
               <th scope="row"> {{ item.code }} </th>
               <td> {{ item.label[0].label }} </td>
               <td> {{ item.descrip }} </td>
-              <td> {{ item.adm }}  </td>
-              <td> {{ item.createdAt | date : "yyyy-MM-dd" }} </td>
+              <td> {{ item.adm }} </td>
+              <td> {{ item.createdAt | date : "dd-MM-yyyy" }} </td>
               <td>
                 <i class="fa-solid fa-trash text-danger" (click)="deleteObj(item._id)"></i>
               </td>
@@ -60,8 +61,38 @@
         </table>
         <h5 *ngIf="objData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
       </div>
+      <hr class="my-2">
       <div class="col-md-12">
         <h5>Hojas de Trabajo Estaticas</h5>
+        <table *ngIf="desobjData.length > 0" class="table table-hover mt-2">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Hoja de Trabajo</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Modelo de Datos Asociado</th>
+              <th scope="col">Fecha de Inicio</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-dark" *ngFor="let des of desobjData">
+              <th scope="row">
+                <i class="fa-solid fa-folder"></i>
+              </th>
+              <th scope="row"> {{ des.code }} </th>
+              <td> </td>
+              <td> {{ des.descrip }} </td>
+              <td> {{ des.adm }} </td>
+              <td> {{ des.createdAt | date : "dd-MM-yyyy" }} </td>
+              <td>
+                <i class="fa-solid fa-trash text-danger" (click)="deleteObj(des._id)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h5 *ngIf="desobjData.length == 0" class="text-info mt-4 text-center">No hay datos para mostrar</h5>
       </div>
     </div>
   </div>

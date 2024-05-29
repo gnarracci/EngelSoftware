@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Descripobj } from 'src/app/interfaces/descripobj';
 import { Obj } from 'src/app/interfaces/objects';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { DescripobjService } from 'src/app/services/descripObj/descripobj.service';
+import { DescripTempService } from 'src/app/services/descriptiontemplate/descrip-temp.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { TemplatesService } from 'src/app/services/template/templates.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -18,7 +21,11 @@ export class InstallationConfigComponent implements OnInit {
 
   objs: any = [];
 
+  desobjs: any = [];
+
   templs: any = [];
+
+  destempls: any = [];
 
   companyData: any = [];
 
@@ -32,6 +39,8 @@ export class InstallationConfigComponent implements OnInit {
     private objsService: ObjectsService,
     private templateService: TemplatesService,
     private companyService: CompanyService,
+    private descripObj: DescripobjService,
+    private descripTem: DescripTempService,
     private router: Router
   ) {}
 
@@ -54,7 +63,9 @@ export class InstallationConfigComponent implements OnInit {
   ngOnInit(): void {
     this.dataUser();
     this.getAllObjs();
+    this.getAllDescripObjs();
     this.getTemplates();
+    this.getDesTemp();
     this.getCompanies();
   }
 
@@ -63,6 +74,15 @@ export class InstallationConfigComponent implements OnInit {
       this.objs = res;
       console.log('OBJS', this.objs);
     });
+  }
+
+  getAllDescripObjs() {
+    this.descripObj.getObjs().subscribe(
+      res => {
+        this.desobjs = res;
+        console.log('DESOBJS', this.desobjs);
+      }
+    )
   }
 
   getCompanies() {
@@ -77,6 +97,15 @@ export class InstallationConfigComponent implements OnInit {
       res => {
         this.templs = res;
         console.log('TEMPLATES', this.templs);
+      }
+    )
+  }
+
+  getDesTemp() {
+    this.descripTem.getAllTemplates().subscribe(
+      res => {
+        this.destempls = res;
+        console.log('DESTEMPLS', this.destempls);
       }
     )
   }
@@ -115,10 +144,52 @@ export class InstallationConfigComponent implements OnInit {
     }
   }
 
+  saveDescripObj() {
+    if (this.objForm2.valid) {
+      this.descripObj.saveObjs(this.objForm2.value as Descripobj).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (errorData) => {
+          console.error(errorData);
+          this.saveError = errorData;
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops',
+            text: 'Algo salio mal!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        },
+        complete: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Objeto Guardado satisfactoriamente!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          this.objForm2.reset();
+          this.router.navigate(['/installations']);
+        },
+      });
+    }
+  }
+
   dataUser() {
     this.userService.getProfile().subscribe((res) => {
       this.userLogged = res;
       // console.log('User', this.userLogged);
     });
+  }
+
+  reset() {
+    this.objForm.reset();
+  }
+
+  reset2() {
+    this.objForm2.reset();
   }
 }

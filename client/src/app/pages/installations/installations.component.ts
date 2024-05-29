@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { DescripobjService } from 'src/app/services/descripObj/descripobj.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
@@ -17,17 +18,21 @@ export class InstallationsComponent implements OnInit {
 
   objData: any = [];
 
+  desobjData: any = [];
+
   filterObjs = "";
 
   constructor(
     private userService: UserService,
     private companyService: CompanyService,
-    private objService: ObjectsService
+    private objService: ObjectsService,
+    private desObjsService: DescripobjService
   ) {}
   ngOnInit(): void {
     this.dataUser();
     this.getObjs();
     this.getCompanies();
+    this.getDesObjs();
   }
 
   dataUser() {
@@ -53,6 +58,15 @@ export class InstallationsComponent implements OnInit {
     )
   }
 
+  getDesObjs() {
+    this.desObjsService.getObjs().subscribe(
+      res => {
+        this.desobjData = res;
+        console.log('DESOBJS', this.desobjData);
+      }
+    )
+  }
+
   deleteObj(id: string) {
     Swal.fire({
       title: 'Esta usted seguro?',
@@ -69,6 +83,30 @@ export class InstallationsComponent implements OnInit {
           (res) => {
             console.log(res);
             this.getObjs();
+          },
+          (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
+        );
+        Swal.fire('Eliminado!', 'El Objeto seleccionado a sido eliminado!.', 'success');
+      }
+    });
+  }
+
+  deleteDesObj(id: string) {
+    Swal.fire({
+      title: 'Esta usted seguro?',
+      text: "Esta accion no puede ser revertida!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Borrar!',
+    }).then((result) => {
+      if (result.value) {
+        //Want Delete
+        this.desObjsService.deleteObj(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.getDesObjs();
           },
           (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
         );

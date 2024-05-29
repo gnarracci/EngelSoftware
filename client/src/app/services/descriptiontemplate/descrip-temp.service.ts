@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Descriptem } from 'src/app/interfaces/descriptem';
 import { Fields } from 'src/app/interfaces/fields';
 import { Template } from 'src/app/interfaces/template';
 import { Types } from 'src/app/interfaces/types';
@@ -8,15 +9,15 @@ import { Types } from 'src/app/interfaces/types';
 @Injectable({
   providedIn: 'root',
 })
-export class TemplatesService {
+export class DescripTempService {
   API_URI = 'http://localhost:5000/';
   //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 
-  saveTemp(data: Template): Observable<Template> {
+  saveTemp(data: Descriptem): Observable<Descriptem> {
     return this.http
-      .post<Template>(`${this.API_URI}api/dynamics`, data)
+      .post<Descriptem>(`${this.API_URI}api/statics`, data)
       .pipe(catchError(this.handlerError));
   }
 
@@ -26,74 +27,74 @@ export class TemplatesService {
       .pipe(catchError(this.handlerError));
   }
 
-  getAllTemplates(): Observable<Template> {
+  getAllTemplates(): Observable<Descriptem> {
     return this.http
-      .get<Template>(`${this.API_URI}api/dynamics`)
+      .get<Descriptem>(`${this.API_URI}api/statics`)
       .pipe(catchError(this.handlerError));
   }
 
-  getTemplate(id: string): Observable<Template> {
+  getTemplate(id: string): Observable<Descriptem> {
     return this.http
-      .get<Template>(`${this.API_URI}api/dynamics/${id}`)
+      .get<Descriptem>(`${this.API_URI}api/statics/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
-  getNameTemplate(id: string): Observable<Template> {
+  getNameTemplate(id: string): Observable<Descriptem> {
     return this.http
-      .get<Template>(`${this.API_URI}api/dynamics/nt/${id}`)
+      .get<Descriptem>(`${this.API_URI}api/statics/nt/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
-  updateTemplate(id: string, updatedTemplate: Template): Observable<Template> {
+  updateTemplate(id: string, updatedTemplate: Descriptem): Observable<Descriptem> {
     return this.http
-      .put<Template>(
-        `${this.API_URI}api/dynamics/update/${id}`,
+      .put<Descriptem>(
+        `${this.API_URI}api/statics/update/${id}`,
         updatedTemplate
       )
       .pipe(catchError(this.handlerError));
   }
 
-  deleteTemplate(id: string): Observable<Template> {
+  deleteTemplate(id: string): Observable<Descriptem> {
     return this.http
-      .delete(`${this.API_URI}api/dynamics/${id}`)
+      .delete(`${this.API_URI}api/statics/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
   // Add Folder
   addFolder(id: string, folder: Fields): Observable<Fields> {
     return this.http
-      .put<Fields>(`${this.API_URI}api/dynamics/${id}`, folder)
+      .put<Fields>(`${this.API_URI}api/statics/${id}`, folder)
       .pipe(catchError(this.handlerError));
   }
 
   deleteFolder(id: string): Observable<Fields> {
     return this.http
-      .delete<Fields>(`${this.API_URI}api/dynamics/deletefolder/${id}`)
+      .delete<Fields>(`${this.API_URI}api/statics/deletefolder/${id}`)
       .pipe(catchError(this.handlerError));
   }
 
   getFolders(id: string): Observable<Fields> {
     return this.http
-      .get<Fields>(`${this.API_URI}api/dynamics/folders/${id}`)
+      .get<Fields>(`${this.API_URI}api/statics/folders/${id}`)
       .pipe(catchError(this.handlerError));
   }
   // Add Field under Folder
   addFieldsWF(id: string, subfield: Fields): Observable<Fields> {
     return this.http
-      .put<Fields>(`${this.API_URI}api/dynamics/subfield/${id}`, subfield)
+      .put<Fields>(`${this.API_URI}api/statics/subfield/${id}`, subfield)
       .pipe(catchError(this.handlerError));
   }
   // Add Field under name Template directly
   addField(id: string, field: Fields): Observable<Fields> {
     return this.http
-      .put<Fields>(`${this.API_URI}api/dynamics/nf/${id}`, field)
+      .put<Fields>(`${this.API_URI}api/statics/nf/${id}`, field)
       .pipe(catchError(this.handlerError));
   }
 
   // Get Template Folders
   getLength(id: string): Observable<Fields> {
     return this.http
-      .get<Fields>(`${this.API_URI}api/dynamics/length/${id}`)
+      .get<Fields>(`${this.API_URI}api/statics/length/${id}`)
       .pipe(catchError(this.handlerError));
   }
 

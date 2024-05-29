@@ -32,14 +32,14 @@
                 <div class="col-md-4">
                   <label for="code" class="col-sm-2 col-form-label">Codigo:</label>
                   <div>
-                    <input type="text" class="form-control" id="code" formControlName="code" placeholder="Code">
+                    <input type="text" class="form-control" id="code" formControlName="code" placeholder="Codigo">
                   </div>
                 </div>
                 <div class="col-md-8">
                   <label for="descrip" class="col-sm-2 col-form-label">Descripcion:</label>
                   <div>
                     <input type="text" class="form-control" id="descrip" formControlName="descrip"
-                      placeholder="Name / Description">
+                      placeholder="Nombre / Descripcion">
                   </div>
                 </div>
               </div>
@@ -58,7 +58,8 @@
                     <label for="exampleSelect2" class="form-label mt-4">Compañia</label>
                     <select class="form-select" formControlName="company_name">
                       <option value=""> -- Seleccione Compañia -- </option>
-                      <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }} </option>
+                      <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -80,7 +81,8 @@
                     <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveObj()"><i
                         class="fa-solid fa-circle-check"></i>
                       Salvar Objeto</button>
-                    <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
+                    <button class="btn btn-lg btn-warning" type="button" (click)="reset()"><i
+                        class="fa-solid fa-eraser"></i>
                       Borrar Campos</button>
                   </div>
                 </div>
@@ -97,14 +99,14 @@
                     <div class="col-md-4">
                       <label for="code" class="col-sm-2 col-form-label">Codigo:</label>
                       <div>
-                        <input type="text" class="form-control" id="code" formControlName="code" placeholder="Code">
+                        <input type="text" class="form-control" id="code" formControlName="code" placeholder="Codigo">
                       </div>
                     </div>
                     <div class="col-md-8">
                       <label for="descrip" class="col-sm-2 col-form-label">Descripcion:</label>
                       <div>
                         <input type="text" class="form-control" id="descrip" formControlName="descrip"
-                          placeholder="Name / Description">
+                          placeholder="Nombre / Descripcion">
                       </div>
                     </div>
                   </div>
@@ -114,7 +116,7 @@
                         <label for="exampleSelect1" class="form-label mt-4">Hoja de Trabajo</label>
                         <select class="form-select" formControlName="label">
                           <option value=""> -- Seleccionar Hoja de Trabajo -- </option>
-                          <option *ngFor="let obj of templs" [value]="obj.label"> {{ obj.label }} </option>
+                          <option *ngFor="let obj of destempls" [value]="obj.label"> {{ obj.label }} </option>
                         </select>
                       </div>
                     </div>
@@ -123,7 +125,8 @@
                         <label for="exampleSelect2" class="form-label mt-4">Compañia</label>
                         <select class="form-select" formControlName="company_name">
                           <option value=""> -- Seleccione Compañia -- </option>
-                          <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }} </option>
+                          <option *ngFor="let item of companyData" [value]="item.company_name"> {{ item.company_name }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -134,7 +137,7 @@
                         <label for="exampleSelect2" class="form-label mt-4">Modelo de Datos Asociado</label>
                         <select class="form-select" formControlName="adm">
                           <option value=""> -- Seleccionar Modelo de Datos Asociado -- </option>
-                          <option *ngFor="let item of templs" [value]="item.label"> {{ item.label }} </option>
+                          <option *ngFor="let item of destempls" [value]="item.label"> {{ item.label }} </option>
                         </select>
                       </div>
                     </div>
@@ -142,10 +145,11 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="btn-group mt-4">
-                        <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveObj()"><i
+                        <button class="btn btn-lg btn-primary me-2" type="button" (click)="saveDescripObj()"><i
                             class="fa-solid fa-circle-check"></i>
                           Salvar Objeto</button>
-                        <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser"></i>
+                        <button class="btn btn-lg btn-warning" type="button" (click)="reset2()"><i
+                            class="fa-solid fa-eraser"></i>
                           Borrar Campos</button>
                       </div>
                     </div>
