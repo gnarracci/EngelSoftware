@@ -145,7 +145,37 @@ export class InstallationConfigComponent implements OnInit {
   }
 
   saveDescripObj() {
-    console.log(this.objForm2.value);
+    if (this.objForm2.valid) {
+      this.descripObj.saveObjs(this.objForm2.value as Obj).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (errorData) => {
+          console.error(errorData);
+          this.saveError = errorData;
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops',
+            text: 'Algo salio mal!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        },
+        complete: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Objeto Guardado satisfactoriamente!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          this.objForm2.reset();
+          this.router.navigate(['/installations']);
+        },
+      });
+    }
   }
 
   dataUser() {

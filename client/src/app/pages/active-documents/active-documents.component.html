@@ -117,30 +117,52 @@
     <div class="row">
       <!-- Three Folders -->
       <div *ngIf="showForm">
-        <div class="col-md-12">
-          <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
-            <div class="card-header">
-              {{ val.fld_name }}
-              <div class="card-body" *ngFor="let iter of val.formfield">
-                <label>{{ iter.label }}</label>
-                <input class="form-control" type="{{ iter.type }}" name="{{ iter.name }}" [required]="iter.requ">
+        <div class="col-md-12 mb-4">
+          <form>
+            <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
+              <div class="card-header">
+                {{ val.fld_name }}
+                <div class="card-body" *ngFor="let iter of val.formfield">
+                  <label>{{ iter.label }}</label>
+                  <input class="form-control" type="{{ iter.type }}" name="{{ iter.name }}" [required]="iter.requ">
+                </div>
               </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6">
+                <div class="d-grid gap-2">
+                  <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-floppy-disk"></i>
+                    Guardar</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <!-- More 3 fields -->
-      <div class="col-md-12">
+      <div class="col-md-12 mb-4">
         <div *ngIf="!showForm">
-          <div class="card border-dark mt-2 mb-4">
-            <div class="card-header">
-              {{ objInfo.adm }}
+          <form>
+            <div class="card border-dark mt-2 mb-4">
+              <div class="card-header">
+                {{ objInfo.adm }}
+              </div>
+              <div class="card-body" *ngFor="let item of model.folders">
+                <label>{{ item.label }}</label>
+                <input class="form-control" type="{{ item.type }}" name="{{ item.name }}" [required]="item.requ">
+              </div>
             </div>
-            <div class="card-body" *ngFor="let item of model.folders">
-              <label>{{ item.label }}</label>
-              <input class="form-control" type="{{ item.type }}" name="{{ item.name }}" [required]="item.requ">
+            <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6">
+                <div class="d-grid gap-2">
+                  <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-floppy-disk"></i>
+                    Guardar</button>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

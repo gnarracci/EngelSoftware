@@ -8,7 +8,7 @@ import { Obj } from 'src/app/interfaces/objects';
 })
 export class ObjectsService {
   API_URI = 'http://localhost:5000/';
-  //API_URI = 'https://ppxmwzzx-5000.use2.devtunnels.ms/';
+  //API_URI = 'https://3j5c3z51-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 

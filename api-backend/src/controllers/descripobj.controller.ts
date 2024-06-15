@@ -71,6 +71,7 @@ export const getObjects = async (req: Request, res: Response) => {
   
     // Save new Obj
     try {
+      console.log('TRY', saveObject);
       await saveObject.save();
       res.status(201).json({ message: "Description Object has been saved successfully!" });
     } catch (error) {
