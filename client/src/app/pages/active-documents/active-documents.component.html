@@ -66,17 +66,17 @@
     </div>
   </div>
   <!-- Template Form -->
-  <form>
+  <form [formGroup]="tForm">
     <div class="row">
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInput" value="{{ objInfo.code }}">
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objInfo.code" formControlName="code">
           <label for="floatingInput">Instalacion / Objeto</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInput" value="{{ objInfo.adm }}">
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objInfo.adm" formControlName="adm">
           <label for="floatingInput">Modelo de Datos / Template</label>
         </div>
       </div>
@@ -84,16 +84,16 @@
     <!-- Template Data -->
     <div class="row">
       <div class="col-md-6">
-        <form>
-          <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="floatingInput" value="{{ objComp.company_name }}">
-            <label for="floatingInput">Compañia</label>
-          </div>
-        </form>
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objComp.company_name"
+            formControlName="company">
+          <label for="floatingInput">Compañia</label>
+        </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-2">
-          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_name }}">
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objComp.plant_name"
+            formControlName="plant_name">
           <label for="floatingInput">Nombre de Planta</label>
         </div>
       </div>
@@ -101,13 +101,15 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-floating mb-2">
-          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_type }}">
-          <label for="floatingInput">Tipo de Planta</label>
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objComp.plant_type"
+            formControlName="plant_type">
+          <label for=" floatingInput">Tipo de Planta</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-2">
-          <input type="text" class="form-control" id="floatingInput" value="{{ objComp.plant_code }}">
+          <input type="text" class="form-control" id="floatingInput" [ngModel]="objComp.plant_code"
+            formControlName="plant_code">
           <label for="floatingInput">Codigo de Planta</label>
         </div>
       </div>
@@ -118,51 +120,39 @@
       <!-- Three Folders -->
       <div *ngIf="showForm">
         <div class="col-md-12 mb-4">
-          <form>
-            <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
-              <div class="card-header">
-                {{ val.fld_name }}
-                <div class="card-body" *ngFor="let iter of val.formfield">
-                  <label>{{ iter.label }}</label>
-                  <input class="form-control" type="{{ iter.type }}" name="{{ iter.name }}" [required]="iter.requ">
-                </div>
+          <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
+            <div class="card-header">
+              {{ val.fld_name }}
+              <div class="card-body" *ngFor="let iter of val.formfield; let ind = index">
+                <label>{{ iter.label }} | {{ ind }}</label>
+                <input class="form-control" type="{{ iter.type }}" formControlName="{{ ind }}">
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6"></div>
-              <div class="col-md-6">
-                <div class="d-grid gap-2">
-                  <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-floppy-disk"></i>
-                    Guardar</button>
-                </div>
-              </div>
-            </div>
-          </form>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-lg btn-primary" type="button" (click)="saveTemplate()"><i
+                class="fa-solid fa-floppy-disk"></i>
+              Guardar</button>
+          </div>
         </div>
       </div>
       <!-- More 3 fields -->
       <div class="col-md-12 mb-4">
         <div *ngIf="!showForm">
-          <form>
-            <div class="card border-dark mt-2 mb-4">
-              <div class="card-header">
-                {{ objInfo.adm }}
-              </div>
-              <div class="card-body" *ngFor="let item of model.folders">
-                <label>{{ item.label }}</label>
-                <input class="form-control" type="{{ item.type }}" name="{{ item.name }}" [required]="item.requ">
-              </div>
+          <div class="card border-dark mt-2 mb-4">
+            <div class="card-header">
+              {{ objInfo.adm }}
             </div>
-            <div class="row">
-              <div class="col-md-6"></div>
-              <div class="col-md-6">
-                <div class="d-grid gap-2">
-                  <button class="btn btn-lg btn-primary" type="button"><i class="fa-solid fa-floppy-disk"></i>
-                    Guardar</button>
-                </div>
-              </div>
+            <div class="card-body" *ngFor="let item of model.folders; let ind = index">
+              <label>{{ item.label }} | {{ ind }}</label>
+              <input class="form-control" type="{{ item.type }}" formControlName="{{ ind }}">
             </div>
-          </form>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-lg btn-primary" type="button" (click)="saveTemplate()"><i
+                class="fa-solid fa-floppy-disk"></i>
+              Guardar</button>
+          </div>
         </div>
       </div>
     </div>

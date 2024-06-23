@@ -148,7 +148,7 @@
         </div>
         <div class="form-floating mb-3" *ngIf="!showField">
           <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order"
-            value="{{ selectedFolder }}">
+            [ngModel]="selectedFolder">
           <label for="floatingInput">Orden</label>
         </div>
         <div *ngIf="!showField">

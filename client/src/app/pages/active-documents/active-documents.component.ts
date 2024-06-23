@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -30,12 +31,29 @@ export class ActiveDocumentsComponent implements OnInit {
   longer: any;
 
   showForm: any;
-
+  
   constructor(
     private loginService: LoginService,
     private userService: UserService,
-    private objsService: ObjectsService
+    private objsService: ObjectsService,
+    private formBuilder: FormBuilder
   ) {}
+
+  tForm = this.formBuilder.group({
+    code: [''],
+    adm: [''],
+    company: [''],
+    plant_name: [''],
+    plant_type: [''],
+    plant_code: [''],
+    0: [''],
+    1: [''],
+    2: [''],
+    3: [''],
+    4: [''],
+    5: [''],
+    6: [''],
+  });
 
   ngOnInit(): void {
     this.loginService.currentUserLoginOn.subscribe({
@@ -55,6 +73,10 @@ export class ActiveDocumentsComponent implements OnInit {
       },
       (err) => console.error(err)
     );
+  }
+
+  saveTemplate() {
+    console.log('TEMPLATEDATA', this.tForm.value);
   }
 
   getObjs() {
