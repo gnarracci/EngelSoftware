@@ -51,8 +51,8 @@
         <tbody>
           <tr class="table-dark" *ngFor="let item of objsData | filter:filterProperty">
             <th scope="row">
-              <i class="fa fa-check-circle"
-                (click)="getObj(item._id); getObjTemplate(item._id); getObjComp(item._id); getTemplateLength(item._id)"></i>
+              <i class="fa fa-check-circle" (click)="getObj(item._id); getObjComp(item._id); getTemplateLength(item._id); getObjTemplate(item._id);
+                "></i>
             </th>
             <th scope="row"> {{ item.code }} </th>
             <td> {{ item.label[0].label }} </td>
@@ -66,6 +66,13 @@
     </div>
   </div>
   <!-- Template Form -->
+  <div class="row">
+    <div class="d-grid gap-2">
+      <button class="btn btn-lg btn-primary mb-2" type="button" (click)="getLocalSto()"><i
+          class="fa-solid fa-trowel-bricks"></i> Renderizar
+        Formulario</button>
+    </div>
+  </div>
   <form [formGroup]="tForm">
     <div class="row">
       <div class="col-md-6">
@@ -114,18 +121,21 @@
         </div>
       </div>
     </div>
-    <hr class="my-2">
-    <!-- Cards & Folders -->
+  </form>
+  <hr class="my-2">
+  <!-- Cards & Folders -->
+  <form>
     <div class="row">
       <!-- Three Folders -->
       <div *ngIf="showForm">
         <div class="col-md-12 mb-4">
-          <div class="card border-dark mt-2 mb-4" *ngFor="let val of model.folders">
+          <div class="card border-dark mt-2 mb-4" *ngFor="let val of modelsaved">
             <div class="card-header">
               {{ val.fld_name }}
-              <div class="card-body" *ngFor="let iter of val.formfield; let ind = index">
-                <label>{{ iter.label }} | {{ ind }}</label>
-                <input class="form-control" type="{{ iter.type }}" formControlName="{{ ind }}">
+              <div class="card-body" *ngFor="let iter of val.formfield; let i = index">
+                <label>{{ iter.label }}</label>
+                <input class="form-control" type="{{ iter.type }}" name="{{ iter.label }}"
+                  >
               </div>
             </div>
           </div>
@@ -143,9 +153,10 @@
             <div class="card-header">
               {{ objInfo.adm }}
             </div>
-            <div class="card-body" *ngFor="let item of model.folders; let ind = index">
-              <label>{{ item.label }} | {{ ind }}</label>
-              <input class="form-control" type="{{ item.type }}" formControlName="{{ ind }}">
+            <div class="card-body" *ngFor="let item of modelsaved; let i = index">
+              <label>{{ item.label }}</label>
+              <input class="form-control" type="{{ item.type }}" name="{{ item.label }}"
+                >
             </div>
           </div>
           <div class="d-grid gap-2">

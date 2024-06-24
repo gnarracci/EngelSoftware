@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { UserService } from 'src/app/services/user/user.service';
+
 
 @Component({
   selector: 'app-active-documents',
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./active-documents.component.scss'],
 })
 export class ActiveDocumentsComponent implements OnInit {
+
   userLogged: any = {};
 
   userLoginOn: boolean = false;
@@ -21,6 +23,10 @@ export class ActiveDocumentsComponent implements OnInit {
   flds: any = [];
 
   model: any = [];
+
+  modelsaved: any = [];
+
+  str: any = [];
 
   objComp: any = [];
 
@@ -36,7 +42,7 @@ export class ActiveDocumentsComponent implements OnInit {
     private loginService: LoginService,
     private userService: UserService,
     private objsService: ObjectsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   tForm = this.formBuilder.group({
@@ -46,13 +52,6 @@ export class ActiveDocumentsComponent implements OnInit {
     plant_name: [''],
     plant_type: [''],
     plant_code: [''],
-    0: [''],
-    1: [''],
-    2: [''],
-    3: [''],
-    4: [''],
-    5: [''],
-    6: [''],
   });
 
   ngOnInit(): void {
@@ -75,8 +74,9 @@ export class ActiveDocumentsComponent implements OnInit {
     );
   }
 
-  saveTemplate() {
-    console.log('TEMPLATEDATA', this.tForm.value);
+  saveTemplate(): void {
+    console.log('TFORM1', this.tForm.value);
+    console.log('DATA', this.modelsaved);
   }
 
   getObjs() {
@@ -92,20 +92,26 @@ export class ActiveDocumentsComponent implements OnInit {
     this.objsService.getObjTemplate(id).subscribe(
       res => {
         this.model = res;
+        localStorage.setItem("adm", JSON.stringify(this.model.folders))
         console.log('MODEL', this.model);
       }
     )
   }
 
+  getLocalSto() {
+    let template = JSON.parse(localStorage.getItem("adm") || "");
+    this.modelsaved = template;
+    console.log('TEMPLATE', template);
+  }
+
   getObj(id: string) {
     this.objsService.getObj(id).subscribe(
-      res => {
+        res => {
         this.objInfo = res;
         console.log('OBJECT', this.objInfo);
       }
     )
   }
-
   getObjComp(id: string) {
     this.objsService.getObjCompany(id).subscribe(
       res => {

@@ -31,6 +31,10 @@ import { DescriptionTemplateComponent } from './pages/description-template/descr
 import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
 import { ActiveDocumentsComponent } from './pages/active-documents/active-documents.component';
 import { FilterObjsPipe } from './pipes/filter-objs.pipe';
+import { StaticalDocumentsComponent } from './pages/statical-documents/statical-documents.component';
+import { LoginEnterpriseComponent } from './pages/login-enterprise/login-enterprise.component';
+import { DashboardEnterpriseComponent } from './pages/dashboard-enterprise/dashboard-enterprise.component';
+import { SetupEnterpriseComponent } from './pages/setup-enterprise/setup-enterprise.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +61,11 @@ import { FilterObjsPipe } from './pipes/filter-objs.pipe';
     DescriptionTemplateComponent,
     HistoricalActivitiesComponent,
     ActiveDocumentsComponent,
-    FilterObjsPipe
+    FilterObjsPipe,
+    StaticalDocumentsComponent,
+    LoginEnterpriseComponent,
+    DashboardEnterpriseComponent,
+    SetupEnterpriseComponent
   ],
   imports: [
     BrowserModule,

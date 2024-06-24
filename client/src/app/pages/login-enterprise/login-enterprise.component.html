@@ -1,0 +1,64 @@
+<app-nav></app-nav>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-6 mx-auto">
+      <form [formGroup]="loginForm">
+        <p class="text-danger">{{ loginError }}</p>
+        <fieldset>
+          <legend><i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesion de Administracion</legend>
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="form-label mt-4">Superusuario</label>
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="Nombre de Usuario"
+            />
+            <div
+              *ngIf="user.invalid && (user.dirty || user.touched)"
+              class="text-danger"
+            >
+              <div *ngIf="user.errors?.['required']">El Nombre de Usuario es requerido.</div>
+              <div *ngIf="user.errors?.['minlength']">
+                El nombre de Usuario debe tener al menos 4 caracteres
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" class="form-label mt-4"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Contraseña"
+              autocomplete="off"
+            />
+            <div
+              *ngIf="user.invalid && (user.dirty || user.touched)"
+              class="text-danger"
+            >
+              <div *ngIf="password.errors?.['required']">La Contraseña es requerida.</div>
+              <div *ngIf="password.errors?.['minlength']">
+                La Contraseña debe tener al menos 4 caracteres de logitud.
+              </div>
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-3">
+            <button
+              
+              class="btn btn-lg btn-primary"
+              type="button"
+            >
+              Iniciar Sesion
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -20,6 +20,10 @@ import { DynamicDocumentsComponent } from './pages/dynamic-documents/dynamic-doc
 import { DescriptionTemplateComponent } from './pages/description-template/description-template.component';
 import { HistoricalActivitiesComponent } from './pages/historical-activities/historical-activities.component';
 import { ActiveDocumentsComponent } from './pages/active-documents/active-documents.component';
+import { StaticalDocumentsComponent } from './pages/statical-documents/statical-documents.component';
+import { LoginEnterpriseComponent } from './pages/login-enterprise/login-enterprise.component';
+import { DashboardEnterpriseComponent } from './pages/dashboard-enterprise/dashboard-enterprise.component';
+import { SetupEnterpriseComponent } from './pages/setup-enterprise/setup-enterprise.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -109,6 +113,26 @@ const routes: Routes = [
   {
     path: 'active-documents',
     component: ActiveDocumentsComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'statical-documents',
+    component: StaticalDocumentsComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'login-enterprise',
+    component: LoginEnterpriseComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'dashboard-enterprise',
+    component: DashboardEnterpriseComponent,
+    data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'setup-enterprise',
+    component: SetupEnterpriseComponent,
     data: { roles: ['admin', 'user'] },
   },
   { path: '**', component: NotfoundComponent },
