@@ -124,7 +124,7 @@
   </form>
   <hr class="my-2">
   <!-- Cards & Folders -->
-  <form>
+  <form> 
     <div class="row">
       <!-- Three Folders -->
       <div *ngIf="showForm">
@@ -135,7 +135,7 @@
               <div class="card-body" *ngFor="let iter of val.formfield; let i = index">
                 <label>{{ iter.label }}</label>
                 <input class="form-control" type="{{ iter.type }}" name="{{ iter.label }}"
-                  >
+                  [(ngModel)]="formData[iter.label]">
               </div>
             </div>
           </div>
@@ -156,7 +156,7 @@
             <div class="card-body" *ngFor="let item of modelsaved; let i = index">
               <label>{{ item.label }}</label>
               <input class="form-control" type="{{ item.type }}" name="{{ item.label }}"
-                >
+                [(ngModel)]="formData[item.label]">
             </div>
           </div>
           <div class="d-grid gap-2">
