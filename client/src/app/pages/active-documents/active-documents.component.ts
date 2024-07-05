@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/auth/login.service';
+import { ObjdynService } from 'src/app/services/objdyn/objdyn.service';
 import { ObjectsService } from 'src/app/services/objects/objects.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class ActiveDocumentsComponent implements OnInit {
   userLoginOn: boolean = false;
 
   formData: any = {};
+
+  formPpal: any = {};
 
   objsData: any = [];
 
@@ -44,11 +48,14 @@ export class ActiveDocumentsComponent implements OnInit {
 
   itemsArray: any;
 
+  saveError: string = '';
+
   constructor(
     private loginService: LoginService,
     private userService: UserService,
     private objsService: ObjectsService,
     private formBuilder: FormBuilder,
+    private objDyn: ObjdynService
   ) {}
 
   tForm = this.formBuilder.group({
@@ -85,6 +92,37 @@ export class ActiveDocumentsComponent implements OnInit {
   saveTemplate(): void {
     console.log('TFORM1', this.tForm.value);
     console.log('TFORM2', this.formData)
+    this.formPpal = this.tForm.value;
+    const uni = {...this.formPpal, ...this.formData};
+    console.log('uni', uni);
+    this.objDyn.saveObjdyn(uni).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (errorData) => {
+        console.error(errorData);
+        this.saveError = errorData;
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Oops',
+          text: 'Algo salio mal!',
+          showConfirmButton: false,
+          timer: 1300,
+        });
+      },
+      complete: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Hoja de Trabajo guardada satisfactoriamente!',
+          showConfirmButton: false,
+          timer: 1300,
+        });
+        this.tForm.reset();
+        this.formData = {};    
+      },
+    })
   }
 
   getObjs() {
@@ -109,6 +147,7 @@ export class ActiveDocumentsComponent implements OnInit {
   getLocalSto() {
     let template = JSON.parse(localStorage.getItem("adm") || "");
     this.modelsaved = template;
+    this.formData = {};
     console.log('TEMPLATE', template);
   }
 
@@ -148,6 +187,5 @@ export class ActiveDocumentsComponent implements OnInit {
       console.log(this.showForm)
     }
   }
- 
 
 }

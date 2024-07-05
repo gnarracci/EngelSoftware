@@ -14,6 +14,7 @@ import typeRoutes from "./routes/type";
 import dynamicsDocs from "./routes/dynamicdoc";
 import descripObjRoutes from "./routes/descripobj";
 import staticsDocs from "./routes/staticdoc";
+import objDyn from "./routes/objdyn";
 
 const app: Application = express();
 createRoles();
@@ -34,6 +35,7 @@ app.use("/api/types", typeRoutes);
 app.use("/api/dynamics", dynamicsDocs);
 app.use("/api/descripobj", descripObjRoutes);
 app.use("/api/statics", staticsDocs);
+app.use("/api/objdyn", objDyn);
 
 // Settings
 app.set("port", process.env.PORT || 4000);

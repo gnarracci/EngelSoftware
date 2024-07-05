@@ -35,6 +35,7 @@ import { StaticalDocumentsComponent } from './pages/statical-documents/statical-
 import { LoginEnterpriseComponent } from './pages/login-enterprise/login-enterprise.component';
 import { DashboardEnterpriseComponent } from './pages/dashboard-enterprise/dashboard-enterprise.component';
 import { SetupEnterpriseComponent } from './pages/setup-enterprise/setup-enterprise.component';
+import { PdfviewComponent } from './pages/pdfview/pdfview.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { SetupEnterpriseComponent } from './pages/setup-enterprise/setup-enterpr
     StaticalDocumentsComponent,
     LoginEnterpriseComponent,
     DashboardEnterpriseComponent,
-    SetupEnterpriseComponent
+    SetupEnterpriseComponent,
+    PdfviewComponent
   ],
   imports: [
     BrowserModule,

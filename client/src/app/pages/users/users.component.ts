@@ -127,7 +127,7 @@ export class UsersComponent implements OnInit {
     if (this.userForm.valid) {
       this.userService.save(this.userForm.value).subscribe({
         next: (userData) => {
-          // console.log(userData);
+          console.log(userData);
         },
         error: (errorData) => {
           console.log(errorData);
@@ -136,7 +136,7 @@ export class UsersComponent implements OnInit {
             position: 'center',
             icon: 'error',
             title: 'Oops',
-            text: 'Something went wrong!',
+            text: 'ALgo sucedio mal!',
             showConfirmButton: false,
             timer: 1300,
           });
@@ -145,7 +145,7 @@ export class UsersComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'User Saved Successfully!',
+            title: 'Usuario Guardado Satisfatoriamente!',
             showConfirmButton: false,
             timer: 1300,
           });
@@ -183,7 +183,7 @@ export class UsersComponent implements OnInit {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'User selected has been updated!',
+          title: 'El Usuario seleccionado ha sido actualiado!',
           showConfirmButton: false,
           timer: 1300,
         });
@@ -191,19 +191,19 @@ export class UsersComponent implements OnInit {
         this.getAllUsers();
         this.userForm.reset();
       },
-      (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      (err) => Swal.fire('Error!', 'Algo sucedio mal!', 'error')
     );
   }
 
   deleteUser(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted seguro?',
+      text: "Esta accion no puede ser revertida!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, Borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -213,9 +213,9 @@ export class UsersComponent implements OnInit {
             this.getAllUsers();
             this.userForm.reset();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo sucedio mal!', 'error')
         );
-        Swal.fire('Deleted!', 'User selected has been deleted!.', 'success');
+        Swal.fire('Deleted!', 'El Usuario seleccionado a sido borrado!.', 'success');
       }
     });
   }
@@ -240,7 +240,7 @@ export class UsersComponent implements OnInit {
             position: 'center',
             icon: 'error',
             title: 'Oops',
-            text: 'Something went wrong!',
+            text: 'Algo sucedio mal!',
             showConfirmButton: false,
             timer: 1300,
           });
@@ -249,7 +249,7 @@ export class UsersComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Role Saved Successfully!',
+            title: 'Rol agregado satisfactoriamente!',
             showConfirmButton: false,
             timer: 1300,
           });
@@ -280,7 +280,7 @@ export class UsersComponent implements OnInit {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Role selected has been updated!',
+          title: 'El Rol seleccionado a sido actualiado!',
           showConfirmButton: false,
           timer: 1300,
         });
@@ -289,19 +289,19 @@ export class UsersComponent implements OnInit {
         this.getAllUsers();
         this.roleForm.reset();
       },
-      (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+      (err) => Swal.fire('Error!', 'Algo sucedio mal!', 'error')
     );
   }
 
   deleteRoles(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta usted seguro?',
+      text: "Esta accion no puede ser revertida!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Si, Borrar!',
     }).then((result) => {
       if (result.value) {
         //Want Delete
@@ -311,9 +311,9 @@ export class UsersComponent implements OnInit {
             this.getAllRoles();
             this.resetRole();
           },
-          (err) => Swal.fire('Error!', 'Something went wrong!', 'error')
+          (err) => Swal.fire('Error!', 'Algo sucedio mal!', 'error')
         );
-        Swal.fire('Deleted!', 'Role selected has been deleted!.', 'success');
+        Swal.fire('Deleted!', 'El Rol seleccionado a sido eliminadi!.', 'success');
       }
     });
   }

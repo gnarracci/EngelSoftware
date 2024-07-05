@@ -1,25 +1,67 @@
 <app-nav></app-nav>
-<p>historical-activities works!</p>
-
-<ul>
-  <li>
-    Giant planets
-    <ul>
-      <li>
-        Gas giants
-        <ul>
-          <li>Jupiter</li>
-          <li>Saturn</li>
-          
-        </ul>
-      </li>
-      <li>
-        Ice giants
-        <ul>
-          <li>Uranus</li>
-          <li>Neptune</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="text-end">
+        <i class="fa-solid fa-user"></i> {{ userLogged.username }}
+      </h6>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <h1 class="display-4"><i class="fa-solid fa-chart-simple"></i> Historial</h1>
+    <hr class="my-2" />
+    <p class="lead">
+      Datos Historicos
+    </p>
+  </div>
+  <hr class="my-2">
+  <h5>Hojas de Trabajo</h5>
+  <hr class="my-2">
+  <h6>Dinamicas</h6>
+  <hr class="my-2">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Hoja de Trabajo</th>
+        <th scope="col">Compañia</th>
+        <th scope="col">Fecha de Compilacion</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-dark" *ngFor="let item of HTD">
+        <th scope="row">{{ item.pdfData.code }}</th>
+        <th scope="row">{{ item.pdfData.adm }}</th>
+        <th scope="row">{{ item.pdfData.company }}</th>
+        <th scope="row">{{ item.createdAt | date : "dd-MM-yyyy" }}</th>
+        <th scope="row"><button type="button" class="btn btn-danger" (click)="genPDF()"><i
+              class="fa-solid fa-file-pdf"></i>
+            Generar PDF </button></th>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="my-2">
+  <h6>Estaticas</h6>
+  <hr class="my-2">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Hoja de Trabajo</th>
+        <th scope="col">Compañia</th>
+        <th scope="col">Fecha de Compilacion</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-dark">
+        <th scope="row">Dark</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="my-2">
+</div>

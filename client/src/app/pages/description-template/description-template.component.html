@@ -13,7 +13,6 @@
     </p>
     <div class="row mb-3">
       <!-- Folders -->
-      <div class="col-md-6">
         <div class="col-md-6">
           <form [formGroup]="templateForm">
             <div class="form-floating mb-3">
@@ -35,9 +34,8 @@
                           {{ item.label }}
                         </div>
                         <div class="col-sm-4 text-end">
-                          <i class="fa-solid fa-pen-to-square text-primary"
-                            ></i><i class="fa-solid fa-trash text-danger"
-                            ></i>
+                          <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                            class="fa-solid fa-trash text-danger"></i>
                         </div>
                       </div>
                     </summary>
@@ -52,9 +50,8 @@
                               </div>
                               <div class="col-sm-4 text-end">
                                 <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
-                                <i class="fa-solid fa-pen-to-square text-primary"
-                                  ></i><i class="fa-solid fa-trash text-danger"
-                                  ></i>
+                                <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                                  class="fa-solid fa-trash text-danger"></i>
                               </div>
                             </div>
                           </summary>
@@ -69,9 +66,8 @@
                                     </div>
                                     <div class="col-sm-4 text-end">
                                       <i class="fa-solid fa-crosshairs"> {{ ind + 1 }} </i>
-                                      <i class="fa-solid fa-pen-to-square text-primary"
-                                        ></i><i class="fa-solid fa-trash text-danger"
-                                        ></i>
+                                      <i class="fa-solid fa-pen-to-square text-primary"></i><i
+                                        class="fa-solid fa-trash text-danger"></i>
                                     </div>
                                   </div>
                                 </summary>
@@ -88,9 +84,104 @@
           </form>
           <hr class="my-2">
         </div>
+        <!-- New Fields -->
+        <div class="col-md-6">
+          <div>
+            <select class="form-select">
+              <option value=""> -- Seleccionar Compañia -- </option>
+              <option *ngFor="let option of companyData" [value]="option.name"> {{ option.name }} </option>
+            </select>
+          </div>
+          <hr class="my-2">
+          <legend><i class="fa-solid fa-table-list"></i> Nuevos Campos para la Hoja de Trabajo</legend>
+          <hr class="my-2">
+          <!-- Selected Model -->
+          <div class="row">
+            <div class="col-md-8 mb-2">
+              <input type="text" class="form-control" value="{{ dataTempl }}">
+              <small id="emailHelp" class="form-text text-muted">Hoja de Trabajo seleccionada</small>
+            </div>
+            <div class="col-md-4 mb-2">
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-primary" type="button" (click)="showForml()"><i class="fa-solid fa-plus"></i>
+                  Nuevo Campo</button>
+              </div>
+            </div>
+          </div>
+          <!-- New Templates Fields -->
+          <form *ngIf="showForm" [formGroup]="templForm">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingInput" formControlName="fld_name"
+                placeholder="Name Field">
+              <label for="floatingInput">Nombre del Campo</label>
+            </div>
+            <div *ngIf="fld_name.invalid && (fld_name.dirty || fld_name.touched)" class="text-danger">
+              <div *ngIf="fld_name.errors?.['required']">Nuevo Campo es requerido.</div>
+              <div *ngIf="fld_name.errors?.['minlength']">
+                Nombre debe tener al menos 4 caracteres.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-check">
+                  <input class="form-check-input mt-2" type="checkbox" formControlName="is_container" value=""
+                    (change)="onChange($event)">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Es un Contenedor?
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-check" *ngIf="!showField">
+                  <input class="form-check-input mt-2" type="checkbox" value="" (change)="isOnlyField($event)">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Es solo un Campo?
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating mb-3" *ngIf="!showField">
+              <input type="text" class="form-control mt-2" id="floatingInput" formControlName="label" placeholder="Order">
+              <label for="floatingInput">Etiqueta</label>
+            </div>
+            <div class="form-floating mb-3" *ngIf="!showField">
+              <input type="number" class="form-control mt-2" id="floatingInput" formControlName="order"
+                [ngModel]="selectedFolder">
+              <label for="floatingInput">Seleccionar Nivel/Carpeta</label>
+            </div>
+            <div *ngIf="!showField">
+              <label for="exampleSelect1" class="form-label mt-2">Tipo de Dato</label>
+              <select class="form-select" id="exampleSelect1" formControlName="type">
+                <option value=""> -- Seleccionar Tipo de Dato --</option>
+                <option *ngFor="let item of dataType" [value]="item.type"> {{ item.type }} </option>
+              </select>
+            </div>
+            <div class="form-check mt-2" *ngIf="!showField">
+              <input class="form-check-input mt-2" type="checkbox" formControlName="requ" value="">
+              <label class="form-check-label" for="flexCheckDefault">
+                Requerido
+              </label>
+            </div>
+            <div *ngIf="!showField">
+              <label for="exampleSelect3" class="form-label mt-2">Carpeta Contenedora</label>
+              <input type="text" class="form-control" formControlName="par">
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="col-md-6">
-
+      <hr class="my-2">
+      <!-- Actions Buttons -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="btn-group mt-4">
+            <button class="btn btn-lg btn-primary me-2" type="button"
+              (click)="edit ? updateTemplate() : saveNewModel();!edit ? saveFields() : null"><i
+                class="fa-solid fa-circle-check"></i>
+              Salvar</button>
+            <button class="btn btn-lg btn-warning" type="button"><i class="fa-solid fa-eraser" (click)="reset()"></i>
+              Borrar Campos</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      </div>
+      
