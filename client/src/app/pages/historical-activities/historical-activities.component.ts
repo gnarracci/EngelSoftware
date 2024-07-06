@@ -61,7 +61,7 @@ export class HistoricalActivitiesComponent implements OnInit {
       }
     )        
   }
-
+ 
   genPDF() {
     let doc = new jsPDF();
     this.DynInfo.forEach((element: any) => {

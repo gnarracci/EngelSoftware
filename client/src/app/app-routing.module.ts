@@ -24,6 +24,7 @@ import { StaticalDocumentsComponent } from './pages/statical-documents/statical-
 import { LoginEnterpriseComponent } from './pages/login-enterprise/login-enterprise.component';
 import { DashboardEnterpriseComponent } from './pages/dashboard-enterprise/dashboard-enterprise.component';
 import { SetupEnterpriseComponent } from './pages/setup-enterprise/setup-enterprise.component';
+import { PdfviewComponent } from './pages/pdfview/pdfview.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -134,6 +135,11 @@ const routes: Routes = [
     path: 'setup-enterprise',
     component: SetupEnterpriseComponent,
     data: { roles: ['admin', 'user'] },
+  },
+  {
+    path: 'pdfview',
+    component: PdfviewComponent,
+    data() { roles: ['admin', 'user'] },
   },
   { path: '**', component: NotfoundComponent },
 ];

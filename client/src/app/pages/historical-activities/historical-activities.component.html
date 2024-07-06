@@ -35,9 +35,9 @@
         <th scope="row">{{ item.pdfData.adm }}</th>
         <th scope="row">{{ item.pdfData.company }}</th>
         <th scope="row">{{ item.createdAt | date : "dd-MM-yyyy" }}</th>
-        <th scope="row"><button type="button" class="btn btn-danger" (click)="genPDF()"><i
-              class="fa-solid fa-file-pdf"></i>
-            Generar PDF </button></th>
+        <th scope="row"><button type="button" class="btn btn-success" routerLink="/pdfview"><i
+              class="fa-regular fa-square-check"></i>
+            Ver Hoja de Trabajo </button></th>
       </tr>
     </tbody>
   </table>
