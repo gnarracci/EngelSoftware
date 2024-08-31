@@ -68,8 +68,8 @@
   <!-- Template Form -->
   <div class="row">
     <div class="d-grid gap-2">
-      <button class="btn btn-lg btn-primary mb-2" type="button" (click)="getLocalSto()"><i
-          class="fa-solid fa-trowel-bricks"></i> Renderizar
+      <button class="btn btn-lg btn-primary mb-2" type="button" (click)="getLocalSto(); saveTemplate()"><i
+          class="fa-solid fa-trowel-bricks"></i> Generar
         Formulario</button>
     </div>
   </div>
@@ -140,7 +140,7 @@
             </div>
           </div>
           <div class="d-grid gap-2">
-            <button class="btn btn-lg btn-primary" type="button" (click)="saveTemplate()"><i
+            <button class="btn btn-lg btn-primary" type="button" (click)="updatedyn()"><i
                 class="fa-solid fa-floppy-disk"></i>
               Guardar</button>
           </div>
@@ -160,7 +160,7 @@
             </div>
           </div>
           <div class="d-grid gap-2">
-            <button class="btn btn-lg btn-primary" type="button" (click)="saveTemplate()"><i
+            <button class="btn btn-lg btn-primary" type="button" ><i
                 class="fa-solid fa-floppy-disk"></i>
               Guardar</button>
           </div>

@@ -18,9 +18,9 @@ export class ActiveDocumentsComponent implements OnInit {
 
   userLoginOn: boolean = false;
 
-  formData: any = {};
+  formData: any = [];
 
-  formPpal: any = {};
+  formPpal: any = [];
 
   objsData: any = [];
 
@@ -49,6 +49,12 @@ export class ActiveDocumentsComponent implements OnInit {
   itemsArray: any;
 
   saveError: string = '';
+
+  pdfInfo: any = [];
+
+  ident: any = '';
+
+  updatedForm: any;
 
   constructor(
     private loginService: LoginService,
@@ -91,13 +97,11 @@ export class ActiveDocumentsComponent implements OnInit {
 
   saveTemplate(): void {
     console.log('TFORM1', this.tForm.value);
-    console.log('TFORM2', this.formData)
     this.formPpal = this.tForm.value;
-    const uni = {...this.formPpal, ...this.formData};
-    console.log('uni', uni);
-    this.objDyn.saveObjdyn(uni).subscribe({
+    this.objDyn.saveObjdyn(this.formPpal).subscribe({
       next: (res) => {
-        console.log(res);
+        this.ident = res;
+        console.log(this.ident);
       },
       error: (errorData) => {
         console.error(errorData);
@@ -115,15 +119,35 @@ export class ActiveDocumentsComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Hoja de Trabajo guardada satisfactoriamente!',
+          title: 'Datos Iniciales guardada satisfactoriamente!',
           showConfirmButton: false,
           timer: 1300,
-        });
-        this.tForm.reset();
-        this.formData = {};    
-      },
+        });    
+     },
     })
   }
+
+  updatedyn() {
+    let id = this.ident;
+    this.updatedForm = this.formData;
+    console.log('IDENT', id);
+    console.log('FORMA', this.updatedForm);
+    this.objDyn.updatedyn(id, this.updatedForm).subscribe(
+      res => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'La Hoja de Trabajo ha sido actualiada satisfactoriamente!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(res);
+        this.formData = {};
+      },
+      (err) => Swal.fire('Error!', 'Algo salio mal!', 'error')
+    );
+  }
+
 
   getObjs() {
     this.objsService.getObjs().subscribe(

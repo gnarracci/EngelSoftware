@@ -137,7 +137,7 @@ const routes: Routes = [
     data: { roles: ['admin', 'user'] },
   },
   {
-    path: 'pdfview',
+    path: 'pdfview/:id',
     component: PdfviewComponent,
     data() { roles: ['admin', 'user'] },
   },

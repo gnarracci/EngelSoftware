@@ -10,8 +10,8 @@ import { Types } from 'src/app/interfaces/types';
   providedIn: 'root',
 })
 export class DescripTempService {
-  API_URI = 'http://localhost:5000/';
-  //API_URI = 'https://3j5c3z51-5000.use2.devtunnels.ms/';
+  //API_URI = 'http://localhost:5000/';
+  API_URI = 'https://3j5c3z51-5000.use2.devtunnels.ms/';
 
   constructor(private http: HttpClient) {}
 

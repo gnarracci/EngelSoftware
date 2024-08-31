@@ -30,6 +30,24 @@ export class ObjdynService {
       .pipe(catchError(this.handlerError));
   }
 
+  getOnedynPDF(id: string): Observable<Objdyn> {
+    return this.http
+      .get<Objdyn>(`${this.API_URI}api/objdyn/pdf/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  updatedyn(id: string, data: Objdyn): Observable<Objdyn> {
+    return this.http
+      .put<Objdyn>(`${this.API_URI}api/objdyn/upd/${id}`, data)
+      .pipe(catchError(this.handlerError));
+  }
+
+  deleteDyn(id: string) {
+    return this.http
+      .delete<Objdyn>(`${this.API_URI}api/objdyn/${id}`)
+      .pipe(catchError(this.handlerError));
+  }
+
   private handlerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('Un error a ocurrido', error.error);

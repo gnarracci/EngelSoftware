@@ -1,10 +1,29 @@
 <app-nav></app-nav>
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-4"><i class="fa-solid fa-file-pdf"></i> PDF Viewer</h1>
+    <h1 class="display-4"><i class="fa-solid fa-file-pdf"></i> PDF Reportes</h1>
     <hr class="my-2" />
     <p class="lead">
       Visualizacion de Hoja de Trabajo
     </p>
+    <hr class="my-2">
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-3">
+        <h3 class="card-header text-end">Compañia: {{ dataPDF.company }}</h3>
+        <div class="card-body">
+          <h5 class="card-title text-end">Codigo de Planta: {{ dataPDF.plant_code }}</h5>
+          <h5 class="card-title text-end">Tipo de Planta: {{ dataPDF.plant_type }}</h5>
+          <h5 class="card-title text-end">Nombre de Planta: {{ dataPDF.plant_name }}</h5>
+          <h5 class="card-title text-end">Modelo de Datos Asociado: {{ dataPDF.adm }}</h5>
+        </div>
+        
+        <div class="card-body" *ngFor="let item of dataPDF | keyvalue">
+          <p class="card-text">{{ item.key }}: {{ item.value }}</p>
+        </div>
+        
+      </div>
+    </div>
   </div>
 </div>

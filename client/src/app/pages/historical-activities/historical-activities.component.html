@@ -27,6 +27,7 @@
         <th scope="col">Compañia</th>
         <th scope="col">Fecha de Compilacion</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -35,9 +36,12 @@
         <th scope="row">{{ item.pdfData.adm }}</th>
         <th scope="row">{{ item.pdfData.company }}</th>
         <th scope="row">{{ item.createdAt | date : "dd-MM-yyyy" }}</th>
-        <th scope="row"><button type="button" class="btn btn-success" routerLink="/pdfview"><i
+        <th scope="row"><button type="button" class="btn btn-success" [routerLink]="['/pdfview', item._id]"><i
               class="fa-regular fa-square-check"></i>
             Ver Hoja de Trabajo </button></th>
+        <th scope="row"><button type="button" class="btn btn-danger" (click)="deleteDyn(item._id)"><i
+              class="fa-regular fa-trash-can"></i></button>
+        </th>
       </tr>
     </tbody>
   </table>
